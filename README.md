@@ -1,98 +1,116 @@
-# Where the Votes Are — Le manovre della legislatura, emendamento per emendamento
+# Where the Votes Are: Electoral Strength and Local Spending Requests in Italian Budget Laws, 2023–2027
 
-**Tommaso Landi** (Scuola Superiore Sant'Anna e Università di Pisa) · Working paper, v2, 26 novembre 2026
+**Tommaso Landi** (Sant'Anna School of Advanced Studies and University of Pisa) · Preliminary draft, v2, 26 November 2026
 
-Tutte le **24.977 proposte di modifica** presentate nelle commissioni Bilancio di Camera e Senato alle cinque leggi di bilancio della XIX legislatura (2023–2027). Per ogni proposta il repository riporta primo firmatario e gruppo, ammissibilità, esito, territori citati, importi e link alla scheda ufficiale. Le richieste locali sono poi confrontate con i voti delle politiche del 2022.
+> **Private repository. This is preliminary work: please do not circulate it without the author's permission.**
+> The data and code will be made public when the paper is published.
 
-> **Repository privato. Bozza preliminare: non diffondere senza il permesso dell'autore.**
-> Dati e codice saranno resi pubblici alla pubblicazione del lavoro.
+This repository covers every amendment tabled in the budget committees of the Italian Chamber of Deputies and Senate to the five budget laws of the XIX legislature (2023–2027): **24,977 proposals** in all. For each proposal it records:
+- the first signatory and their group;
+- the admissibility ruling and the outcome;
+- the places named, the amounts requested and a link to the official record.
+
+The local spending requests are then matched to party vote shares in the 2022 general election.
 
 | | |
 |---|---|
 | 📄 Working paper | [`paper/landi_budget_amendments_wp.pdf`](paper/landi_budget_amendments_wp.pdf) |
-| 🗺️ Esploratori interattivi | cartella `docs/` (vedi sotto come aprirli in locale) |
-| 🔎 Manovra 2027 (pubblica) | <https://claude.ai/artifact/D5WQFUaW1R2Z67CGSseZGe> |
+| 🗺️ Interactive explorers | the `docs/` folder (see below for how to open them locally) |
+| 🔎 2027 budget explorer (public) | <https://claude.ai/artifact/D5WQFUaW1R2Z67CGSseZGe> |
+| 🧭 Research roadmap | [`ROADMAP.md`](ROADMAP.md) |
 
-## Risultati principali
+## Main results
 
-1. Con 10 punti di voto in più nel 2022, la probabilità che un partito chieda soldi per una provincia sale di **12,2 punti** (media 13,4%).
-2. Il legame regge confrontando partiti diversi **nella stessa provincia e manovra** (12,4 punti). Tutte le 144 specificazioni alternative sono positive e 137 sono significative al 5%.
-3. Dentro la stessa regione il legame passa per i **deputati eletti nella provincia**.
-4. È guidato dall'**opposizione**; FdI chiede dove è relativamente più debole.
-5. Le proposte della maggioranza passano nel 12,4% dei casi, quelle dell'opposizione nel 2,9%. Il vantaggio nasce **al voto**, non all'ammissibilità.
+1. Ten extra points of 2022 vote share raise the probability that a party tables a local request for a province by **12.2 percentage points**. The mean probability is 13.4%.
+2. The gradient holds when comparing different parties **within the same province and budget**, at 12.4 points. All 144 alternative specifications are positive and 137 are significant at 5%.
+3. Within regions, the gradient runs through the **deputies elected in the province**.
+4. It is driven by the **opposition**. Fratelli d'Italia asks for money where it is relatively weaker.
+5. **Who asks matters most.** 12.4% of majority proposals are approved, against 2.9% for the opposition. The premium arises **at the vote**, not at the admissibility stage.
 
-## Replicare i risultati (R)
+## Replication (R)
 
 ```r
-# dalla cartella principale del repository
+# from the root folder of the repository
 install.packages(c("sandwich", "lmtest"))
 source("code/R/00_master.R")
 ```
 
-Gli script sono pensati per essere letti da una persona, uno per tabella o figura. Il tempo di esecuzione è di circa 2–3 minuti.
+There is one script per table or figure, and each is written to be read by a person. A full run takes about 2–3 minutes.
 
-| Script | Cosa produce |
+| Script | Output |
 |---|---|
-| `01_panel.R` | Il pannello provincia × partito × manovra (4.360 osservazioni) |
-| `02_main_tables.R` | Tabelle 2, 4, 5, 7; logit; test di permutazione |
-| `03_within_province.R` | Tabella 3 (stessa provincia, deputati eletti), province contese, PPML |
-| `04_approval.R` | Tabella 6 e approvazione per fasi (Figura 6) |
-| `05_spec_curve.R` | Curva delle 144 specificazioni (Figura 8) |
-| `06_figures.R` | Figure in R base |
-| `99_check.R` | Confronta i numeri ottenuti in R con quelli del paper ([`code/paper_numbers.csv`](code/paper_numbers.csv)) |
+| `01_panel.R` | Province × party × budget panel (4,360 observations) |
+| `02_main_tables.R` | Tables 2, 4, 5 and 7, the logit model and the permutation test |
+| `03_within_province.R` | Table 3 (same province, elected deputies), contested provinces and PPML |
+| `04_approval.R` | Table 6 and approval by stage (Figure 6) |
+| `05_spec_curve.R` | Specification curve with 144 models (Figure 8) |
+| `06_figures.R` | Figures in base R |
+| `99_check.R` | Checks the R results against the numbers in the paper ([`code/paper_numbers.csv`](code/paper_numbers.csv)) |
 
-Gli errori standard sono a cluster per provincia, con la correzione CR1 (`sandwich::vcovCL`, `type = "HC1"`). Gli stessi risultati sono stati prodotti in modo indipendente in Python (`code/python/legislatura/paper_stats.py`, `paper_extra.py`) e coincidono alla terza cifra decimale.
+Standard errors are clustered by province with the CR1 correction (`sandwich::vcovCL`, `type = "HC1"`). The same estimates were produced independently in Python (`code/python/legislatura/paper_stats.py` and `paper_extra.py`). Python and R agree to three decimal places.
 
-## Dati (`data/`)
+## Data (`data/`)
 
-| File | Contenuto |
+| File | Content |
 |---|---|
-| `emendamenti_2023_2027.csv` | Una riga per proposta (24.977). Contiene manovra, ramo, atto, lettura, numero, articolo, primo firmatario e id, gruppo alla data della manovra, schieramento, firmatari, esito, motivo di inammissibilità, portata (Locale / Più territori / Nazionale), province, regioni e luoghi citati, tema, euro annui e nel triennio, flag grande opera, copertura, oggetto e link ufficiale. |
-| `testi_emendamenti_2023_2027.csv.gz` | Testo integrale di ogni proposta, come pubblicato. |
-| `voti_camera_2022_province.csv` | Voti di lista alla Camera 2022 per provincia (Eligendo) e popolazione ISTAT all'1/1/2025. |
-| `elettori_provincia_collegio_2022.csv` | Elettori per provincia e collegio plurinominale (Eligendo). |
-| `deputati_collegi.csv` | Deputati in carica, gruppo e collegio di elezione (dati.camera.it). |
-| `panel_provincia_partito_manovra.csv` | Il pannello di stima, già costruito. |
+| `emendamenti_2023_2027.csv` | One row per proposal (24,977); the columns are listed below. |
+| `testi_emendamenti_2023_2027.csv.gz` | The full text of each proposal, as published. |
+| `voti_camera_2022_province.csv` | 2022 Chamber list votes by province (Ministry of the Interior, Eligendo) and ISTAT population on 1 January 2025. |
+| `elettori_provincia_collegio_2022.csv` | Registered voters by province and list constituency (Eligendo). |
+| `deputati_collegi.csv` | Sitting deputies, with group and constituency of election (dati.camera.it). |
+| `panel_provincia_partito_manovra.csv` | The estimation panel. |
 
-**Avvertenze sui dati**
-- Per il 2023 la Camera ha pubblicato solo le proposte *segnalate* (1.043 su circa 3.000).
-- In seconda lettura nessuna proposta è approvata.
-- La manovra 2027 non è ancora stata votata in commissione.
-- Luoghi e importi sono letti automaticamente dai testi. Prima di citare un caso, controlla la scheda ufficiale nella colonna `link_ufficiale`.
+The columns of `emendamenti_2023_2027.csv` are:
+- budget, chamber, bill, reading, number and article;
+- first signatory, their ID, their group on the date of the budget and their camp;
+- co-signatories, outcome and reason for inadmissibility;
+- scope (local, several places or national), and the provinces, regions and places named;
+- topic, annual and three-year euros, and a flag for large works;
+- funding source, title and official link.
 
-## Come sono stati costruiti i dati (`code/python/`)
+Variable names and labels are in Italian, as in the official sources.
 
-Questa cartella contiene la pipeline originale, in Python: scarica e legge i fascicoli e gli elenchi ufficiali di Camera e Senato, attribuisce i gruppi tramite gli open data delle due Camere, classifica testi, luoghi e importi, ed esporta i dati dei siti. I percorsi sono quelli dell'ambiente di lavoro originale. Le fonti primarie sono elencate nel paper e nella sezione «Fonti» dell'esploratore.
+**Caveats**
+- For the 2023 budget the Chamber published only the proposals *flagged* by the groups (1,043 of about 3,000).
+- No amendment is approved in second readings.
+- The 2027 budget had not yet been voted in committee when the data were collected.
+- Places and amounts are read automatically from the texts. Before citing a single case, check the official record linked in `link_ufficiale`.
+- The data include 1,106 sub-amendments. Without them, the counts match the figures reported at the time.
 
-## Siti (`docs/`)
+## How the data were built (`code/python/`)
 
-Gli esploratori interattivi (legislatura 2023–2027, manovra 2027, sintesi per la stampa). Per aprirli in locale:
+The original Python pipeline does four things:
+1. It downloads and parses the official files and lists of the Chamber and the Senate.
+2. It assigns parliamentary groups from the open data of the two chambers.
+3. It classifies texts, places and amounts.
+4. It exports the data for the websites.
+
+Paths refer to the original working environment, and some comments are in Italian. The primary sources are listed in the paper and in the "Fonti" section of the explorers.
+
+## Websites (`docs/`)
+
+The folder holds the interactive explorers for the 2023–2027 legislature and the 2027 budget, both in Italian, English, Spanish and French, plus a press summary in Italian. To open them locally:
 
 ```
 cd docs
 python3 -m http.server 8000
-# poi apri http://localhost:8000 nel browser
+# then open http://localhost:8000 in a browser
 ```
 
-Non attivare GitHub Pages su questo repository finché il lavoro non è pubblicato.
+Do not enable GitHub Pages on this repository until the work is published.
 
-## Uso dell'intelligenza artificiale
+## Use of AI
 
-Il progetto è stato realizzato con l'aiuto fondamentale di **Claude** (Anthropic), che ha:
-- scritto gran parte del codice di raccolta e analisi;
-- eseguito le specificazioni;
-- redatto parte del testo, sotto la direzione dell'autore.
+This project was carried out with the fundamental help of **Claude** (Anthropic). Under the author's direction, Claude wrote most of the code that collects and analyses the data, ran the specifications and drafted part of the text. The research question, the design of the data and the estimates, the checks against official sources and the interpretation are the author's. The author is responsible for every claim. The data and code will be public on publication, so that anyone can verify every number.
 
-La domanda di ricerca, il disegno dei dati e delle stime, i controlli sulle fonti ufficiali e l'interpretazione sono dell'autore, che è responsabile di ogni affermazione. Dati e codice saranno pubblici alla pubblicazione, perché chiunque possa verificare ogni numero.
+## Citation
 
-## Citare
+> Landi, T. (2026). *Where the Votes Are: Electoral Strength and Local Spending Requests in Italian Budget Laws, 2023–2027*. Preliminary draft, v2.
 
-> Landi, T. (2026). *Where the Votes Are: Electoral Strength and Local Spending Requests in Italian Budget Laws, 2023–2027*. Working paper, v2.
+See also [`CITATION.cff`](CITATION.cff).
 
-Vedi anche [`CITATION.cff`](CITATION.cff).
+## Licence
 
-## Licenze
+© 2026 Tommaso Landi. All rights are reserved for the code, the derived data and the working paper (see `LICENSE`). Open licences will be chosen on publication. The primary sources (Chamber of Deputies, Senate of the Republic, Ministry of the Interior and ISTAT) remain subject to their own terms of use.
 
-© 2026 Tommaso Landi, tutti i diritti riservati, per codice, dati derivati e working paper. Le licenze aperte saranno decise al momento della pubblicazione. Le fonti primarie (Camera dei deputati, Senato della Repubblica, Ministero dell'Interno, ISTAT) restano soggette alle rispettive condizioni d'uso.
-
-Ringrazio Riccardo Trezzi ([UnderlyingInflation.com](https://underlyinginflation.com)) per l'ispirazione.
+I thank Riccardo Trezzi ([UnderlyingInflation.com](https://underlyinginflation.com)) for the inspiration.
