@@ -14,9 +14,8 @@ The local spending requests are then matched to party vote shares in the 2022 ge
 | | |
 |---|---|
 | 📄 Working paper | [`paper/landi_budget_amendments_wp.pdf`](paper/landi_budget_amendments_wp.pdf) |
-| 🗺️ Interactive explorer, 2023–2027 | <https://landitommaso.github.io/Manovre-emendamenti/legislatura/> |
-| 🔎 2027 budget in detail | <https://landitommaso.github.io/Manovre-emendamenti/manovra-2027/> |
-| 📰 Press summary (Italian) | <https://landitommaso.github.io/Manovre-emendamenti/sintesi/> |
+| 🗺️ Interactive explorer, 2023–2027 | <https://landitommaso.github.io/projects/manovre-2023-2027/> |
+| 🔎 2027 budget in detail | <https://landitommaso.github.io/projects/manovra-2027/> |
 | 🧭 Research roadmap | [`ROADMAP.md`](ROADMAP.md) |
 
 ## Main results
@@ -97,7 +96,7 @@ python3 -m http.server 8000
 # then open http://localhost:8000 in a browser
 ```
 
-The explorers are published with GitHub Pages from the `docs/` folder.
+The explorers are published on the author's website (links above) with `code/publish/publish_site.py`, which also writes the share previews. The copies in `docs/` are the source versions and can be opened locally.
 
 ## Use of AI
 
