@@ -1,0 +1,28 @@
+:root{--bg:#f5f6f8;--surface:#fff;--line:#d9dde5;--fg:#1b2130;--muted:#5d6678;--accent:#1f4f8f;--fd:"IBM Plex Sans Condensed","Arial Narrow",system-ui,sans-serif;--fb:"IBM Plex Sans",system-ui,sans-serif}
+@media (prefers-color-scheme:dark){:root{--bg:#12161f;--surface:#1a1f2b;--line:#323a4b;--fg:#e6e9f0;--muted:#9aa3b5;--accent:#8db4ea;color-scheme:dark}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.6 var(--fb);padding:40px max(16px,env(safe-area-inset-left)) 64px max(16px,env(safe-area-inset-right))}
+main{max-width:960px;margin:0 auto;display:flex;flex-direction:column;gap:22px}
+.eyebrow{font:12px/1 ui-monospace,Menlo,monospace;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+h1{font-family:var(--fd);font-size:clamp(28px,5vw,42px);margin:6px 0 8px;line-height:1.1;text-wrap:balance}
+h2{font-family:var(--fd);font-size:24px;margin:8px 0 4px}
+p{margin:0;max-width:72ch}
+a{color:var(--accent)}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px}
+.stat{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:12px 14px}
+.stat b{display:block;font-family:var(--fd);font-size:28px;font-variant-numeric:tabular-nums}
+.stat span{color:var(--muted);font-size:13.5px}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px}
+a.card{display:flex;flex-direction:column;gap:8px;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:16px;color:inherit;text-decoration:none;transition:border-color .15s,transform .15s}
+a.card:hover,a.card:focus-visible{border-color:var(--accent);transform:translateY(-2px);outline:none}
+a.card img,figure img{width:100%;height:auto;border-radius:6px;background:#fff;border:1px solid var(--line)}
+a.card h2{font-size:21px;margin:0}
+a.card p{color:var(--muted);font-size:14.5px}
+a.card .go{color:var(--accent);font-weight:500;font-size:14.5px;margin-top:auto}
+ol.find{padding-left:22px;margin:0;display:flex;flex-direction:column;gap:10px;max-width:78ch}
+figure{margin:0;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:14px}
+figcaption{font-size:13.5px;color:var(--muted);margin-top:6px}
+.box{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:16px}
+footer{color:var(--muted);font-size:13.5px;border-top:1px solid var(--line);padding-top:14px}
+@media (prefers-reduced-motion:reduce){a.card{transition:none}}
+@media print{body{background:#fff;padding:0}a.card,.stat,figure,.box{break-inside:avoid}}
