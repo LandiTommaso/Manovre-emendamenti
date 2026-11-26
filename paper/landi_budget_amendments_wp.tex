@@ -54,7 +54,7 @@ Every autumn the Italian government sends Parliament a budget law, and every aut
 
 This paper asks a simple question: where do these requests go? Classic theories of distributive politics give competing predictions. If parties reward their core supporters, requests should cluster where a party is electorally strong \citep{cox1986}. If they court swing voters, requests should go where elections are close \citep{lindbeck1987,dixit1996}. If what matters is the personal vote of individual legislators, requests should follow the geography of who was elected \citep{golden2008,carozzi2016}. Most of the evidence on these questions uses realised transfers. Realised transfers mix the demands of legislators with the choices of the government, the bureaucracy and the budget constraint. Amendments are cleaner. They record what each legislator \emph{asked for}, in writing and with a date, before anyone decided what to grant.
 
-I build a new dataset of all amendments tabled in the budget committees of the Chamber of Deputies and of the Senate to the five budget laws of the current legislature, from the 2023 budget (December 2022) to the 2027 budget (November 2026). The data cover nine bill readings and 24,977 proposals signed by 540 distinct first signatories. For each proposal I record the first signatory and his or her group at the date of examination, the official admissibility ruling, and the outcome (approved, withdrawn, rejected or never voted). I then read the text to identify requests addressed to a specific municipality or province and the sums involved, and match each party--province pair to the party's vote share in the 2022 general election.
+I build a new dataset of all amendments tabled in the budget committees of the Chamber of Deputies and of the Senate to the five budget laws of the current legislature, from the 2023 budget (December 2022) to the 2027 budget (November 2026). The data cover nine bill readings and 24,977 proposals signed by 543 distinct first signatories. For each proposal I record the first signatory and his or her group at the date of examination, the official admissibility ruling, and the outcome (approved, withdrawn, rejected or never voted). I then read the text to identify requests addressed to a specific municipality or province and the sums involved, and match each party--province pair to the party's vote share in the 2022 general election.
 
 The paper documents five results. First, there is a robust positive association between a party's 2022 vote share in a province and the probability that the party tables a local request for that province. With party-by-budget and region fixed effects, ten additional points of vote share are associated with a 12.2 percentage-point increase in that probability, from a mean of 13.4\% (Table~\ref{tab:main}). The association is not explained by local need: comparing different parties in the \emph{same province and budget}, which absorbs every province-level shock, the estimate is 12.4 points (s.e.\ 1.6). Across 144 specifications that vary the outcome, the sample, the fixed effects and the treatment of large cities, all 144 estimates are positive and 137 are significant at 5\% (Figure~\ref{fig:spec}).
 
@@ -62,7 +62,7 @@ Second, within regions the gradient runs largely through the geography of who wa
 
 Third, the association is driven by the opposition. Opposition parties (PD, M5S, AVS) ask for money where they are strong, whereas Fratelli d'Italia, the senior governing party, tables more local requests where it is relatively weaker (Table~\ref{tab:het}, Figure~\ref{fig:het}). Fourth, the gradient is steeper in provinces where the 2022 contest between the two coalitions was close, while the interaction with the 2027 budget, the last before the next general election, is imprecisely estimated.
 
-Fifth, what passes depends on who asks. A proposal by a majority legislator is 8.9 points more likely to be approved than one by the opposition, whose base approval rate is 2.9\% (Table~\ref{tab:approval}). Decomposing the process by stage shows that the premium is created at the vote, not at the admissibility filter: majority proposals are \emph{less} often ruled admissible (69.7\% against 78.5\%), but once admitted 17.7\% of them pass against 3.7\% of opposition proposals (Figure~\ref{fig:stages}).
+Fifth, what passes depends on who asks. A proposal by a majority legislator is 9.0 points more likely to be approved than one by the opposition, whose base approval rate is 2.9\% (Table~\ref{tab:approval}). Decomposing the process by stage shows that the premium is created at the vote, not at the admissibility filter: majority proposals are \emph{less} often ruled admissible (69.7\% against 78.5\%), but once admitted 17.8\% of them pass against 3.7\% of opposition proposals (Figure~\ref{fig:stages}).
 
 These results speak to three literatures. The first studies the electoral targeting of public spending \citep{cox1986,dixit1996,levitt1997,ansolabehere2006,berry2010}. I add evidence on the \emph{demand} side, at the level of individual proposals, and show that core-voter and swing-voter logics can coexist inside the same Parliament depending on whether a party governs. Because the unit of analysis is the request rather than the transfer, I can separate what legislators ask for from what the government grants, and compare parties inside the same province, which the literature on realised transfers usually cannot do. The second studies Italian distributive politics \citep{golden2008,carozzi2016,bracco2015,brollo2012}, which has focused on transfers to municipalities; I move the lens to the parliamentary stage of the budget. The third concerns legislative behaviour and position-taking \citep{mayhew1974}. The low approval rates suggest that many local amendments are signals to constituents rather than serious attempts to obtain funds, which is consistent with the electoral-connection view. The finding that the within-region gradient runs through elected legislators connects the evidence to the common-pool problem in budgeting \citep{weingast1981,perssontabellini1999} and to the role of individual legislators' constituencies in Italy \citep{carozzi2016}.
 
@@ -86,7 +86,7 @@ For the Chamber of Deputies I use the official lists of amendments tabled in the
 
 \subsection{Construction}
 
-The unit of observation is a proposal, identified by its number within a bill reading. Reformulations are merged into the original proposal, which is coded as approved if any of its formulations was approved. At the Senate, \emph{Accolto} is coded as approved. Ordini del giorno (non-binding resolutions) are excluded. The party of a proposal is the group of its first signatory on the date the bill was examined. Azione and Italia Viva, which ran on a joint list in 2022, are merged. Senate members of the AVS and Azione components of the Mixed group are assigned to those parties by name. Proposals by the government and rapporteurs are kept as a separate category.
+The unit of observation is a proposal, identified by its number within a bill reading. Reformulations are merged into the original proposal, which is coded as approved if any of its formulations was approved. At the Senate, \emph{Accolto} is coded as approved. Ordini del giorno (non-binding resolutions) are excluded. The party of a proposal is the group of its first signatory on the date the bill was examined. Azione and Italia Viva, which ran on a joint list in 2022, are merged. Senate members of the AVS and Azione components of the Mixed group are assigned to those parties by name. Proposals by the government and rapporteurs are kept as a separate category. Sub-amendments, which amend other proposals (mostly those of the government and rapporteurs), are kept as proposals: there are 1,106 of them (398 in the 2023 Chamber file, 252 in the 2024 Senate, 221 in the 2025 Chamber and 235 in the 2026 Senate). Press and parliamentary counts usually exclude them. Without them, my counts are close to those reported at the time: 5,748 proposals against 5,742 announced for the 2026 budget in the Senate committee, and 4,543 against about 4,500--4,560 reported for the 2025 budget in the Chamber.\footnote{2026 Senate: \emph{AGI} and \emph{Avvenire}, 14 November 2025 (5,742). 2025 Chamber: \emph{AGI}, 11 November 2024 (4,562), and \emph{Pagella Politica}, 20 November 2024 (4,511). For the 2027 budget, \emph{LaPresse} reported 6,559 proposals on 23 November 2026, against 6,558 in the file used here.}
 
 A proposal is \emph{local} if its operative text, excluding the financial-coverage clause, names one or a few municipalities or provinces. I match names against the ISTAT list of municipalities, require an explicit context (``comune di'', ``città di'', ``provincia di'') for small or ambiguous names, and exclude national funds, street names and large infrastructure such as the Strait of Messina bridge. A proposal naming six or more places in at least three regions is classified as multi-territorial rather than local. Sums are read from the text over the three years of each budget; because automatic reading of sums is error-prone, the main analysis uses counts rather than euros.
 
@@ -101,17 +101,17 @@ Table~\ref{tab:desc} and Figure~\ref{fig:counts} summarise the data. The legisla
 \toprule
 Budget & Chamber & Reading & Tabled & Majority & Opposition & Inadmissible & Approved & Local \\
 \midrule
-2023 & Camera & First & 1,043 & 261 & 655 & 113 & 219 & 54 \\
-2023 & Senato & Second & 812 & 0 & 803 & 0 & 0 & 18 \\
+2023 & Camera & First & 1,043 & 262 & 655 & 113 & 219 & 54 \\
+2023 & Senato & Second & 812 & 0 & 808 & 0 & 0 & 18 \\
 2024 & Camera & Second & 1,023 & 0 & 1,012 & 149 & 0 & 26 \\
-2024 & Senato & First & 3,038 & 37 & 2,813 & 636 & 60 & 100 \\
-2025 & Camera & First & 4,764 & 1,274 & 3,117 & 1,229 & 297 & 224 \\
-2025 & Senato & Second & 814 & 0 & 813 & 0 & 0 & 21 \\
+2024 & Senato & First & 3,038 & 37 & 2,818 & 636 & 60 & 100 \\
+2025 & Camera & First & 4,764 & 1,280 & 3,117 & 1,229 & 297 & 224 \\
+2025 & Senato & Second & 814 & 0 & 814 & 0 & 0 & 21 \\
 2026 & Camera & Second & 942 & 0 & 938 & 151 & 0 & 19 \\
-2026 & Senato & First & 5,983 & 1,832 & 3,984 & 1,540 & 313 & 221 \\
-2027 & Camera & First & 6,558 & 1,899 & 4,284 & 1,685 & 0 & 344 \\
+2026 & Senato & First & 5,983 & 1,832 & 3,995 & 1,540 & 313 & 221 \\
+2027 & Camera & First & 6,558 & 1,902 & 4,284 & 1,685 & 0 & 344 \\
 \midrule
-Total & & & 24,977 & 5,303 & 18,419 & 5,503 & 889 & 1,027 \\
+Total & & & 24,977 & 5,313 & 18,441 & 5,503 & 889 & 1,027 \\
 \bottomrule
 \end{tabular}
 \begin{tablenotes}\footnotesize
@@ -283,9 +283,9 @@ Swing-voter models predict that parties target provinces where the election is c
 
 \subsection{What gets approved}
 
-I now move to the level of the single proposal and estimate the probability that a proposal is approved, using all proposals by majority and opposition legislators in the four first readings that have been voted (13,973 proposals, 496 first signatories). Table~\ref{tab:approval} reports linear probability models with chamber-by-budget fixed effects and standard errors clustered by first signatory.
+I now move to the level of the single proposal and estimate the probability that a proposal is approved, using all proposals by majority and opposition legislators in the four first readings that have been voted (13,996 proposals, 499 first signatories). Table~\ref{tab:approval} reports linear probability models with chamber-by-budget fixed effects and standard errors clustered by first signatory.
 
-Majority status is the dominant predictor. A majority proposal is 8.9 points more likely to pass, against an opposition base rate of 2.9\% (column~1); in raw terms, 12.3\% of majority proposals and 2.9\% of opposition proposals were approved. Majority proposals are also more often ruled inadmissible (30.3\% against 21.5\%), consistent with majority members tabling many narrow requests that the leadership later filters. Local proposals are not significantly more likely to pass once the signatory's camp is accounted for (column~2). Proposals co-signed by more legislators are more likely to pass and those asking for more than 100 million euro less likely (column~3). Comparing proposals by the same legislator (column~4), local requests are 3.2 points more likely to pass than the same legislator's general proposals. Figure~\ref{fig:approval} shows the majority--opposition gap budget by budget.
+Majority status is the dominant predictor. A majority proposal is 9.0 points more likely to pass, against an opposition base rate of 2.9\% (column~1); in raw terms, 12.4\% of majority proposals and 2.9\% of opposition proposals were approved. Majority proposals are also more often ruled inadmissible (30.3\% against 21.5\%), consistent with majority members tabling many narrow requests that the leadership later filters. Local proposals are not significantly more likely to pass once the signatory's camp is accounted for (column~2). Proposals co-signed by more legislators are more likely to pass and those asking for more than 100 million euro less likely (column~3). Comparing proposals by the same legislator (column~4), local requests are 3.2 points more likely to pass than the same legislator's general proposals. Figure~\ref{fig:approval} shows the majority--opposition gap budget by budget.
 
 \begin{table}[htbp]\centering\footnotesize\setlength{\tabcolsep}{4pt}
 \begin{threeparttable}
@@ -294,20 +294,20 @@ Majority status is the dominant predictor. A majority proposal is 8.9 points mor
 \toprule
  & (1) & (2) & (3) & (4) \\
 \midrule
-Majority signatory & $8.92^{***}$ & $8.71^{***}$ & $8.70^{***}$ &  \\
- & (1.05) & (1.05) & (1.01) &  \\
-Local proposal & & $1.67$ & $1.50$ & $3.17^{*}$ \\
+Majority signatory & $9.00^{***}$ & $8.80^{***}$ & $8.78^{***}$ &  \\
+ & (1.05) & (1.06) & (1.01) &  \\
+Local proposal & & $1.66$ & $1.47$ & $3.16^{*}$ \\
  & & (1.21) & (1.29) & (1.36) \\
-Majority $\times$ local & & $3.93$ & $3.78$ &  \\
- & & (3.56) & (3.52) &  \\
-log(1 + co-signatories) & & & $2.83^{***}$ & $4.10^{***}$ \\
+Majority $\times$ local & & $3.84$ & $3.70$ &  \\
+ & & (3.56) & (3.53) &  \\
+log(1 + co-signatories) & & & $2.79^{***}$ & $4.11^{***}$ \\
  & & & (0.67) & (0.78) \\
-Request $\geq$ 100 million euro & & & $-4.44^{***}$ & $-4.30^{***}$ \\
+Request $\geq$ 100 million euro & & & $-4.45^{***}$ & $-4.31^{***}$ \\
  & & & (0.48) & (0.52) \\[3pt]
 Chamber $\times$ budget FE & Yes & Yes & Yes & Yes \\
 Topic FE & No & No & Yes & Yes \\
 First-signatory FE & No & No & No & Yes \\
-Observations & 13,973 & 13,973 & 13,973 & 13,973 \\
+Observations & 13,996 & 13,996 & 13,996 & 13,996 \\
 \bottomrule
 \end{tabular}
 \begin{tablenotes}\footnotesize
@@ -323,7 +323,7 @@ Observations & 13,973 & 13,973 & 13,973 & 13,973 \\
 
 \subsection{Where the majority premium arises}
 
-The approval gap can arise at two stages: the admissibility ruling by the committee chair, or the vote, which in practice reflects the opinion of the government and of the rapporteurs. Figure~\ref{fig:stages} separates them. Majority proposals are \emph{less} likely to be ruled admissible: 69.7\% against 78.5\% for the opposition, -7.9 points (s.e.\ 1.5) with chamber-by-budget and topic effects. Local proposals are also more often inadmissible (-11.2 points, s.e.\ 2.4), mostly for extraneity of subject matter. Among admissible proposals, however, 17.7\% of majority proposals are approved against 3.7\% of opposition ones, a gap of 13.1 points (s.e.\ 1.4). The premium is created at the vote, not by the procedural filter. Selection is a concern: majority legislators may table more proposals that have already been negotiated with the government. Among approved local requests by majority parties, 7 were signed by FdI, 11 by the Lega and 11 by Forza Italia, so the smaller coalition partners obtain far more local approvals than their seat shares would suggest.
+The approval gap can arise at two stages: the admissibility ruling by the committee chair, or the vote, which in practice reflects the opinion of the government and of the rapporteurs. Figure~\ref{fig:stages} separates them. Majority proposals are \emph{less} likely to be ruled admissible: 69.7\% against 78.5\% for the opposition, -7.9 points (s.e.\ 1.5) with chamber-by-budget and topic effects. Local proposals are also more often inadmissible (-11.3 points, s.e.\ 2.4), mostly for extraneity of subject matter. Among admissible proposals, however, 17.8\% of majority proposals are approved against 3.7\% of opposition ones, a gap of 13.2 points (s.e.\ 1.4). The premium is created at the vote, not by the procedural filter. Selection is a concern: majority legislators may table more proposals that have already been negotiated with the government. Among approved local requests by majority parties, 7 were signed by FdI, 11 by the Lega and 11 by Forza Italia, so the smaller coalition partners obtain far more local approvals than their seat shares would suggest.
 
 \begin{figure}[htbp]\centering
 \includegraphics[width=\textwidth]{fig/fig8_stages.pdf}

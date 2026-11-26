@@ -144,7 +144,8 @@ def cam_esito(src, i):
 
 def gov_fam(name):
     n = (name or '').lower()
-    if n.startswith(('il governo', 'i relatori', 'il relatore', 'la relatrice', 'le relatrici', 'la ', 'governo', 'relator')): return 'Governo / relatori'
+    if n.startswith(('il governo', 'i relatori', 'il relatore', 'la relatrice', 'le relatrici', 'governo', 'relator')): return 'Governo / relatori'
+    if re.match(r'la [ivxl]+ commissione', n): return 'Governo / relatori'  # pareri/emendamenti delle commissioni
     return None
 
 META_C = {'C643bis': (2023, 1), 'C1627': (2024, 2), 'C2112bis': (2025, 1), 'C2750': (2026, 2), 'C3174bis': (2027, 1)}

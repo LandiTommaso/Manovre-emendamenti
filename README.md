@@ -17,7 +17,7 @@ Tutte le **24.977 proposte di modifica** presentate nelle commissioni Bilancio d
 2. Il legame regge confrontando partiti diversi **nella stessa provincia e manovra** (12,4 punti). Tutte le 144 specificazioni alternative sono positive e 137 sono significative al 5%.
 3. Dentro la stessa regione il legame passa per i **deputati eletti nella provincia**.
 4. È guidato dall'**opposizione**; FdI chiede dove è relativamente più debole.
-5. Le proposte della maggioranza passano nel 12,3% dei casi, quelle dell'opposizione nel 2,9%. Il vantaggio nasce **al voto**, non all'ammissibilità.
+5. Le proposte della maggioranza passano nel 12,4% dei casi, quelle dell'opposizione nel 2,9%. Il vantaggio nasce **al voto**, non all'ammissibilità.
 
 ## Replicare i risultati (R)
 
