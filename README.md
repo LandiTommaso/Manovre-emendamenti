@@ -2,8 +2,7 @@
 
 **Tommaso Landi** (Sant'Anna School of Advanced Studies and University of Pisa) · Preliminary draft, v2, 26 November 2026
 
-> **Private repository. This is preliminary work: please do not circulate it without the author's permission.**
-> The data and code will be made public when the paper is published.
+> **Preliminary work.** The paper is a draft and has not been peer reviewed.
 
 This repository covers every amendment tabled in the budget committees of the Italian Chamber of Deputies and Senate to the five budget laws of the XIX legislature (2023–2027): **24,977 proposals** in all. For each proposal it records:
 - the first signatory and their group;
@@ -15,8 +14,9 @@ The local spending requests are then matched to party vote shares in the 2022 ge
 | | |
 |---|---|
 | 📄 Working paper | [`paper/landi_budget_amendments_wp.pdf`](paper/landi_budget_amendments_wp.pdf) |
-| 🗺️ Interactive explorers | the `docs/` folder (see below for how to open them locally) |
-| 🔎 2027 budget explorer (public) | <https://claude.ai/artifact/D5WQFUaW1R2Z67CGSseZGe> |
+| 🗺️ Interactive explorer, 2023–2027 | <https://landitommaso.github.io/Manovre-emendamenti/legislatura/> |
+| 🔎 2027 budget in detail | <https://landitommaso.github.io/Manovre-emendamenti/manovra-2027/> |
+| 📰 Press summary (Italian) | <https://landitommaso.github.io/Manovre-emendamenti/sintesi/> |
 | 🧭 Research roadmap | [`ROADMAP.md`](ROADMAP.md) |
 
 ## Main results
@@ -97,11 +97,11 @@ python3 -m http.server 8000
 # then open http://localhost:8000 in a browser
 ```
 
-Do not enable GitHub Pages on this repository until the work is published.
+The explorers are published with GitHub Pages from the `docs/` folder.
 
 ## Use of AI
 
-This project was carried out with the fundamental help of **Claude** (Anthropic). Under the author's direction, Claude wrote most of the code that collects and analyses the data, ran the specifications and drafted part of the text. The research question, the design of the data and the estimates, the checks against official sources and the interpretation are the author's. The author is responsible for every claim. The data and code will be public on publication, so that anyone can verify every number.
+This project was carried out with the fundamental help of **Claude** (Anthropic). Under the author's direction, Claude wrote most of the code that collects and analyses the data, ran the specifications and drafted part of the text. The research question, the design of the data and the estimates, the checks against official sources and the interpretation are the author's. The author is responsible for every claim. Data and code are public so that anyone can verify every number.
 
 ## Citation
 
