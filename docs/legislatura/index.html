@@ -296,7 +296,8 @@ td.amt{text-align:right;font-family:var(--f-mono);font-size:12.5px;white-space:n
 <div class="wrap">
   <div class="prefs" role="group" aria-label="Preferenze">
     <span class="pg"><span class="seglab">Tema</span><span class="seg sm"><button type="button" data-pref-theme="light">Chiaro</button><button type="button" data-pref-theme="dark">Scuro</button><button type="button" data-pref-theme="auto">Auto</button></span></span>
-      </div>
+    <span class="pg"><span class="seglab">Lingua</span><span class="seg sm"><button type="button" data-pref-lang="it" lang="it">IT</button><button type="button" data-pref-lang="en" lang="en">EN</button><button type="button" data-pref-lang="es" lang="es">ES</button><button type="button" data-pref-lang="fr" lang="fr">FR</button></span></span>
+  </div>
   <header class="head">
     <div class="eyebrow">XIX legislatura · leggi di bilancio 2023–2027 · Camera e Senato · commissioni Bilancio</div>
     <h1>Le manovre della legislatura, emendamento per emendamento</h1>
@@ -482,7 +483,7 @@ td.amt{text-align:right;font-family:var(--f-mono);font-size:12.5px;white-space:n
       <p class="plain" id="ahetp"></p></figure>
 
     <figure class="afig" id="aspecf" hidden><figcaption><b>Figura 3. Quanto è solido il risultato: <span id="aspn"></span> modi diversi di stimarlo.</b> Ogni punto è una specificazione (campione, definizione di richiesta, effetti fissi, misura del voto), ordinate dalla più bassa alla più alta. Pieno = significativa al 5%.</figcaption>
-      <svg id="aspec" viewBox="0 0 640 260" role="img" aria-label="Curva delle specificazioni"></svg>
+      <svg id="aspec" class="notr" viewBox="0 0 640 260" role="img" aria-label="Curva delle specificazioni"></svg>
       <p class="plain" id="aspecp"></p></figure>
 
     <figure class="afig"><figcaption><b>Tabella 2. Chi riesce a far approvare una proposta.</b> Modello lineare di probabilità su tutte le proposte di deputati e senatori nelle prime letture già votate del periodo, con effetti fissi per manovra e ramo; errori standard a cluster per primo firmatario.</figcaption>
@@ -496,7 +497,7 @@ td.amt{text-align:right;font-family:var(--f-mono);font-size:12.5px;white-space:n
       <li><b>Luoghi e cifre letti in automatico.</b> Gli euro sono quelli scritti nei testi dai proponenti, non effetti finanziari certificati.</li>
       <li><b>Gruppi.</b> Al Senato i componenti AVS e Azione del Misto sono attribuiti per nome; Azione e Italia Viva sono uniti perché nel 2022 si presentarono insieme.</li>
     </ul>
-    <p><button class="btn" id="pcsv" type="button">Scarica il pannello di replica (CSV)</button> <span class="meta" id="pcsvm"></span> · Codice e dati completi nel <a href="https://github.com/LandiTommaso/manovre-emendamenti" target="_blank" rel="noopener">repository di replica</a>.</p>
+    <p><button class="btn" id="pcsv" type="button">Scarica il pannello di replica (CSV)</button> <span class="meta" id="pcsvm"></span> · Il codice di replica completo è disponibile su richiesta all’autore.</p>
   </article>
 </div>
   <section class="note" id="metodo">
@@ -540,7 +541,7 @@ let D=null,T=null,filtered=[],shown=100,sortK='i',sortDir=1,openId=null;
 const st={g:'',p:''};
 const fmtE=v=>(v==null||v===0)?'—':(v>=1e9?(v/1e9).toLocaleString(LOC(),{maximumFractionDigits:2})+U('mld'):(v>=1e6?(v/1e6).toLocaleString(LOC(),{maximumFractionDigits:2})+U('mln'):Math.round(v/1e3).toLocaleString(LOC())+U('kn')));
 const LANGS={it:'it-IT',en:'en-GB',es:'es-ES',fr:'fr-FR'};
-let LANG='it';
+let LANG=(()=>{try{const q=new URLSearchParams(location.search).get('lang');if(q&&LANGS[q])return q;const s=localStorage.getItem('emb27-lang');if(s&&LANGS[s])return s}catch(e){}return 'it'})();
 const LOC=()=>LANGS[LANG];
 const UN={it:{kn:' mila',mld:' mld',mln:' mln',k:' mila €',pc:' € per abitante'},en:{kn:'k',mld:' bn',mln:' m',k:'k €',pc:' € per person'},es:{kn:' mil',mld:' mil millones €',mln:' M€',k:' mil €',pc:' € por habitante'},fr:{kn:' k',mld:' Md€',mln:' M€',k:' k€',pc:' € par habitant'}};
 const U=k=>UN[LANG][k];
@@ -1016,14 +1017,14 @@ const pnorm=z=>{const t=1/(1+0.2316419*Math.abs(z)),dd=0.3989423*Math.exp(-z*z/2
 const stars=(b,se)=>{const p=pnorm(b/se);return p<.01?'***':p<.05?'**':p<.1?'*':''};
 var I18=null,I18load=null,TOKRE=null;
 const REGIONI=['Abruzzo','Basilicata','Calabria','Campania','Emilia-Romagna','Friuli-Venezia Giulia','Lazio','Liguria','Lombardia','Marche','Molise','Piemonte','Puglia','Sardegna','Sicilia','Toscana','Trentino-Alto Adige/Südtirol','Umbria',"Valle d'Aosta/Vallée d'Aoste",'Veneto'];
-function tokRe(){if(TOKRE)return TOKRE;const set=new Set(['Azione + IV','Noi Moderati','FdI','Lega','FI','PD','M5S','AVS','Azione','IV','Misto','Governo',...REGIONI]);
+function tokRe(){if(TOKRE)return TOKRE;const set=new Set(['Azione / IV','Autonomie','Azione + IV','Noi Moderati','FdI','Lega','FI','PD','M5S','AVS','Azione','IV','Misto','Governo',...REGIONI]);
   try{D&&D.forEach(r=>set.add(r.p))}catch(e){}try{POP&&Object.keys(POP).forEach(k=>set.add(k))}catch(e){}try{VOTI&&Object.keys(VOTI.prov).forEach(k=>set.add(k))}catch(e){}
   const esc_=x=>x.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');const names=[...set].filter(x=>x&&x.length>1).sort((a,b)=>b.length-a.length).map(esc_).join('|');
   const unit="(?:\\s?(?:mila €|mila|mld|mln|mil millones €|mil M€|M€|mil €|mil|Md€|k€|k €|bn|m|k|€ per abitante|€ per person|€ por habitante|€ par habitant|€\\/ab\\.|€|%))?";
-  const re=new RegExp("(?<![\\p{L}\\d'’])(?:"+names+")(?![\\p{L}\\d'’])|(?<![\\p{L}\\d])[−-]?\\d+(?:[\\u202f\\u00a0]\\d{3}|[.,]\\d+)*°?"+unit+"(?![\\p{L}\\d])","gu");
+  const re=new RegExp("(?<![\\p{L}\\d])(?:\\d{4}–\\d{4}, intera legislatura|manovre \\d{4}–\\d{4}|manovra \\d{4})(?: · (?:Camera|Senato))?|(?<![\\p{L}\\d'’])(?:"+names+")(?![\\p{L}\\d'’])|(?<![\\p{L}\\d])[−-]?\\d+(?:[\\u202f\\u00a0]\\d{3}|[.,]\\d+)*°?"+unit+"(?![\\p{L}\\d])","gu");
   if(D&&POP)TOKRE=re;return re}
 function i18nKey(core){const vals=[];const key=core.replace(tokRe(),x=>{vals.push(x);return '{'+(vals.length-1)+'}'});return [key,vals]}
-function Lc(core){const d=I18&&I18[LANG];if(!d)return null;if(d[core]!=null)return d[core];const [key,vals]=i18nKey(core);const t=d[key];return t!=null?t.replace(/\{(\d+)\}/g,(_,i)=>vals[+i]):null}
+function Lc(core){const d=I18&&I18[LANG];if(!d)return null;if(d[core]!=null)return d[core];const [key,vals]=i18nKey(core);const t=d[key];return t!=null?t.replace(/\{(\d+)\}/g,(_,i)=>trTok(vals[+i])):null}
 function L(s){if(LANG==='it'||!I18||s==null)return s;const str=String(s);const m=str.match(/^(\s*)([\s\S]*?)(\s*)$/);const core=m[2];if(!core)return str;let t=Lc(core);
   if(t==null&&/ · |, |: /.test(core)){let ch=false;const out=core.split(/( · |, |: )/).map(p=>{if(p===' · '||p===', '||p===': ')return p;const r=Lc(p);if(r!=null){ch=true;return r}return p});if(ch)t=out.join('')}
   return t==null?str:m[1]+t+m[3]}
@@ -1053,10 +1054,14 @@ $('#copy').onclick=async()=>{
   const txt=lines.join('\n');const b=$('#copy');
   try{await navigator.clipboard.writeText(txt);b.textContent='Copiata: '+nf(filtered.length)+' righe, incollala in Excel'}catch(e){b.textContent='Copia non riuscita in questa vista'}
   setTimeout(()=>b.textContent='Copia tabella filtrata',3000)};
+// token di periodo tradotti (usati da Lc)
+function trTok(v){if(typeof LANG==='undefined'||LANG==='it')return v;const m=String(v).match(/^(?:(\d{4})–(\d{4}), intera legislatura|manovre (\d{4})–(\d{4})|manovra (\d{4}))(?: · (Camera|Senato))?$/);if(!m)return v;
+  const W={en:{leg:'{0}–{1}, whole legislature',many:'{0}–{1} budgets',one:'{0} budget',Camera:'Chamber',Senato:'Senate'},es:{leg:'{0}–{1}, toda la legislatura',many:'presupuestos {0}–{1}',one:'presupuesto {0}',Camera:'Cámara',Senato:'Senado'},fr:{leg:'{0}–{1}, toute la législature',many:'budgets {0}–{1}',one:'budget {0}',Camera:'Chambre',Senato:'Sénat'}}[LANG];if(!W)return v;
+  const f=(t,a,b)=>t.replace('{0}',a).replace('{1}',b);let o=m[1]?f(W.leg,m[1],m[2]):m[3]?f(W.many,m[3],m[4]):f(W.one,m[5]);if(m[6])o+=' · '+W[m[6]];return o}
 // ---------- legislatura: quadro, studio, fonti ----------
 const cssv=n=>getComputedStyle(document.body).getPropertyValue(n).trim();
 const SELY=()=>YEARS.filter(y=>y>=PA&&y<=PB);
-const pf=(x,d=1)=>Number(x).toLocaleString('it-IT',{minimumFractionDigits:d,maximumFractionDigits:d}).replace(/^-/,'−');
+const pf=(x,d=1)=>Number(x).toLocaleString(LOC(),{minimumFractionDigits:d,maximumFractionDigits:d}).replace(/^-/,'−');
 const LETT={'2023|Camera':1,'2023|Senato':2,'2024|Senato':1,'2024|Camera':2,'2025|Camera':1,'2025|Senato':2,'2026|Senato':1,'2026|Camera':2,'2027|Camera':1};
 function svgEl(svg,tag,at,txt){const e=document.createElementNS('http://www.w3.org/2000/svg',tag);for(const k in at)e.setAttribute(k,at[k]);if(txt!=null)e.textContent=txt;svg.appendChild(e);return e}
 function renderQuadro(){

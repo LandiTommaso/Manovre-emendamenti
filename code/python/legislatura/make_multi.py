@@ -17,7 +17,6 @@ def RX(pat, rep, c=1):
 
 # ---------- testa ----------
 R('<title>Emendamenti Legge di Bilancio 2027</title>', '<title>Manovre della legislatura</title>')
-RX(r'<span class="pg"><span class="seglab">Lingua</span>.*?</span></span>\n', '')
 R('<div class="eyebrow">Camera dei deputati · V Commissione Bilancio · C. 3174-bis · fascicolo del 23 novembre 2026</div>',
   '<div class="eyebrow">XIX legislatura · leggi di bilancio 2023–2027 · Camera e Senato · commissioni Bilancio</div>')
 R('<h1>Emendamenti alla legge di bilancio 2027</h1>', '<h1>Le manovre della legislatura, emendamento per emendamento</h1>')
@@ -113,7 +112,6 @@ R("const CAM='https://documenti.camera.it/apps/emendamenti/getPropostaEmendativa
   "const perLab=()=>(PA===PB?'manovra '+PA:(PA===2023&&PB===2027?'2023–2027, intera legislatura':'manovre '+PA+'–'+PB))+(PRA?' · '+PRA:'');")
 R("const ORDER=['FdI','Lega','FI','Noi Moderati','PD','M5S','AVS','Azione','IV','Misto','Governo'];",
   "const ORDER=['FdI','Lega','FI','Noi Moderati','PD','M5S','AVS','Azione / IV','Autonomie','Misto','Governo'];")
-R("let LANG=(()=>{try{const q=new URLSearchParams(location.search).get('lang');if(q&&LANGS[q])return q;const s=localStorage.getItem('emb27-lang');if(s&&LANGS[s])return s}catch(e){}return 'it'})();", "let LANG='it';")
 R("const scls=s=>s==='Ammissibile'?'st-ok':(s==='Compensazione'?'st-warn':'st-bad');",
   "const scls=s=>s==='Ammissibile'?'st-ok':(s==='Compensazione'?'st-warn':'st-bad');\nconst OLAB={A:'Approvato',N:'Respinto o non votato',R:'Ritirato',I:'Inammissibile'};\nconst ochip=r=>r.s!=='Ammissibile'?`<span class=\"chip ${scls(r.s)}\">${slbl(r.s,r.pz)}</span>`:(r.o==='A'?'<span class=\"chip st-ap\">Approvato</span>':r.o==='R'?'<span class=\"chip st-warn\">Ritirato</span>':(r.y===2027?'<span class=\"chip\">In esame</span>':'<span class=\"chip\">'+(r.le===2?'Seconda lettura, non approvato':'Non approvato')+'</span>'));")
 R("const slbl=(s,pz)=>s==='Ammissibile'?(pz?'Ammissibile (in parte inamm.)':'Ammissibile'):(s==='Compensazione'?'Inamm. compensazione':'Inamm. estraneità')+(pz?' (parz.)':'');",
@@ -235,6 +233,13 @@ R("x.fillText(L('EMENDAMENTI ALLA MANOVRA 2027 · ELABORAZIONE SU DATI CAMERA DE
 RX(r"function srcText\(es\)\{return Lf\(.*?\)\}\n",
    "function srcText(es){return 'Fonti: Camera dei deputati e Senato della Repubblica, fascicoli ed elenchi delle proposte emendative alle leggi di bilancio 2023–2027 (commissioni Bilancio); ISTAT, popolazione al 1° gennaio 2025. Cifre chieste dai proponenti per il triennio di ciascuna manovra'+(es?'':', inammissibili comprese')+'; '+perLab()+'. Solo proposte che citano un luogo preciso; se ne citano più d’uno, i soldi sono divisi in parti uguali. Esclusi fondi nazionali, grandi opere e rimodulazioni.'}\n")
 RX(r"function renderAnalisi\(\)\{if\(!AN\).*?\n(?=var I18=null)", '')
+
+# ---------- i18n: periodi come token tradotti, nuovi gruppi ----------
+R("const set=new Set(['Azione + IV','Noi Moderati',", "const set=new Set(['Azione / IV','Autonomie','Azione + IV','Noi Moderati',")
+R("const re=new RegExp(\"(?<![\\\\p{L}\\\\d'’])(?:\"+names+\")",
+  "const re=new RegExp(\"(?<![\\\\p{L}\\\\d])(?:\\\\d{4}–\\\\d{4}, intera legislatura|manovre \\\\d{4}–\\\\d{4}|manovra \\\\d{4})(?: · (?:Camera|Senato))?|(?<![\\\\p{L}\\\\d'’])(?:\"+names+\")")
+R("return t!=null?t.replace(/\\{(\\d+)\\}/g,(_,i)=>vals[+i]):null}", "return t!=null?t.replace(/\\{(\\d+)\\}/g,(_,i)=>trTok(vals[+i])):null}")
+
 # i18n spento
 R("function loadI18(){if(I18)return Promise.resolve(I18);", "function loadI18(){if(LANG==='it')return Promise.resolve(null);if(I18)return Promise.resolve(I18);")
 # nuove funzioni (quadro e studio) prima della chiusura

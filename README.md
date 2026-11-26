@@ -4,12 +4,14 @@
 
 Tutte le **24.977 proposte di modifica** presentate nelle commissioni Bilancio di Camera e Senato alle cinque leggi di bilancio della XIX legislatura (2023–2027). Per ogni proposta il repository riporta primo firmatario e gruppo, ammissibilità, esito, territori citati, importi e link alla scheda ufficiale. Le richieste locali sono poi confrontate con i voti delle politiche del 2022.
 
+> **Repository privato. Bozza preliminare: non diffondere senza il permesso dell'autore.**
+> Dati e codice saranno resi pubblici alla pubblicazione del lavoro.
+
 | | |
 |---|---|
 | 📄 Working paper | [`paper/landi_budget_amendments_wp.pdf`](paper/landi_budget_amendments_wp.pdf) |
-| 🗺️ Esploratore 2023–2027 | <https://landitommaso.github.io/manovre-emendamenti/legislatura/> |
-| 🔎 Manovra 2027 nel dettaglio | <https://landitommaso.github.io/manovre-emendamenti/manovra-2027/> |
-| 📰 Sintesi per la stampa | <https://landitommaso.github.io/manovre-emendamenti/sintesi/> |
+| 🗺️ Esploratori interattivi | cartella `docs/` (vedi sotto come aprirli in locale) |
+| 🔎 Manovra 2027 (pubblica) | <https://claude.ai/artifact/D5WQFUaW1R2Z67CGSseZGe> |
 
 ## Risultati principali
 
@@ -64,7 +66,15 @@ Questa cartella contiene la pipeline originale, in Python: scarica e legge i fas
 
 ## Siti (`docs/`)
 
-Gli esploratori interattivi, pubblicati con GitHub Pages dalla cartella `docs/`.
+Gli esploratori interattivi (legislatura 2023–2027, manovra 2027, sintesi per la stampa). Per aprirli in locale:
+
+```
+cd docs
+python3 -m http.server 8000
+# poi apri http://localhost:8000 nel browser
+```
+
+Non attivare GitHub Pages su questo repository finché il lavoro non è pubblicato.
 
 ## Uso dell'intelligenza artificiale
 
@@ -73,7 +83,7 @@ Il progetto è stato realizzato con l'aiuto fondamentale di **Claude** (Anthropi
 - eseguito le specificazioni;
 - redatto parte del testo, sotto la direzione dell'autore.
 
-La domanda di ricerca, il disegno dei dati e delle stime, i controlli sulle fonti ufficiali e l'interpretazione sono dell'autore, che è responsabile di ogni affermazione. Dati e codice sono pubblici perché chiunque possa verificare ogni numero.
+La domanda di ricerca, il disegno dei dati e delle stime, i controlli sulle fonti ufficiali e l'interpretazione sono dell'autore, che è responsabile di ogni affermazione. Dati e codice saranno pubblici alla pubblicazione, perché chiunque possa verificare ogni numero.
 
 ## Citare
 
@@ -83,8 +93,6 @@ Vedi anche [`CITATION.cff`](CITATION.cff).
 
 ## Licenze
 
-- **Codice:** MIT (vedi `LICENSE`).
-- **Dati derivati:** CC BY 4.0, citando questo repository e le fonti primarie (Camera dei deputati, Senato della Repubblica, Ministero dell'Interno, ISTAT).
-- **Working paper:** © 2026 Tommaso Landi, tutti i diritti riservati.
+© 2026 Tommaso Landi, tutti i diritti riservati, per codice, dati derivati e working paper. Le licenze aperte saranno decise al momento della pubblicazione. Le fonti primarie (Camera dei deputati, Senato della Repubblica, Ministero dell'Interno, ISTAT) restano soggette alle rispettive condizioni d'uso.
 
 Ringrazio Riccardo Trezzi ([UnderlyingInflation.com](https://underlyinginflation.com)) per l'ispirazione.
