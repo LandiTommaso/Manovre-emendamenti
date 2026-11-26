@@ -175,6 +175,7 @@ for src, path in FAS.items():
             if not g: g = {'Azione': 'Azione / IV', 'IV': 'Azione / IV'}.get(r['gruppo'], r['gruppo'] if r['gruppo'] in FAM else 'Misto')
         es = cam_esito(src, i)
         if es == 'Non approvato' and r['stato'] == 'Inammissibile': es = 'Inammissibile'
+        if src == 'C3174bis' and es == 'Inammissibile' and r['stato'] != 'Inammissibile': es = 'Non approvato'  # riesame 24/11 e Bollettino n. 768 (emend/src/riesame.py)
         txt_ = r['testo']
         if es == 'Approvato' and (src, i) in APPROVED_TXT: txt_ = APPROVED_TXT[(src, i)]
         a = analyze(txt_, anno)

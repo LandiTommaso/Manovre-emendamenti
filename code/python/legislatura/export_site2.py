@@ -7,9 +7,11 @@ REG = {g['properties']['prov_name']: g['properties']['reg_name'] for g in topo['
 GMAP = {'Governo / relatori': 'Governo'}
 CMAP = {'Maggioranza': 'Maggioranza', 'Opposizione': 'Opposizione'}
 def scat(r):
-    if r['es'] != 'Inammissibile': return 'Ammissibile', ''
+    if r['es'] != 'Inammissibile':
+        mo = r.get('mot') or ''
+        return 'Ammissibile', (mo.replace('Parzialmente: Inammissibile per ', 'parzialmente inammissibile: ') if mo.startswith('Parzialmente') else '')
     m = (r.get('mot') or '').lower()
-    if 'estrane' in m: return 'Estraneità di materia', r['mot'].replace('Inammissibile per ', '')
+    if 'estrane' in m and '(e per estraneit' not in m: return 'Estraneità di materia', r['mot'].replace('Inammissibile per ', '')
     if 'compensaz' in m or 'copertura' in m: return 'Compensazione', r['mot'].replace('Inammissibile per ', '')
     return 'Altro motivo', (r.get('mot') or 'motivo non indicato nel fascicolo')
 def title(r):
@@ -35,7 +37,7 @@ for r in R:
     pm = r['pm']
     rows.append(dict(i=r['id'], a=r.get('art') or '', p=r['p'], g=GMAP.get(r['g'], r['g']), c=CMAP.get(r['coal'], 'Misto') if r['g'] != 'Governo / relatori' else 'Governo',
                      f=r.get('f') or [[r['p'], GMAP.get(r['g'], r['g'])]], ce=r.get('ce') or '', cf=r.get('cf') or '', u=r.get('u') or '',
-                     s=s, pz=1 if 'limitatamente' in (m or '') else 0, m=m, e=r['e'], ey=r.get('ey') or '', e3=r['e3'],
+                     s=s, pz=1 if ('limitatamente' in (m or '') and '(e per estraneit' not in (m or '')) else 0, m=m, e=r['e'], ey=r.get('ey') or '', e3=r['e3'],
                      l=r['l'], pr=pm, rg=sorted(set(REG[p] for p in pm if p in REG)), loc=1 if loc else 0, po=r['po'], th=r['th'] or ['Altro'],
                      t=t, ta=ta, x=tidx[y][tt], d='', id_='', cv=r.get('cv') or 'Non indicata', co='', pm=pm,
                      y=y, ra=r['ramo'], le=r['lett'], o=ESC[r['es']], lk=r.get('link') or '', big=r['big'], nt=r.get('notext', 0)))

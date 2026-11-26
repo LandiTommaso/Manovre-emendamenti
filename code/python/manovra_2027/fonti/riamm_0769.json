@@ -1,0 +1,409 @@
+{
+"materia": [
+"10.012",
+"11.030",
+"13.01",
+"38.010",
+"41.026",
+"41.027",
+"55.012",
+"56.015",
+"56.016",
+"56.019",
+"56.020",
+"62.0131",
+"62.0132",
+"66.080",
+"67.03",
+"69.143",
+"69.144",
+"69.0222",
+"69.0229",
+"69.0231",
+"69.0232",
+"75.031",
+"75.035",
+"75.036",
+"75.037",
+"77.49",
+"77.070",
+"77.01",
+"78.011",
+"78.018",
+"86.044",
+"88.02",
+"103.040",
+"104.063",
+"107.060",
+"112.030",
+"112.031",
+"119.027",
+"125.045",
+"125.050",
+"129.023"
+],
+"copertura": [
+"5.11",
+"5.64",
+"12.048",
+"12.054",
+"14.02",
+"14.03",
+"14.0109",
+"14.0110",
+"17.2",
+"17.7",
+"17.8",
+"17.9",
+"18.02",
+"22.01",
+"22.02",
+"22.03",
+"23.21",
+"23.05",
+"26.01",
+"36.05",
+"41.013",
+"41.016",
+"41.017",
+"042.02",
+"47.20",
+"47.038",
+"47.039",
+"47.040",
+"59.15",
+"59.16",
+"61.02",
+"61.03",
+"61.04",
+"62.0139",
+"64.055",
+"43.1",
+"66.84",
+"45.018",
+"66.98",
+"66.037",
+"66.072",
+"67.08",
+"69.113",
+"69.251",
+"69.019",
+"69.093",
+"69.0177",
+"69.0.295",
+"77.44",
+"87.060",
+"103.028",
+"107.035",
+"107.060",
+"77.077",
+"119.9",
+"85.015",
+"124.16",
+"77.075",
+"124.01",
+"130.031"
+],
+"info": {
+"5.11": {
+"resta": false,
+"parz": false,
+"firm": "Comunica, altresì, che, a seguito del riesame, sono da ritenersi ammissibili per i profili di inidoneità o carenza della copertura finanziaria i seguenti emendamenti: Simiani 5.11, in considerazione degli effetti finanziari complessivi derivanti dall’emendamento, che consentono di far fronte agli oneri dallo stesso recati"
+},
+"5.64": {
+"resta": false,
+"parz": false,
+"firm": "Tirelli 5.64, nel presupposto che nella base di calcolo della relazione tecnica, ancorché non esplicitate, siano state considerate le unità immobiliari abitative locate a cooperative edilizie per la locazione o a enti senza scopo di lucro di cui al libro I, titolo II, del codice civile, purché sublocate a studenti universitari"
+},
+"12.048": {
+"resta": false,
+"parz": false,
+"firm": "gli identici emendamenti Faraone 12.048 e Comaroli 12.054, che, ampliando l’elenco di cui all’allegato F del testo unico delle imposte sui redditi ed estendendo a software e a varie piattaforme la maggio  \fMartedì 24 novembre 2026  — 63  razione del costo di cui all’articolo 364, operano nell’ambito del limite di spesa disposto dall’articolo 12, comma 1, per il credito d’imposta previsto dalla medesima disposizione"
+},
+"12.054": {
+"resta": false,
+"parz": false,
+"firm": "gli identici emendamenti Faraone 12.048 e Comaroli 12.054, che, ampliando l’elenco di cui all’allegato F del testo unico delle imposte sui redditi ed estendendo a software e a varie piattaforme la maggio  \fMartedì 24 novembre 2026  — 63  razione del costo di cui all’articolo 364, operano nell’ambito del limite di spesa disposto dall’articolo 12, comma 1, per il credito d’imposta previsto dalla medesima disposizione"
+},
+"14.02": {
+"resta": false,
+"parz": false,
+"firm": "Lucaselli 14.02, nel presupposto che la copertura a valere sulla tabella A si intenda a decorrere dal 2029"
+},
+"14.03": {
+"resta": false,
+"parz": true,
+"firm": "Toccalini 14.03, limitatamente ai commi 1, 2, lettera a), 3, 6, 7, 8, 9, 10, 11, 12 e 13"
+},
+"14.0109": {
+"resta": false,
+"parz": false,
+"firm": "Toccalini 14.0109 e 14.0110, nel presupposto che, a partire dal quarto anno, il gettito atteso dalla definizione agevolata consenta almeno di compensare gli effetti dei minori incassi sulla riscossione ordinaria"
+},
+"14.0110": {
+"resta": false,
+"parz": false,
+"firm": "Toccalini 14.0109 e 14.0110, nel presupposto che, a partire dal quarto anno, il gettito atteso dalla definizione agevolata consenta almeno di compensare gli effetti dei minori incassi sulla riscossione ordinaria"
+},
+"17.2": {
+"resta": false,
+"parz": false,
+"firm": "Lucaselli 17.2, alla luce dei chiarimenti forniti dal proponente, nel presupposto che la ridefinizione della platea non sia suscettibile di determinare effetti peggiorativi rispetto al testo dell’articolo 17 del disegno di legge di bilancio, sostituito dalla proposta in esame"
+},
+"17.7": {
+"resta": false,
+"parz": false,
+"firm": "Candiani 17.7, nel presupposto che il gettito derivante dall’imposta sostitutiva prevista per l’assunzione del valore normale dei beni e dei diritti posseduti al 31 dicembre 2026, unitamente alla riduzione del Fondo per interventi strutturali di politica economica, sia idoneo a compensare, in ciascun anno, i minori incassi derivanti dalla riduzione della misura dell’acconto e dall’ampliamento delle ipotesi di differimento del versamento, rispetto agli effetti finanziari ascritti all’articolo 17 "
+},
+"17.8": {
+"resta": false,
+"parz": false,
+"firm": "gli identici emendamenti Candiani 17.8 e Casasco 17.9, nel presupposto che le modifiche apportate alla disciplina dell’imposizione in uscita non riducano l’ammontare complessivo dell’imposta dovuta per ciascuna coorte annuale di trasferimenti, stimato dalla relazione tecnica in 6,74 mi —  Commissione V  lioni di euro, ma incidano esclusivamente sulla ripartizione temporale dei versamenti tra acconto e versamento al momento del realizzo, e che i conseguenti minori incassi nel periodo 2027-2031, v"
+},
+"17.9": {
+"resta": false,
+"parz": false,
+"firm": "gli identici emendamenti Candiani 17.8 e Casasco 17.9, nel presupposto che le modifiche apportate alla disciplina dell’imposizione in uscita non riducano l’ammontare complessivo dell’imposta dovuta per ciascuna coorte annuale di trasferimenti, stimato dalla relazione tecnica in 6,74 mi —  Commissione V  lioni di euro, ma incidano esclusivamente sulla ripartizione temporale dei versamenti tra acconto e versamento al momento del realizzo, e che i conseguenti minori incassi nel periodo 2027-2031, v"
+},
+"18.02": {
+"resta": false,
+"parz": false,
+"firm": "Lacarra 18.02, in quanto le risorse stanziate si intendono quale limite massimo di spesa e i relativi oneri risultano coperti"
+},
+"22.01": {
+"resta": false,
+"parz": false,
+"firm": "gli identici emendamenti Peluffo 22.01, Milani 22.02 e Sergio Costa 22.03, nel presupposto che, anche tenuto conto degli effetti comportamentali connessi allo spostamento della domanda verso veicoli a minori emissioni, le maggiori entrate derivanti dalla riduzione delle percentuali di deducibilità dei veicoli con emissioni di anidride carbonica pari o superiori a 1 grammo per chilometro, che costituiscono la parte prevalente del parco veicoli aziendale, risultino in ciascun anno superiori alle m"
+},
+"22.02": {
+"resta": false,
+"parz": false,
+"firm": "gli identici emendamenti Peluffo 22.01, Milani 22.02 e Sergio Costa 22.03, nel presupposto che, anche tenuto conto degli effetti comportamentali connessi allo spostamento della domanda verso veicoli a minori emissioni, le maggiori entrate derivanti dalla riduzione delle percentuali di deducibilità dei veicoli con emissioni di anidride carbonica pari o superiori a 1 grammo per chilometro, che costituiscono la parte prevalente del parco veicoli aziendale, risultino in ciascun anno superiori alle m"
+},
+"22.03": {
+"resta": false,
+"parz": false,
+"firm": "gli identici emendamenti Peluffo 22.01, Milani 22.02 e Sergio Costa 22.03, nel presupposto che, anche tenuto conto degli effetti comportamentali connessi allo spostamento della domanda verso veicoli a minori emissioni, le maggiori entrate derivanti dalla riduzione delle percentuali di deducibilità dei veicoli con emissioni di anidride carbonica pari o superiori a 1 grammo per chilometro, che costituiscono la parte prevalente del parco veicoli aziendale, risultino in ciascun anno superiori alle m"
+},
+"23.21": {
+"resta": false,
+"parz": false,
+"firm": "Pella 23.21, nel presupposto che quanto previsto non comporti una riduzione del gettito imputabile agli apparecchi interessati"
+},
+"23.05": {
+"resta": false,
+"parz": false,
+"firm": "Rosato 23.05, nel presupposto che quanto disposto non determini, nel complesso, minori entrate"
+},
+"26.01": {
+"resta": false,
+"parz": false,
+"firm": "Cesa 26.01, nel presupposto che dallo stesso non derivino minori entrate con ef \fMartedì 24 novembre 2026  — 64  fetti permanenti e che gli oneri che ne conseguono risultino coerenti, sotto il profilo temporale, con l’autorizzazione di spesa prevista"
+},
+"36.05": {
+"resta": false,
+"parz": false,
+"firm": "Pella 36.05, che estende la facoltà di avvalersi del regime di ravvedimento speciale ai soggetti che non rinnovano l’adesione al concordato preventivo biennale per il biennio 2026-2027, nel presupposto che la platea dei soggetti potenzialmente interessati dall’estensione sia già ricompresa in quella considerata ai fini della quantificazione degli effetti finanziari riportata nella relazione tecnica al decreto legislativo n. 148 del 2026"
+},
+"41.013": {
+"resta": false,
+"parz": true,
+"firm": "Toccalini 41.013, limitatamente ai commi 1, 2, 4 e 5, nel presupposto che, a partire dal terzo anno, il gettito atteso dalla definizione agevolata consenta almeno di compensare gli effetti dei minori incassi sulla riscossione ordinaria"
+},
+"41.016": {
+"resta": false,
+"parz": false,
+"firm": "Toccalini 41.016 e 41.017, nel presupposto che, a partire dal quarto anno, il gettito atteso dalla definizione agevolata consenta almeno di compensare gli effetti dei minori incassi sulla riscossione ordinaria"
+},
+"41.017": {
+"resta": false,
+"parz": false,
+"firm": "Toccalini 41.016 e 41.017, nel presupposto che, a partire dal quarto anno, il gettito atteso dalla definizione agevolata consenta almeno di compensare gli effetti dei minori incassi sulla riscossione ordinaria"
+},
+"042.02": {
+"resta": false,
+"parz": false,
+"firm": "Barzotti 042.02, nel presupposto che i decreti attuativi di cui ai commi 6 e 10 individuino modalità idonee ad assicurare, rispettivamente, il rispetto del limite di spesa di cui al comma 7 e il riconoscimento delle prestazioni del Fondo per il diritto di autotutela nei limiti delle risorse di cui al comma 9"
+},
+"47.20": {
+"resta": false,
+"parz": true,
+"firm": "—  Commissione V  Pella 47.20, limitatamente ai commi 10-bis e 10-quater, alla luce delle motivazioni allegate al ricorso"
+},
+"47.038": {
+"resta": false,
+"parz": false,
+"firm": "gli identici emendamenti Maccanti 47.038, Pella 47.039 e Ghio 47.040, nel presupposto che gli interventi finalizzati al ripristino dell’equilibrio economico delle agenzie siano limitati alla rideterminazione delle tariffe"
+},
+"47.039": {
+"resta": false,
+"parz": false,
+"firm": "gli identici emendamenti Maccanti 47.038, Pella 47.039 e Ghio 47.040, nel presupposto che gli interventi finalizzati al ripristino dell’equilibrio economico delle agenzie siano limitati alla rideterminazione delle tariffe"
+},
+"47.040": {
+"resta": false,
+"parz": false,
+"firm": "gli identici emendamenti Maccanti 47.038, Pella 47.039 e Ghio 47.040, nel presupposto che gli interventi finalizzati al ripristino dell’equilibrio economico delle agenzie siano limitati alla rideterminazione delle tariffe"
+},
+"59.15": {
+"resta": false,
+"parz": false,
+"firm": "Lupi 59.15 e Bonetti 59.16, nel presupposto che l’onere derivante dall’erogazione dei voucher sia compensato dai risparmi connessi alla rinuncia al congedo e dal maggior gettito tributario e contributivo riferito a tale rinuncia"
+},
+"59.16": {
+"resta": false,
+"parz": false,
+"firm": "Lupi 59.15 e Bonetti 59.16, nel presupposto che l’onere derivante dall’erogazione dei voucher sia compensato dai risparmi connessi alla rinuncia al congedo e dal maggior gettito tributario e contributivo riferito a tale rinuncia"
+},
+"61.02": {
+"resta": false,
+"parz": false,
+"firm": "gli identici emendamenti Mauri 61.02, Torto 61.03 e Del Barba 61.04, alla luce delle motivazioni addotte nel ricorso e di un più approfondito esame dei relativi effetti finanziari"
+},
+"61.03": {
+"resta": false,
+"parz": false,
+"firm": "gli identici emendamenti Mauri 61.02, Torto 61.03 e Del Barba 61.04, alla luce delle motivazioni addotte nel ricorso e di un più approfondito esame dei relativi effetti finanziari"
+},
+"61.04": {
+"resta": false,
+"parz": false,
+"firm": "gli identici emendamenti Mauri 61.02, Torto 61.03 e Del Barba 61.04, alla luce delle motivazioni addotte nel ricorso e di un più approfondito esame dei relativi effetti finanziari"
+},
+"62.0139": {
+"resta": false,
+"parz": false,
+"firm": "Boscaini 62.0139, anche in considerazione della stringenza della condizione che gli utili siano interamente reinvestiti nelle medesime attività delle associazioni beneficiarie, nel presupposto che la copertura, pari a 15 milioni di euro, abbia carattere permanente, in corrispondenza della decorrenza degli oneri"
+},
+"64.055": {
+"resta": false,
+"parz": false,
+"firm": "Morgante 64.055, nel presupposto che l’autorizzazione di spesa consenta di far fronte anche agli effetti retroattivi derivanti dalla norma di interpretazione autentica recata dall’emendamento"
+},
+"43.1": {
+"resta": false,
+"parz": false,
+"firm": "Faraone 43.1, alla luce delle motivazioni addotte nel ricorso e di un più approfondito esame dei suoi effetti finanziari"
+},
+"66.84": {
+"resta": false,
+"parz": false,
+"firm": "Orsini 66.84, alla luce della ridotta platea dei destinatari della disposizione"
+},
+"45.018": {
+"resta": false,
+"parz": false,
+"firm": "Cavandoli 45.018, alla luce delle motivazioni addotte nella richiesta di riesame, con particolare riferimento ai precedenti orientamenti interpretativi dell’Agenzia delle entrate, nel presupposto che la disposizione non comporti, anche con riferimento ai periodi pregressi, un ampliamento dell’ambito di applicazione dell’esclusione dalla base imponibile fiscale e contributiva"
+},
+"66.98": {
+"resta": false,
+"parz": false,
+"firm": "Nisini 66.98 e Richetti 66.037, alla luce delle motivazioni allegate al ricorso"
+},
+"66.037": {
+"resta": false,
+"parz": false,
+"firm": "Nisini 66.98 e Richetti 66.037, alla luce delle motivazioni allegate al ricorso"
+},
+"66.072": {
+"resta": true,
+"parz": false,
+"firm": "Pella 66.072, alla luce delle motivazioni allegate al ricorso, che resta inammissibile per estraneità di materia"
+},
+"67.08": {
+"resta": false,
+"parz": false,
+"firm": "Dell’Olio 67.08, alla luce delle motivazioni allegate al ricorso"
+},
+"69.113": {
+"resta": false,
+"parz": true,
+"firm": "Martedì 24 novembre 2026  — 65  Mulè 69.113, limitatamente al primo periodo del capoverso 3-bis, che si limita a destinare una quota delle risorse già stanziate dall’articolo 69, comma 1, al potenziamento dell’assistenza psicologica in ambito onco-ematologico pediatrico"
+},
+"69.251": {
+"resta": false,
+"parz": false,
+"firm": "Boschi 69.251, che istituisce un Fondo in favore dei malati fibromialgici, nel presupposto che il decreto attuativo preveda modalità di erogazione dei contributi idonee ad assicurare il rispetto del limite di spesa di 50 milioni di euro annui a decorrere dal 2027"
+},
+"69.019": {
+"resta": false,
+"parz": false,
+"firm": "Boschi 69.019, che prevede l’introduzione nei livelli essenziali di assistenza di tre distinti codici relativi alle prestazioni di farmacogenetica, nel presupposto che la definizione dei predetti codici e delle correlate prestazioni abbia esclusivamente funzione di riclassificazione delle prestazioni già garantite a legislazione vigente, senza ampliarne le condizioni di erogabilità"
+},
+"69.093": {
+"resta": false,
+"parz": false,
+"firm": "Cannata 69.093, nel presupposto che l’onere previsto sia posto a carico della quota libera dell’incremento del fabbisogno sanitario nazionale standard disposto dall’articolo 69"
+},
+"69.0177": {
+"resta": false,
+"parz": false,
+"firm": "Tirelli 69.0177, alla luce delle motivazioni allegate al ricorso"
+},
+"69.0.295": {
+"resta": false,
+"parz": false,
+"firm": "Mulè 69.0.295, alla luce delle motivazioni allegate al ricorso"
+},
+"77.44": {
+"resta": false,
+"parz": false,
+"firm": "Frassini 77.44, alla luce delle motivazioni allegate al ricorso"
+},
+"87.060": {
+"resta": true,
+"parz": false,
+"firm": "Rizzetto 87.060, che affida all’Istituto Poligrafico e Zecca dello Stato la realizzazione della Tessera SINAC dell’animale da compagnia e dei passaporti per i movimenti non commerciali di cani, gatti e furetti, documenti rilasciati su richiesta del proprietario, nel presupposto che, per entrambi i documenti, i costi di realizzazione e di rilascio siano posti a carico dei soggetti richiedenti, che resta inammissibile per estraneità di materia"
+},
+"103.028": {
+"resta": false,
+"parz": false,
+"firm": "Toccalini 103.028, che riduce il requisito di anzianità per l’ammissione allo scrutinio per viceprefetto, tenuto conto della valutazione di neutralità finanziaria espressa dalla relazione tecnica governativa riferita a una precedente modifica del medesimo requisito (articolo 8, comma 18, del decretolegge n. 19 del 2024), in ragione dell’invarianza della dotazione organica e del numero delle promozioni"
+},
+"107.035": {
+"resta": false,
+"parz": false,
+"firm": "Piccolotti 107.035, in quanto ai relativi oneri si provvede mediante l’innalzamento dell’aliquota della cosiddetta Tobin tax di cui all’articolo 15, comma 1, lettere a) e b), del provvedimento in esame"
+},
+"107.060": {
+"resta": false,
+"parz": false,
+"firm": "Pella 107.060, che prevede un onere per gli anni 2027 e 2028, coperto a valere sul Fondo di cui all’articolo 137, comma 1"
+},
+"77.077": {
+"resta": true,
+"parz": false,
+"firm": "Simiani 77.077, alla luce delle motivazioni allegate al ricorso, che resta inammissibile per estraneità di materia"
+},
+"119.9": {
+"resta": false,
+"parz": false,
+"firm": "Comaroli 119.9, nel presupposto che le risorse ivi previste abbiano carattere soltanto eventuale, essendo la dotazione del fondo alimentata esclusivamente dalle maggiori entrate tributarie eccedenti le previsioni di recupero dell’evasione fiscale indicate nel Documento programmatico di finanza pubblica, nei limiti del loro effettivo realizzo"
+},
+"85.015": {
+"resta": false,
+"parz": false,
+"firm": "De Luca 85.015, in considerazione della stringenza dei requisiti di accesso al beneficio riconosciuto, i cui oneri, valutati in  Morfino 124.16, che, modificando l’articolo 3, commi 2 e 9, del decreto-legge n. 95 del 2025, istituisce nel Fondo unico  Lazzarini 77.075, nel presupposto che la modulazione delle tariffe sia calibrata in modo da consentire l’equilibrio finanziario della gestione"
+},
+"124.16": {
+"resta": false,
+"parz": false,
+"firm": "De Luca 85.015, in considerazione della stringenza dei requisiti di accesso al beneficio riconosciuto, i cui oneri, valutati in  Morfino 124.16, che, modificando l’articolo 3, commi 2 e 9, del decreto-legge n. 95 del 2025, istituisce nel Fondo unico  Lazzarini 77.075, nel presupposto che la modulazione delle tariffe sia calibrata in modo da consentire l’equilibrio finanziario della gestione"
+},
+"77.075": {
+"resta": false,
+"parz": false,
+"firm": "De Luca 85.015, in considerazione della stringenza dei requisiti di accesso al beneficio riconosciuto, i cui oneri, valutati in  Morfino 124.16, che, modificando l’articolo 3, commi 2 e 9, del decreto-legge n. 95 del 2025, istituisce nel Fondo unico  Lazzarini 77.075, nel presupposto che la modulazione delle tariffe sia calibrata in modo da consentire l’equilibrio finanziario della gestione"
+},
+"124.01": {
+"resta": false,
+"parz": false,
+"firm": "Zinzi 124.01, che, a seguito di un’ulteriore valutazione, risulta recare le necessarie coperture a fronte dell’onere previsto"
+},
+"130.031": {
+"resta": false,
+"parz": true,
+"firm": "Simiani 130.031, limitatamente al comma 1, in considerazione della congruità della relativa copertura finanziaria e della sua autonomia rispetto alle disposizioni di cui al comma 2."
+}
+}
+}

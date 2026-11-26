@@ -73,6 +73,7 @@ Variable names and labels are in Italian, as in the official sources.
 - For the 2023 budget the Chamber published only the proposals *flagged* by the groups (1,043 of about 3,000).
 - No amendment is approved in second readings.
 - The 2027 budget had not yet been voted in committee when the data were collected.
+- For the 2027 budget, admissibility follows the Committee bulletins of 23 November 2026 (ruling) and 24 November 2026 (review, 98 proposals readmitted). Where the outcome column of the Chamber's online list differs from the bulletin, the bulletin is used (`code/python/manovra_2027/riesame.py`). After the review, 1,600 of the 6,558 proposals are inadmissible.
 - Places and amounts are read automatically from the texts. Before citing a single case, check the official record linked in `link_ufficiale`.
 - The data include 1,106 sub-amendments. Without them, the counts match the figures reported at the time.
 

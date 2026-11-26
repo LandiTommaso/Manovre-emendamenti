@@ -1,0 +1,1073 @@
+{
+"log": {
+"parziale+copertura": 9,
+"solo parziale": 4,
+"copertura (bollettino)": 3,
+"materia (bollettino)": 2,
+"refuso sito 108.27/108.027": 1,
+"riesame: riammesso": 92,
+"riesame: riammesso in parte": 5,
+"riesame: resta parziale": 1
+},
+"notes": [
+[
+"49.01",
+"Ammissibile",
+"Parzialmente: Inammissibile per estraneità di materia limitatamente al comma 1 e per carenza di compensazione",
+"->",
+"Inammissibile",
+"Inammissibile per carenza o inidoneità della compensazione (e per estraneità di materia limitatamente al comma 1)",
+"parziale+copertura"
+],
+[
+"63.016",
+"Ammissibile",
+"Parzialmente: Inammissibile per estraneità di materia limitatamente ai commi 1, 2 e 3 e per carenza di compensazione",
+"->",
+"Inammissibile",
+"Inammissibile per carenza o inidoneità della compensazione (e per estraneità di materia limitatamente ai commi 1, 2 e 3)",
+"parziale+copertura"
+],
+[
+"64.013",
+"Ammissibile",
+"Parzialmente: Inammissibile per estraneità di materia limitatamente ai commi 1 e 2 e per carenza di compensazione",
+"->",
+"Inammissibile",
+"Inammissibile per carenza o inidoneità della compensazione (e per estraneità di materia limitatamente ai commi 1 e 2)",
+"parziale+copertura"
+],
+[
+"66.016",
+"Ammissibile",
+"Parzialmente: Inammissibile per estraneità di materia limitatamente al comma 4 e per carenza di compensazione",
+"->",
+"Inammissibile",
+"Inammissibile per carenza o inidoneità della compensazione (e per estraneità di materia limitatamente al comma 4)",
+"parziale+copertura"
+],
+[
+"66.097",
+"Ammissibile",
+"Parzialmente: Inammissibile per estraneità di materia limitatamente al comma 1 e per carenza di compensazione",
+"->",
+"Inammissibile",
+"Inammissibile per carenza o inidoneità della compensazione (e per estraneità di materia limitatamente al comma 1)",
+"parziale+copertura"
+],
+[
+"66.098",
+"Ammissibile",
+"Parzialmente: Inammissibile per estraneità di materia limitatamente al comma 1 e per carenza di compensazione",
+"->",
+"Inammissibile",
+"Inammissibile per carenza o inidoneità della compensazione (e per estraneità di materia limitatamente al comma 1)",
+"parziale+copertura"
+],
+[
+"69.2",
+"Ammissibile",
+"Parzialmente: Inammissibile per estraneità di materia limitatamente alla parte consequenziale, comma 3, lettera b",
+"->",
+"Inammissibile",
+"Inammissibile per carenza o inidoneità della compensazione (e per estraneità di materia limitatamente alla parte consequenziale, comma 3, lettera b))",
+"parziale+copertura"
+],
+[
+"77.4",
+"Ammissibile",
+"Parzialmente: Inammissibile per estraneità di materia limitatamente alla lettera e-quinquies",
+"->",
+"Ammissibile",
+"Parzialmente: Inammissibile per estraneità di materia limitatamente alla lettera e-quinquies)",
+"solo parziale"
+],
+[
+"77.071",
+"Ammissibile",
+"Parzialmente: Inammissibile per estraneità di materia limitatamente al comma 1, lettera c",
+"->",
+"Ammissibile",
+"Parzialmente: Inammissibile per estraneità di materia limitatamente al comma 1, lettera c)",
+"solo parziale"
+],
+[
+"77.077",
+"Ammissibile",
+"",
+"->",
+"Inammissibile",
+"Inammissibile per carenza o inidoneità della compensazione (e per estraneità di materia limitatamente alla lettera m))",
+"parziale+copertura"
+],
+[
+"78.3",
+"Ammissibile",
+"Parzialmente: Inammissibile per estraneità di materia limitatamente alla lettera e",
+"->",
+"Ammissibile",
+"Parzialmente: Inammissibile per estraneità di materia limitatamente alla lettera e), capoversi da 5 a 11",
+"solo parziale"
+],
+[
+"78.4",
+"Ammissibile",
+"Parzialmente: Inammissibile per estraneità di materia limitatamente alla lettera c",
+"->",
+"Ammissibile",
+"Parzialmente: Inammissibile per estraneità di materia limitatamente alla lettera c), capoversi da 5 a 9",
+"solo parziale"
+],
+[
+"83.02",
+"Ammissibile",
+"",
+"->",
+"Inammissibile",
+"Inammissibile per carenza o inidoneità della compensazione",
+"copertura (bollettino)"
+],
+[
+"83.03",
+"Ammissibile",
+"",
+"->",
+"Inammissibile",
+"Inammissibile per carenza o inidoneità della compensazione",
+"copertura (bollettino)"
+],
+[
+"99.01",
+"Ammissibile",
+"Parzialmente: Inammissibile per estraneità di materia limitatamente al comma 2 e per carenza di compensazione",
+"->",
+"Inammissibile",
+"Inammissibile per carenza o inidoneità della compensazione (e per estraneità di materia limitatamente al comma 2)",
+"parziale+copertura"
+],
+[
+"106.0109",
+"Ammissibile",
+"",
+"->",
+"Inammissibile",
+"Inammissibile per estraneità di materia",
+"materia (bollettino)"
+],
+[
+"108.027",
+"Ammissibile",
+"",
+"->",
+"Inammissibile",
+"Inammissibile per estraneità di materia",
+"materia (bollettino)"
+],
+[
+"110.08",
+"Ammissibile",
+"",
+"->",
+"Inammissibile",
+"Inammissibile per carenza o inidoneità della compensazione",
+"copertura (bollettino)"
+],
+[
+"108.27",
+"Inammissibile",
+"Inammissibile per estraneità di materia",
+"->",
+"Ammissibile",
+"",
+"refuso sito 108.27/108.027"
+],
+[
+"042.02",
+"Inammissibile",
+"Inammissibile per carenza di compensazione",
+"->",
+"Ammissibile",
+"",
+"riesame: riammesso"
+],
+[
+"10.012",
+"Inammissibile",
+"Inammissibile per estraneità di materia",
+"->",
+"Ammissibile",
+"",
+"riesame: riammesso"
+],
+[
+"103.028",
+"Inammissibile",
+"Inammissibile per carenza di compensazione",
+"->",
+"Ammissibile",
+"",
+"riesame: riammesso"
+],
+[
+"103.040",
+"Inammissibile",
+"Inammissibile per estraneità di materia",
+"->",
+"Ammissibile",
+"",
+"riesame: riammesso"
+],
+[
+"104.063",
+"Inammissibile",
+"Inammissibile per estraneità di materia",
+"->",
+"Ammissibile",
+"",
+"riesame: riammesso"
+],
+[
+"107.035",
+"Inammissibile",
+"Inammissibile per carenza di compensazione",
+"->",
+"Ammissibile",
+"",
+"riesame: riammesso"
+],
+[
+"107.060",
+"Inammissibile",
+"Inammissibile per estraneità di materia",
+"->",
+"Ammissibile",
+"",
+"riesame: riammesso"
+],
+[
+"11.030",
+"Inammissibile",
+"Inammissibile per estraneità di materia",
+"->",
+"Ammissibile",
+"",
+"riesame: riammesso"
+],
+[
+"112.030",
+"Inammissibile",
+"Inammissibile per estraneità di materia",
+"->",
+"Ammissibile",
+"",
+"riesame: riammesso"
+],
+[
+"112.031",
+"Inammissibile",
+"Inammissibile per estraneità di materia",
+"->",
+"Ammissibile",
+"",
+"riesame: riammesso"
+],
+[
+"119.027",
+"Inammissibile",
+"Inammissibile per estraneità di materia",
+"->",
+"Ammissibile",
+"",
+"riesame: riammesso"
+],
+[
+"119.9",
+"Inammissibile",
+"Inammissibile per inidoneità della compensazione",
+"->",
+"Ammissibile",
+"",
+"riesame: riammesso"
+],
+[
+"12.048",
+"Inammissibile",
+"Inammissibile per carenza di compensazione",
+"->",
+"Ammissibile",
+"",
+"riesame: riammesso"
+],
+[
+"12.054",
+"Inammissibile",
+"Inammissibile per carenza di compensazione",
+"->",
+"Ammissibile",
+"",
+"riesame: riammesso"
+],
+[
+"124.01",
+"Inammissibile",
+"Inammissibile per carenza di compensazione",
+"->",
+"Ammissibile",
+"",
+"riesame: riammesso"
+],
+[
+"124.16",
+"Inammissibile",
+"Inammissibile per carenza di compensazione",
+"->",
+"Ammissibile",
+"",
+"riesame: riammesso"
+],
+[
+"125.045",
+"Inammissibile",
+"Inammissibile per estraneità di materia",
+"->",
+"Ammissibile",
+"",
+"riesame: riammesso"
+],
+[
+"125.050",
+"Inammissibile",
+"Inammissibile per estraneità di materia",
+"->",
+"Ammissibile",
+"",
+"riesame: riammesso"
+],
+[
+"129.023",
+"Inammissibile",
+"Inammissibile per estraneità di materia",
+"->",
+"Ammissibile",
+"",
+"riesame: riammesso"
+],
+[
+"13.01",
+"Inammissibile",
+"Inammissibile per estraneità di materia",
+"->",
+"Ammissibile",
+"",
+"riesame: riammesso"
+],
+[
+"130.031",
+"Inammissibile",
+"Inammissibile per compensazione inidonea limitatamente al comma 2",
+"->",
+"Ammissibile",
+"Parzialmente: Inammissibile per carenza o inidoneità della compensazione, salvo la parte riammessa il 24/11 (limitatamente al comma 1)",
+"riesame: riammesso in parte"
+],
+[
+"14.0109",
+"Inammissibile",
+"Inammissibile per carenza di compensazione",
+"->",
+"Ammissibile",
+"",
+"riesame: riammesso"
+],
+[
+"14.0110",
+"Inammissibile",
+"Inammissibile per carenza di compensazione",
+"->",
+"Ammissibile",
+"",
+"riesame: riammesso"
+],
+[
+"14.02",
+"Inammissibile",
+"Inammissibile per carenza di compensazione",
+"->",
+"Ammissibile",
+"",
+"riesame: riammesso"
+],
+[
+"14.03",
+"Inammissibile",
+"Inammissibile per carenza di compensazione limitatamente ai commi 2, lettere b",
+"->",
+"Ammissibile",
+"Parzialmente: Inammissibile per carenza o inidoneità della compensazione, salvo la parte riammessa il 24/11 (limitatamente ai commi 1, 2, lettera a), 3, 6, 7, 8, 9, 10, 11, 12 e 13)",
+"riesame: riammesso in parte"
+],
+[
+"17.2",
+"Inammissibile",
+"Inammissibile per carenza di compensazione",
+"->",
+"Ammissibile",
+"",
+"riesame: riammesso"
+],
+[
+"17.7",
+"Inammissibile",
+"Inammissibile per carenza di compensazione",
+"->",
+"Ammissibile",
+"",
+"riesame: riammesso"
+],
+[
+"17.8",
+"Inammissibile",
+"Inammissibile per carenza di compensazione",
+"->",
+"Ammissibile",
+"",
+"riesame: riammesso"
+],
+[
+"17.9",
+"Inammissibile",
+"Inammissibile per carenza di compensazione",
+"->",
+"Ammissibile",
+"",
+"riesame: riammesso"
+],
+[
+"18.02",
+"Inammissibile",
+"Inammissibile per inidoneità della compensazione",
+"->",
+"Ammissibile",
+"",
+"riesame: riammesso"
+],
+[
+"22.01",
+"Inammissibile",
+"Inammissibile per carenza di compensazione",
+"->",
+"Ammissibile",
+"",
+"riesame: riammesso"
+],
+[
+"22.02",
+"Inammissibile",
+"Inammissibile per carenza di compensazione",
+"->",
+"Ammissibile",
+"",
+"riesame: riammesso"
+],
+[
+"22.03",
+"Inammissibile",
+"Inammissibile per carenza di compensazione",
+"->",
+"Ammissibile",
+"",
+"riesame: riammesso"
+],
+[
+"23.05",
+"Inammissibile",
+"Inammissibile per carenza di compensazione",
+"->",
+"Ammissibile",
+"",
+"riesame: riammesso"
+],
+[
+"23.21",
+"Inammissibile",
+"Inammissibile per carenza di compensazione",
+"->",
+"Ammissibile",
+"",
+"riesame: riammesso"
+],
+[
+"26.01",
+"Inammissibile",
+"Inammissibile per carenza di compensazione",
+"->",
+"Ammissibile",
+"",
+"riesame: riammesso"
+],
+[
+"36.05",
+"Inammissibile",
+"Inammissibile per carenza di compensazione",
+"->",
+"Ammissibile",
+"",
+"riesame: riammesso"
+],
+[
+"38.010",
+"Inammissibile",
+"Inammissibile per estraneità di materia",
+"->",
+"Ammissibile",
+"",
+"riesame: riammesso"
+],
+[
+"41.013",
+"Inammissibile",
+"Inammissibile per carenza di compensazione limitatamente al comma 3",
+"->",
+"Ammissibile",
+"Parzialmente: Inammissibile per carenza o inidoneità della compensazione, salvo la parte riammessa il 24/11 (limitatamente ai commi 1, 2, 4 e 5)",
+"riesame: riammesso in parte"
+],
+[
+"41.016",
+"Inammissibile",
+"Inammissibile per carenza di compensazione",
+"->",
+"Ammissibile",
+"",
+"riesame: riammesso"
+],
+[
+"41.017",
+"Inammissibile",
+"Inammissibile per carenza di compensazione",
+"->",
+"Ammissibile",
+"",
+"riesame: riammesso"
+],
+[
+"41.026",
+"Inammissibile",
+"Inammissibile per estraneità di materia",
+"->",
+"Ammissibile",
+"",
+"riesame: riammesso"
+],
+[
+"41.027",
+"Inammissibile",
+"Inammissibile per estraneità di materia",
+"->",
+"Ammissibile",
+"",
+"riesame: riammesso"
+],
+[
+"43.1",
+"Inammissibile",
+"Inammissibile per carenza di compensazione",
+"->",
+"Ammissibile",
+"",
+"riesame: riammesso"
+],
+[
+"45.018",
+"Inammissibile",
+"Inammissibile per carenza di compensazione",
+"->",
+"Ammissibile",
+"",
+"riesame: riammesso"
+],
+[
+"47.038",
+"Inammissibile",
+"Inammissibile per carenza di compensazione",
+"->",
+"Ammissibile",
+"",
+"riesame: riammesso"
+],
+[
+"47.039",
+"Inammissibile",
+"Inammissibile per carenza di compensazione",
+"->",
+"Ammissibile",
+"",
+"riesame: riammesso"
+],
+[
+"47.040",
+"Inammissibile",
+"Inammissibile per carenza di compensazione",
+"->",
+"Ammissibile",
+"",
+"riesame: riammesso"
+],
+[
+"47.20",
+"Inammissibile",
+"Inammissibile per carenza di compensazione limitatamente al comma 10- ter",
+"->",
+"Ammissibile",
+"Parzialmente: Inammissibile per carenza o inidoneità della compensazione, salvo la parte riammessa il 24/11 (limitatamente ai commi 10-bis e 10-quater)",
+"riesame: riammesso in parte"
+],
+[
+"5.11",
+"Inammissibile",
+"Inammissibile per carenza di compensazione",
+"->",
+"Ammissibile",
+"",
+"riesame: riammesso"
+],
+[
+"5.64",
+"Inammissibile",
+"Inammissibile per carenza di compensazione",
+"->",
+"Ammissibile",
+"",
+"riesame: riammesso"
+],
+[
+"55.012",
+"Inammissibile",
+"Inammissibile per estraneità di materia",
+"->",
+"Ammissibile",
+"",
+"riesame: riammesso"
+],
+[
+"56.015",
+"Inammissibile",
+"Inammissibile per estraneità di materia",
+"->",
+"Ammissibile",
+"",
+"riesame: riammesso"
+],
+[
+"56.016",
+"Inammissibile",
+"Inammissibile per estraneità di materia",
+"->",
+"Ammissibile",
+"",
+"riesame: riammesso"
+],
+[
+"56.019",
+"Inammissibile",
+"Inammissibile per estraneità di materia",
+"->",
+"Ammissibile",
+"",
+"riesame: riammesso"
+],
+[
+"56.020",
+"Inammissibile",
+"Inammissibile per estraneità di materia",
+"->",
+"Ammissibile",
+"",
+"riesame: riammesso"
+],
+[
+"59.15",
+"Inammissibile",
+"Inammissibile per carenza di compensazione",
+"->",
+"Ammissibile",
+"",
+"riesame: riammesso"
+],
+[
+"59.16",
+"Inammissibile",
+"Inammissibile per carenza di compensazione",
+"->",
+"Ammissibile",
+"",
+"riesame: riammesso"
+],
+[
+"61.02",
+"Inammissibile",
+"Inammissibile per carenza di compensazione",
+"->",
+"Ammissibile",
+"",
+"riesame: riammesso"
+],
+[
+"61.03",
+"Inammissibile",
+"Inammissibile per carenza di compensazione",
+"->",
+"Ammissibile",
+"",
+"riesame: riammesso"
+],
+[
+"61.04",
+"Inammissibile",
+"Inammissibile per carenza di compensazione",
+"->",
+"Ammissibile",
+"",
+"riesame: riammesso"
+],
+[
+"62.0131",
+"Inammissibile",
+"Inammissibile per estraneità di materia",
+"->",
+"Ammissibile",
+"",
+"riesame: riammesso"
+],
+[
+"62.0132",
+"Inammissibile",
+"Inammissibile per estraneità di materia",
+"->",
+"Ammissibile",
+"",
+"riesame: riammesso"
+],
+[
+"62.0139",
+"Inammissibile",
+"Inammissibile per carenza di compensazione",
+"->",
+"Ammissibile",
+"",
+"riesame: riammesso"
+],
+[
+"64.055",
+"Inammissibile",
+"Inammissibile per carenza di compensazione",
+"->",
+"Ammissibile",
+"",
+"riesame: riammesso"
+],
+[
+"66.037",
+"Inammissibile",
+"Inammissibile per carenza di compensazione",
+"->",
+"Ammissibile",
+"",
+"riesame: riammesso"
+],
+[
+"66.080",
+"Inammissibile",
+"Inammissibile per estraneità di materia",
+"->",
+"Ammissibile",
+"",
+"riesame: riammesso"
+],
+[
+"66.84",
+"Inammissibile",
+"Inammissibile per carenza di compensazione",
+"->",
+"Ammissibile",
+"",
+"riesame: riammesso"
+],
+[
+"66.98",
+"Inammissibile",
+"Inammissibile per carenza di compensazione",
+"->",
+"Ammissibile",
+"",
+"riesame: riammesso"
+],
+[
+"67.03",
+"Inammissibile",
+"Inammissibile per estraneità di materia",
+"->",
+"Ammissibile",
+"",
+"riesame: riammesso"
+],
+[
+"67.08",
+"Inammissibile",
+"Inammissibile per carenza di compensazione",
+"->",
+"Ammissibile",
+"",
+"riesame: riammesso"
+],
+[
+"69.0177",
+"Inammissibile",
+"Inammissibile per carenza di compensazione",
+"->",
+"Ammissibile",
+"",
+"riesame: riammesso"
+],
+[
+"69.019",
+"Inammissibile",
+"Inammissibile per carenza di compensazione",
+"->",
+"Ammissibile",
+"",
+"riesame: riammesso"
+],
+[
+"69.0222",
+"Inammissibile",
+"Inammissibile per estraneità di materia",
+"->",
+"Ammissibile",
+"",
+"riesame: riammesso"
+],
+[
+"69.0229",
+"Inammissibile",
+"Inammissibile per estraneità di materia",
+"->",
+"Ammissibile",
+"",
+"riesame: riammesso"
+],
+[
+"69.0231",
+"Inammissibile",
+"Inammissibile per estraneità di materia",
+"->",
+"Ammissibile",
+"",
+"riesame: riammesso"
+],
+[
+"69.0232",
+"Inammissibile",
+"Inammissibile per estraneità di materia",
+"->",
+"Ammissibile",
+"",
+"riesame: riammesso"
+],
+[
+"69.0295",
+"Inammissibile",
+"Inammissibile per carenza di compensazione",
+"->",
+"Ammissibile",
+"",
+"riesame: riammesso"
+],
+[
+"69.093",
+"Inammissibile",
+"Inammissibile per carenza di compensazione",
+"->",
+"Ammissibile",
+"",
+"riesame: riammesso"
+],
+[
+"69.113",
+"Inammissibile",
+"Inammissibile per carenza di compensazione limitatamente al secondo periodo periodo del capoverso 3- bis",
+"->",
+"Ammissibile",
+"Parzialmente: Inammissibile per carenza o inidoneità della compensazione, salvo la parte riammessa il 24/11 (limitatamente al primo periodo del capoverso 3-bis)",
+"riesame: riammesso in parte"
+],
+[
+"69.143",
+"Inammissibile",
+"Inammissibile per estraneità di materia",
+"->",
+"Ammissibile",
+"",
+"riesame: riammesso"
+],
+[
+"69.144",
+"Inammissibile",
+"Inammissibile per estraneità di materia",
+"->",
+"Ammissibile",
+"",
+"riesame: riammesso"
+],
+[
+"69.251",
+"Inammissibile",
+"Inammissibile per carenza di compensazione",
+"->",
+"Ammissibile",
+"",
+"riesame: riammesso"
+],
+[
+"75.031",
+"Inammissibile",
+"Inammissibile per estraneità di materia",
+"->",
+"Ammissibile",
+"",
+"riesame: riammesso"
+],
+[
+"75.035",
+"Inammissibile",
+"Inammissibile per estraneità di materia",
+"->",
+"Ammissibile",
+"",
+"riesame: riammesso"
+],
+[
+"75.036",
+"Inammissibile",
+"Inammissibile per estraneità di materia",
+"->",
+"Ammissibile",
+"",
+"riesame: riammesso"
+],
+[
+"75.037",
+"Inammissibile",
+"Inammissibile per estraneità di materia",
+"->",
+"Ammissibile",
+"",
+"riesame: riammesso"
+],
+[
+"77.01",
+"Inammissibile",
+"Inammissibile per estraneità di materia",
+"->",
+"Ammissibile",
+"",
+"riesame: riammesso"
+],
+[
+"77.070",
+"Inammissibile",
+"Inammissibile per estraneità di materia",
+"->",
+"Ammissibile",
+"",
+"riesame: riammesso"
+],
+[
+"77.075",
+"Inammissibile",
+"Inammissibile per carenza di compensazione",
+"->",
+"Ammissibile",
+"",
+"riesame: riammesso"
+],
+[
+"77.077",
+"Inammissibile",
+"Inammissibile per carenza o inidoneità della compensazione (e per estraneità di materia limitatamente alla lettera m))",
+"->",
+"Ammissibile",
+"Parzialmente: Inammissibile per estraneità di materia limitatamente alla lettera m)",
+"riesame: resta parziale"
+],
+[
+"77.44",
+"Inammissibile",
+"Inammissibile per carenza di compensazione",
+"->",
+"Ammissibile",
+"",
+"riesame: riammesso"
+],
+[
+"77.49",
+"Inammissibile",
+"Inammissibile per estraneità di materia",
+"->",
+"Ammissibile",
+"",
+"riesame: riammesso"
+],
+[
+"78.011",
+"Inammissibile",
+"Inammissibile per estraneità di materia",
+"->",
+"Ammissibile",
+"",
+"riesame: riammesso"
+],
+[
+"78.018",
+"Inammissibile",
+"Inammissibile per estraneità di materia",
+"->",
+"Ammissibile",
+"",
+"riesame: riammesso"
+],
+[
+"85.015",
+"Inammissibile",
+"Inammissibile per carenza di compensazione",
+"->",
+"Ammissibile",
+"",
+"riesame: riammesso"
+],
+[
+"86.044",
+"Inammissibile",
+"Inammissibile per estraneità di materia",
+"->",
+"Ammissibile",
+"",
+"riesame: riammesso"
+],
+[
+"88.02",
+"Inammissibile",
+"Inammissibile per estraneità di materia",
+"->",
+"Ammissibile",
+"",
+"riesame: riammesso"
+]
+],
+"solo_sito": [
+"106.0119",
+"106.0120"
+],
+"n23": 1698,
+"n24": 1600
+}

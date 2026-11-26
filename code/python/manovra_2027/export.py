@@ -26,13 +26,13 @@ for r in R:
     mot=r['motivo'].replace('Inammissibile per ','').replace('Parzialmente: ','parzialmente inammissibile: ')
     cat='Ammissibile'
     if r['stato']=='Inammissibile':
-        cat='Estraneità di materia' if 'estraneità' in mot else 'Compensazione'
+        cat='Estraneità di materia' if mot.startswith('estraneità') else 'Compensazione'
     out.append(dict(i=r['id'],a=r['art'],p=r['primo'],g=r['gruppo'],c=r['coal'],
         f=[[x['n'],x['g']] for x in r['firmInfo']],ce=r['circ'],cf=r['circFull'],u=r['uni'] or '',
-        s=cat,pz=1 if 'limitatamente' in mot else 0,m=mot,e=r['importo'],ey=r.get('importoAnno',''),e3=r['importo3'],
+        s=cat,pz=1 if ('limitatamente' in mot and '(e per estraneità' not in mot) else 0,m=mot,e=r['importo'],ey=r.get('importoAnno',''),e3=r['importo3'],
         l=[x['nome'] for x in r['luoghi']],pr=r['province'],rg=r['regTerr'],
         loc=1 if loc else 0,po=r['portata'],th=r['temi'],t=r['titolo'] or r['titoloAuto'],ta=0 if r['titolo'] else 1,
         x=idx[tt],d=dup,id_=r['ident'],cv=cov(t),co=r.get('nelCollegio',''),
-        pm=(sorted(set(p['provincia'] for p in r.get('luoghiMappa',[]))) if (r.get('luoghiMappa') and r['localistico'] and not (len(r['luoghiMappa'])>=6 and len(set(p['regione'] for p in r['luoghiMappa']))>=3)) else [])))
+        rx=('R' if 'resta' in r.get('riammesso','') else ('S' if r.get('riammesso') else '')),ns=1 if r.get('nota_esito') else 0,pm=(sorted(set(p['provincia'] for p in r.get('luoghiMappa',[]))) if (r.get('luoghiMappa') and r['localistico'] and not (len(r['luoghiMappa'])>=6 and len(set(p['regione'] for p in r['luoghiMappa']))>=3)) else [])))
 s=json.dumps({'texts':texts,'rows':out},ensure_ascii=False,separators=(',',':'))
 open('/home/claude/emend/site/emendamenti.json','w').write(s); print(len(s)/1e6)
