@@ -435,10 +435,7 @@ td.amt{text-align:right;font-family:var(--f-mono);font-size:12.5px;white-space:n
     <h3 class="vh3">Tutti i partiti a confronto</h3>
     <p class="sub">Per ogni partito ordino le province in base ai voti che ha preso nel 2022 e prendo due gruppi: il terzo di province dove è più forte e il terzo dove è più debole. Per ciascun gruppo la tabella riporta in quante province il partito ha chiesto almeno un finanziamento e quanti euro per abitante ha chiesto. Se un partito chiede di più nelle sue roccaforti, i valori sotto «Dove il partito è più forte» sono più alti di quelli sotto «Dove il partito è più debole». La colonna «Legame voti–soldi» riassume il confronto su tutte le province con una correlazione di rango (Spearman): positiva vuol dire più voti, più soldi chiesti; vicina a zero, nessun legame. Clicca un partito per vederlo nel grafico.</p>
     <div class="tablewrap"><table class="vtab" id="vtab"></table></div>
-    <h3 class="vh3">Province contese o sicure?</h3>
-    <p class="sub">Province divise in tre gruppi uguali secondo il distacco tra centrodestra (FdI, Lega, FI, Noi Moderati) e centrosinistra (PD, AVS, +Europa) nel 2022. Se i deputati puntassero sugli indecisi, le province contese dovrebbero ricevere più richieste; se puntassero sugli elettori fedeli, quelle sicure.</p>
-    <div id="vswing"></div>
-    <div class="mapshare"><span class="seglab">Dati</span><button class="btn" type="button" id="vcsv">Scarica CSV province (partito scelto)</button><span class="dlnote">Voti 2022: Ministero dell’Interno, Eligendo. Popolazione: ISTAT 1/1/2025.</span></div>
+    <div class="mapshare"><span class="seglab">Dati</span><button class="btn" type="button" id="vcsv">Scarica i dati del grafico (CSV)</button><span class="dlnote">Voti 2022: Ministero dell’Interno, Eligendo. Popolazione: ISTAT 1/1/2025.</span></div>
     <p class="sub vnote"><b>Come leggerlo.</b> È una correlazione, non una prova di causa: il Sud vota di più M5S e riceve anche più richieste in generale. Gli emendamenti contati sono quelli che citano un luogo preciso; se ne citano più d’uno, i soldi sono divisi in parti uguali. Nel 2022 Azione e Italia Viva si presentarono insieme, quindi qui sono uniti. Il gruppo Misto è escluso. Manca la Valle d’Aosta, che non ha voto di lista.</p>
   </section>
 </div>
@@ -800,13 +797,14 @@ function drawMapBase(){
   if(z)svg.selectAll('text.acr').data(feats).join('text').attr('class','acr').attr('x',f=>path.centroid(f)[0]).attr('y',f=>path.centroid(f)[1]+4).text(f=>f.properties.prov_acr);
 }
 function leadPct(o){const k=$('#mmis').value==='n'?o.nG:o.byG;const t=Object.values(k).reduce((a,b)=>a+b,0)||1;const g=topParty(o);return Math.round((k[g]||0)/t*100)+'%'}
-function stackHTML(o){const k=$('#mmis').value==='n'?o.nG:o.byG;const t=Object.values(k).reduce((a,b)=>a+b,0)||1;return '<span class="stack">'+ORDER.filter(g=>k[g]).map(g=>`<i style="width:${(k[g]/t*100).toFixed(2)}%;background:${PCOL[g]||'#888'}" title="${esc(g)}: ${fmtV(k[g])}"></i>`).join('')+'</span>'}
+function fmtVo(v,o){const m=$('#mmis').value;if(m==='pc')return POP&&POP[o.p]?fmtPC(v/POP[o.p]):fmtM(v);return fmtV(v)}
+function stackHTML(o){const k=$('#mmis').value==='n'?o.nG:o.byG;const t=Object.values(k).reduce((a,b)=>a+b,0)||1;return '<span class="stack">'+ORDER.filter(g=>k[g]).map(g=>`<i style="width:${(k[g]/t*100).toFixed(2)}%;background:${PCOL[g]||'#888'}" title="${esc(g)}: ${fmtVo(k[g],o)}"></i>`).join('')+'</span>'}
 function renderMapSide(){
   const A=mapAggC;const side=$('#mapside');
   if(mapSel&&A.P[mapSel]){const o=A.P[mapSel];const k=$('#mmis').value==='n'?o.nG:o.byG;
     const rows=o.rows.slice().sort((a,b)=>(b.e3||b.e||0)-(a.e3||a.e||0));
     side.innerHTML=`<h3>${esc(mapSel)}</h3><div class="mapsum"><b>${fmtE(o.soldi)}</b> chiesti · <b>${nf(o.n)}</b> emendamenti</div>${stackHTML(o)}
-     <div class="maplegend">${Object.keys(k).sort((a,b)=>k[b]-k[a]).map(g=>`<span><i class="sw" style="background:${PCOL[g]}"></i>${esc(g)} ${fmtV(k[g])}</span>`).join('')}</div>
+     <div class="maplegend">${Object.keys(k).sort((a,b)=>k[b]-k[a]).map(g=>`<span><i class="sw" style="background:${PCOL[g]}"></i>${esc(g)} ${fmtVo(k[g],o)}</span>`).join('')}</div>
      <div class="amlist">${rows.slice(0,8).map(r=>`<div class="it"><b>${esc((r.id_||'')+r.i)}</b> ${esc(r.t.slice(0,110))}<div class="meta">${esc(r.p)} (${esc(r.g)}) · ${fmtE(r.e3||r.e)} · ${r.s==='Ammissibile'?'ammissibile':'inammissibile'}</div></div>`).join('')}</div>
      <div style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn pri" type="button" id="mapgo">Apri nell'elenco</button><button class="btn" type="button" id="mapback">Torna alla classifica province</button></div>`;
     $('#mapgo').onclick=()=>{const g=$('#mg').value,es=$('#mes').value;const o2={floc:true,fp:Object.keys(PALIAS).find(k=>PALIAS[k]===mapSel)||mapSel};if(g)o2.fg=g;const dep_=$('#mdep').value.trim();if(dep_)o2.fw=dep_;if(es==='A')o2.fs='Ammissibile';if(es==='I')o2.fs='INAMM';if(es==='E')o2.fs='Estraneità di materia';setOnly(o2)};
@@ -989,10 +987,10 @@ function renderVoti(){if(!D)return;if(!VOTI){if(vLoading)return;vLoading=true;$(
   // contese vs sicure
   const K=VOTI.K,P=VOTI.prov,ix=k=>K.indexOf(k);const amm=$('#vamm').checked;const E={},N={};
   D.forEach(r=>{if(r.g==='Governo'||!r.pm.length)return;if(amm&&r.s!=='Ammissibile')return;const amt=r.e3||r.e||0;r.pm.forEach(p0=>{const p=PALIAS[p0]||p0;E[p]=(E[p]||0)+amt/r.pm.length;N[p]=(N[p]||0)+1})});
-  const pr=Object.keys(P).filter(p=>VPOP[p]).map(p=>{const v=P[p];const cdx=v[ix('FdI')]+v[ix('Lega')]+v[ix('FI')]+v[ix('NM')],csx=v[ix('PD')]+v[ix('AVS')]+v[ix('PiuE')];return {p,m:Math.abs(cdx-csx)/v[0]*100,eur:E[p]||0,n:N[p]||0,pop:VPOP[p]}}).sort((a,b)=>a.m-b.m);
+  const pr=Object.keys(P).filter(p=>VPOP[p]).map(p=>{const v=P[p];const cdx=v[ix('FdI')]+v[ix('Lega')]+v[ix('FI')]+v[ix('NM')],csx=v[ix('PD')]+v[ix('AVS')]+v[ix('PiuE')],m5=v[ix('M5S')];const t=[cdx,csx,m5].sort((a,b)=>b-a);return {p,m:(t[0]-t[1])/v[0]*100,eur:E[p]||0,n:N[p]||0,pop:VPOP[p]}}).sort((a,b)=>a.m-b.m);
   const t3=Math.floor(pr.length/3);const grp=[['Contese',pr.slice(0,t3)],['Intermedie',pr.slice(t3,pr.length-t3)],['Sicure',pr.slice(pr.length-t3)]].map(([n,a])=>({n,pc:a.reduce((x,r)=>x+r.eur,0)/a.reduce((x,r)=>x+r.pop,0),pct:a.filter(r=>r.n).length/a.length*100,mMin:a[0].m,mMax:a[a.length-1].m}));
   const mx=Math.max(...grp.map(x=>x.pc))||1;
-  $('#vswing').innerHTML='<div class="swb">'+grp.map(x=>`<span>${x.n}<br><small class="sub">distacco ${Math.round(x.mMin)}–${Math.round(x.mMax)} punti</small></span><span class="tr"><i style="width:${(x.pc/mx*100).toFixed(1)}%"></i></span><span class="sv"><b>${pcF(x.pc)}</b> per abitante · ${Math.round(x.pct)}% con richieste</span>`).join('')+'</div>';
+  if($('#vswing'))$('#vswing').innerHTML='<div class="swb">'+grp.map(x=>`<span>${x.n}<br><small class="sub">distacco ${Math.round(x.mMin)}–${Math.round(x.mMax)} punti</small></span><span class="tr"><i style="width:${(x.pc/mx*100).toFixed(1)}%"></i></span><span class="sv"><b>${pcF(x.pc)}</b> per abitante · ${Math.round(x.pct)}% con richieste</span>`).join('')+'</div>';
   window._vrows=rows}
 $('#vamm').onchange=()=>renderVoti();
 $('#vcsv').onclick=()=>{if(!VOTI||!window._vrows)return;const g=VG.find(x=>x.k===vSel);const rows=window._vrows.slice().sort((a,b)=>b.pc-a.pc);
@@ -1018,7 +1016,7 @@ function renderAnalisi(){if(!AN){if(anLoading)return;anLoading=true;fetch('anali
    `<b>Euro per abitante:</b> somme chieste nel 2027–29 divise per i residenti ISTAT al 1/1/2025, trasformate con asinh (gestisce gli zeri). Tra le coppie con richiesta, media ${nf(Math.round(d.pc_mean_pos))} € per abitante.`,
    `<b>Voti 2022:</b> quota del partito sui voti di lista alla Camera, in unità di 10 punti percentuali (Ministero dell’Interno, Eligendo). Media ${nfit(d.share_mean,1)}%.`,
    `<b>Deputato nel collegio:</b> quota degli elettori della provincia che vivono in un collegio plurinominale dove il partito ha almeno un deputato in carica (0–1). Media ${nfit(d.home_mean,2)}.`,
-   `<b>Competitività:</b> meno il distacco tra centrodestra e centrosinistra nel 2022, in unità di 10 punti: valori più alti = provincia più contesa.`].map(x=>'<li>'+x+'</li>').join('');
+   `<b>Competitività:</b> meno il distacco nel 2022 tra le prime due forze (centrodestra, centrosinistra o M5S), in unità di 10 punti: valori più alti = provincia più contesa.`].map(x=>'<li>'+x+'</li>').join('');
   // tabella
   const cols=M.map(m=>m.label);const yLab={any:'Richiesta (0/1)',ihs:'asinh(€ per ab.)',ihs_a:'asinh(€ per ab.), solo amm.'};
   const cell=(m,k)=>{const c=m.coefs[k];return c?`${nfit(c.b,3)}${stars(c.b,c.se)}`:''},cse=(m,k)=>{const c=m.coefs[k];return c?`(${nfit(c.se,3)})`:''};
@@ -1057,9 +1055,9 @@ function renderAnalisi(){if(!AN){if(anLoading)return;anLoading=true;fetch('anali
    `<b>Valori estremi e solo ammissibili:</b> colonne (6) e (7) della Tabella 1.`].map(x=>'<li>'+x+'</li>').join('');
   $('#ainterp').innerHTML=`<p><b>Elettore fedele, ma su scala regionale.</b> Nelle colonne (1)–(7) il coefficiente sui voti è positivo, stabile e preciso: ${pp(m2.b)} punti di probabilità per ogni 10 punti di voto. Sugli euro per abitante il risultato regge togliendo Taranto e Siracusa (colonna 6: ${nfit(M[5].coefs.share10.b,2)} contro ${nfit(M[4].coefs.share10.b,2)}) e con i soli emendamenti ammissibili (colonna 7: ${nfit(M[6].coefs.share10.b,2)}). Con effetti fissi partito × regione (colonna 8) però il coefficiente è ${nfit(m8.share10.b*100,1)} punti e non distinguibile da zero. La correlazione viene quindi dal confronto tra regioni: il M5S, per esempio, chiede soldi al Sud, dove è forte (${nfit(m5.b0*100,1)} punti senza effetti di regione), ma dentro la stessa regione non privilegia le province dove ha preso più voti (${nfit(m5.b*100,1)} punti).</p>
    <p><b>Contano gli eletti.</b> A parità di voti, una provincia interamente coperta da collegi in cui il partito ha un deputato ha ${nfit(m3.home.b*100,1)} punti di probabilità in più di ricevere una richiesta (colonna 3; ${nfit(m8.home.b*100,1)} nella colonna 8, al limite della significatività). È coerente con l’idea che le richieste seguano la geografia dei singoli deputati, come nei lavori italiani su trasferimenti e luogo di nascita o di elezione dei parlamentari.</p>
-   <p><b>Anche le province contese.</b> Dieci punti di distacco in meno tra le coalizioni si associano a ${nfit(m4.close.b*100,1)} punti di probabilità in più (colonna 4): un segnale compatibile con l’ipotesi degli elettori indecisi, da prendere con cautela perché la competitività cambia solo tra province.</p>`;
+   <p><b>Anche le province contese.</b> Dieci punti di distacco in meno tra le prime due forze si associano a ${nfit(m4.close.b*100,1)} punti di probabilità in più (colonna 4): un segnale compatibile con l’ipotesi degli elettori indecisi, da prendere con cautela perché la competitività cambia solo tra province.</p>`;
 }
-$('#acsv').onclick=()=>{if(!AN)return;const head=['Provincia','Regione','Partito','Voti 2022 (%)','Richiesta (0/1)','Euro chiesti 2027-2029','Euro per abitante','Quota elettori in collegi con deputato del partito','Distacco centrodestra-centrosinistra (punti)','Emendamenti','Popolazione 1/1/2025'];
+$('#acsv').onclick=()=>{if(!AN)return;const head=['Provincia','Regione','Partito','Voti 2022 (%)','Richiesta (0/1)','Euro chiesti 2027-2029','Euro per abitante','Quota elettori in collegi con deputato del partito','Distacco tra le prime due forze (punti)','Emendamenti','Popolazione 1/1/2025'];
   saveCSV($('#acsv'),'replica-voti2022-richieste-provincia-partito.csv',csvBuild(head,AN.panel))};
 
 /* ---- Traduzioni (IT di base; EN/ES/FR da i18n.json) ---- */

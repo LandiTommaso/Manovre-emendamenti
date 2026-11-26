@@ -190,6 +190,19 @@ def amounts(text, is_tab):
     if mx and tot and tot < mx: tot = None
     return mx, tot, (prof if (prof and not deltas) else {})
 
+
+_CUTRE = re.compile(r"(?:\n|\.\s+|;\s+)(?:Conseguentemente|Agli oneri|Ai relativi oneri|Ai maggiori oneri|All.onere|Alla copertura|Ai fini della copertura|Per la copertura)")
+def amounts_body(text, is_tab):
+    """come amounts(), ma se la clausola di copertura gonfia le cifre usa solo la parte dispositiva
+    (prima di «Conseguentemente», «Agli oneri», ecc.), purché lì ci sia un profilo annuo di spesa."""
+    r = amounts(text, is_tab)
+    if is_tab: return r
+    body = _CUTRE.split(text)[0]
+    if len(body) < len(text) - 20:
+        n = amounts(body, False)
+        if n[0] and n[0] >= 1e5 and n[2] and (n[1] or n[0]) < (r[1] or r[0] or 0): return n
+    return r
+
 # ---------- themes ----------
 THEMES = [
     ('Sanità', r'\bsanitar|\bospedal|\bmedic[oi]\b|\bmedici\b|infermier|\bSSN\b|\bfarmac|\bsalute\b|\bASL\b|pazient|malatti|vaccin|psicolog|oncolog|\bsangue\b|plasma|disabilità|epiless'),

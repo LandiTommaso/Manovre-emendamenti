@@ -252,6 +252,19 @@ THEMES = [
 ]
 THEMES = [(n, re.compile(p)) for n, p in THEMES]
 
+
+_CUTRE = re.compile(r"(?:\n|\.\s+|;\s+)(?:Conseguentemente|Agli oneri|Ai relativi oneri|Ai maggiori oneri|All.onere|Alla copertura|Ai fini della copertura|Per la copertura)")
+def amounts_body(text, is_tab):
+    """come amounts(), ma se la clausola di copertura gonfia le cifre usa solo la parte dispositiva
+    (prima di «Conseguentemente», «Agli oneri», ecc.), purché lì ci sia un profilo annuo di spesa."""
+    r = amounts(text, is_tab)
+    if is_tab: return r
+    body = _CUTRE.split(text)[0]
+    if len(body) < len(text) - 20:
+        n = amounts(body, False)
+        if n[0] and n[0] >= 1e5 and n[2] and (n[1] or n[0]) < (r[1] or r[0] or 0): return n
+    return r
+
 def theme(title, text):
     s = (title or '') + ' ' + text[:2500]
     sc = []
@@ -319,7 +332,7 @@ while i < N:
     for p, a in arts:
         if p < start: art = a
     is_tab = grp[0][3].group(2).startswith('Tab')
-    amt, amt3, prof_ = amounts(text, is_tab)
+    amt, amt3, prof_ = amounts_body(text, is_tab)
     if prof_ and amt:
         ys = sorted(y for y, v in prof_.items() if abs(v - amt) < 1)
         allyrs = sorted(prof_)

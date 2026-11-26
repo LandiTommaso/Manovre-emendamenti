@@ -49,11 +49,12 @@ def money(gs, admissible=False):
             E[p] = E.get(p, 0) + amt / len(r['pm']); N[p] = N.get(p, 0) + 1
     return E, N
 
-# closeness: distacco CDX - CSX (punti percentuali)
+# closeness: distacco tra le prime due forze (centrodestra, centrosinistra, M5S), punti percentuali
 ix = K.index
 def margin(p):
     v = VP[p]; cdx = v[ix('FdI')] + v[ix('Lega')] + v[ix('FI')] + v[ix('NM')]; csx = v[ix('PD')] + v[ix('AVS')] + v[ix('PiuE')]
-    return abs(cdx - csx) / v[0] * 100
+    t = sorted([cdx, csx, v[ix('M5S')]], reverse=True)
+    return (t[0] - t[1]) / v[0] * 100
 
 rows = []
 for k, lab, gs, _ in PARTIES:
@@ -135,7 +136,7 @@ desc = dict(n=len(rows), provs=len(provs), parties=len(PARTIES), any_mean=float(
             collegi_con_deputati=sum(len(v) for v in dep.values()))
 panel = [[r['prov'], r['reg'], r['lab'], round(r['share'], 3), r['any'], round(r['eur']), round(r['pc'], 3), round(r['home'], 4), round(-r['close'] * 10, 3), r['n'], r['pop']] for r in rows]
 json.dump(dict(models=models, het=het, bins=bins, line=line, desc=desc, panel=panel,
-               panel_cols=['provincia', 'regione', 'partito', 'voti_2022_pct', 'richiesta_0_1', 'euro_2027_29', 'euro_per_abitante', 'quota_elettori_in_collegi_con_deputato', 'distacco_cdx_csx_punti', 'n_emendamenti', 'popolazione_2025']),
+               panel_cols=['provincia', 'regione', 'partito', 'voti_2022_pct', 'richiesta_0_1', 'euro_2027_29', 'euro_per_abitante', 'quota_elettori_in_collegi_con_deputato', 'distacco_prime_due_punti', 'n_emendamenti', 'popolazione_2025']),
           open(B + 'site/analisi.json', 'w'), ensure_ascii=False)
 for m in models:
     print(m['label'], m['y'], {k: (round(v['b'], 4), round(v['se'], 4)) for k, v in m['coefs'].items()}, 'R2', round(m['r2'], 3), 'N', m['n'], 'G', m['clusters'], 'mean', round(m['mean'], 3))

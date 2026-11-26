@@ -60,7 +60,7 @@ The paper documents five results. First, there is a robust positive association 
 
 Second, within regions the gradient runs largely through the geography of who was elected. I attribute each party's deputies to provinces through the 2022 list constituencies. Once the number of a party's deputies elected in a province is controlled for, the within-region vote-share coefficient falls from 7.5 to 3.7 points and loses significance, while each additional deputy raises the probability of a request by 9.9 points (Table~\ref{tab:mp}). Across Italy, both matter. This is the pattern predicted by a common-pool view in which individual legislators claim resources for their own constituency \citep{weingast1981,perssontabellini1999}, rather than by a centralised party strategy.
 
-Third, the association is driven by the opposition. Opposition parties (PD, M5S, AVS) ask for money where they are strong, whereas Fratelli d'Italia, the senior governing party, tables more local requests where it is relatively weaker (Table~\ref{tab:het}, Figure~\ref{fig:het}). Fourth, the gradient is steeper in provinces where the 2022 contest between the two coalitions was close, while the interaction with the 2027 budget, the last before the next general election, is imprecisely estimated.
+Third, the association is driven by the opposition. Opposition parties (PD, M5S, AVS) ask for money where they are strong, whereas Fratelli d'Italia, the senior governing party, tables more local requests where it is relatively weaker (Table~\ref{tab:het}, Figure~\ref{fig:het}). Fourth, the gradient is steeper in provinces where the 2022 contest between the two strongest forces was close, while the interaction with the 2027 budget, the last before the next general election, is imprecisely estimated.
 
 Fifth, what passes depends on who asks. A proposal by a majority legislator is 9.0 points more likely to be approved than one by the opposition, whose base approval rate is 2.9\% (Table~\ref{tab:approval}). Decomposing the process by stage shows that the premium is created at the vote, not at the admissibility filter. Majority proposals are \emph{less} often ruled admissible (69.7\% against 78.5\%), but once admitted 17.8\% of them pass against 3.7\% of opposition proposals (Figure~\ref{fig:stages}).
 
@@ -279,13 +279,13 @@ Figure~\ref{fig:het} plots the same estimates together with the within-region on
 
 \subsection{Contested provinces and the pre-election budget}
 
-Swing-voter models predict that parties target provinces where the election is close \citep{lindbeck1987,dixit1996}, and models of electoral uncertainty predict that behaviour may change as the next election approaches \citep{alesina1990}. I define a province as contested if the 2022 gap between the centre-right (FdI, Lega, FI, Noi Moderati) and the centre-left (PD, AVS, +Europa) list votes is below the median, and interact vote share with this indicator and with the 2027 budget, with party-by-budget and party-by-region effects. The gradient is 3.6 points (s.e.\ 2.8) in safe provinces and 6.2 points higher (s.e.\ 2.3) in contested ones. The interaction with the 2027 budget is 5.0 (s.e.\ 3.3) and the triple interaction -0.6 (s.e.\ 2.4). Parties ask for money where they are strong, more so where the contest is open, and there is no clear sign that the pre-election budget is different. With a single pre-election budget, this last comparison has little power.
+Swing-voter models predict that parties target provinces where the election is close \citep{lindbeck1987,dixit1996}, and models of electoral uncertainty predict that behaviour may change as the next election approaches \citep{alesina1990}. I define a province as contested if, in 2022, the gap between the two strongest of the centre-right (FdI, Lega, FI, Noi Moderati), the centre-left (PD, AVS, +Europa) and the M5S was below the median. The M5S ran alone and finished ahead of the centre-left in 27 of the 109 provinces, mostly in the South (first in 3, second in 24), so a gap between the centre-right and the centre-left would misclassify them. I then interact vote share with this indicator and with the 2027 budget, with party-by-budget and party-by-region effects. The gradient is 2.2 points (s.e.\ 2.7) in safe provinces and 7.3 points higher (s.e.\ 2.2) in contested ones. The interaction with the 2027 budget is 4.7 (s.e.\ 3.5) and the triple interaction 0.2 (s.e.\ 2.4). Parties ask for money where they are strong, more so where the contest is open, and there is no clear sign that the pre-election budget is different. With a single pre-election budget, this last comparison has little power.
 
 \subsection{What gets approved}
 
 I now move to the level of the single proposal and estimate the probability that a proposal is approved, using all proposals by majority and opposition legislators in the four first readings that have been voted (13,996 proposals, 499 first signatories). Table~\ref{tab:approval} reports linear probability models with chamber-by-budget fixed effects and standard errors clustered by first signatory.
 
-Majority status is the dominant predictor. A majority proposal is 9.0 points more likely to pass, against an opposition base rate of 2.9\% (column~1). In raw terms, 12.4\% of majority proposals and 2.9\% of opposition proposals were approved. Majority proposals are also more often ruled inadmissible (30.3\% against 21.5\%), consistent with majority members tabling many narrow requests that the leadership later filters. Local proposals are not significantly more likely to pass once the signatory's camp is accounted for (column~2). Proposals co-signed by more legislators are more likely to pass and those asking for more than 100 million euro less likely (column~3). Comparing proposals by the same legislator (column~4), local requests are 3.2 points more likely to pass than the same legislator's general proposals. Figure~\ref{fig:approval} shows the majority--opposition gap budget by budget.
+Majority status is the dominant predictor. A majority proposal is 9.0 points more likely to pass, against an opposition base rate of 2.9\% (column~1). In raw terms, 12.4\% of majority proposals and 2.9\% of opposition proposals were approved. Majority proposals are also more often ruled inadmissible (30.3\% against 21.5\%), consistent with majority members tabling many narrow requests that the leadership later filters. Local proposals are not significantly more likely to pass once the signatory's camp is accounted for (column~2). Proposals co-signed by more legislators are more likely to pass and those asking for more than 100 million euro less likely (column~3). Comparing proposals by the same legislator (column~4), local requests are 3.1 points more likely to pass than the same legislator's general proposals. Figure~\ref{fig:approval} shows the majority--opposition gap budget by budget.
 
 \begin{table}[htbp]\centering\footnotesize\setlength{\tabcolsep}{4pt}
 \begin{threeparttable}
@@ -294,16 +294,16 @@ Majority status is the dominant predictor. A majority proposal is 9.0 points mor
 \toprule
  & (1) & (2) & (3) & (4) \\
 \midrule
-Majority signatory & $9.00^{***}$ & $8.80^{***}$ & $8.78^{***}$ &  \\
+Majority signatory & $9.00^{***}$ & $8.80^{***}$ & $8.85^{***}$ &  \\
  & (1.05) & (1.06) & (1.01) &  \\
-Local proposal & & $1.66$ & $1.47$ & $3.16^{*}$ \\
+Local proposal & & $1.66$ & $1.39$ & $3.13^{*}$ \\
  & & (1.21) & (1.29) & (1.36) \\
-Majority $\times$ local & & $3.84$ & $3.70$ &  \\
+Majority $\times$ local & & $3.84$ & $3.81$ &  \\
  & & (3.56) & (3.53) &  \\
-log(1 + co-signatories) & & & $2.79^{***}$ & $4.11^{***}$ \\
+log(1 + co-signatories) & & & $2.71^{***}$ & $4.07^{***}$ \\
  & & & (0.67) & (0.78) \\
-Request $\geq$ 100 million euro & & & $-4.45^{***}$ & $-4.31^{***}$ \\
- & & & (0.48) & (0.52) \\[3pt]
+Request $\geq$ 100 million euro & & & $-4.26^{***}$ & $-4.11^{***}$ \\
+ & & & (0.46) & (0.51) \\[3pt]
 Chamber $\times$ budget FE & Yes & Yes & Yes & Yes \\
 Topic FE & No & No & Yes & Yes \\
 First-signatory FE & No & No & No & Yes \\

@@ -199,7 +199,7 @@ R("'Euro chiesti per abitante, 2027–29':'Euro chiesti 2027–29'", "'Euro chie
 R("const lab=mm_==='n'?['1','2','3','4–5','6–8','9–15',Lf('oltre {0}','15')]:(mm_==='pc'?[Lf('fino a {0}','10 €'),'10–50 €','50–100 €','100–250 €','250–500 €','500–'+k1+' €',Lf('oltre {0}',k1+' €')]:[Lf('fino a {0}','5'+mU),'5–20'+mU,'20–50'+mU,'50–100'+mU,'100–250'+mU,'250'+mU+'–1'+bU,Lf('oltre {0}','1'+bU)]);",
   "const thS=SC(mm_==='n'?TH_N:(mm_==='pc'?TH_PC:TH_SOLDI));const fv=v=>mm_==='n'?nf(v):(mm_==='pc'?nf(v)+' €':fmtM(v));const lab=[(mm_==='n'?'1–':'fino a ')+fv(thS[0])].concat(thS.slice(1).map((t,i)=>fv(thS[i])+'–'+fv(t))).concat(['oltre '+fv(thS[thS.length-1])]);")
 R("o.rows.slice().sort((a,b)=>(b.e3||b.e||0)-(a.e3||a.e||0))", "o.rows.slice().sort((a,b)=>(b.o==='A')-(a.o==='A')||(b.e3||b.e||0)-(a.e3||a.e||0))")
-R("${fmtE(r.e3||r.e)} · ${r.s==='Ammissibile'?'ammissibile':'inammissibile'}</div></div>", "${r.y} · ${esc(r.ra)} · ${fmtE(r.e3||r.e)} · ${r.s!=='Ammissibile'?'inammissibile':r.o==='A'?'<b>approvato</b>':'non approvato'}</div></div>")
+R("${fmtE(r.e3||r.e)} · ${r.s==='Ammissibile'?'ammissibile':'inammissibile'}</div></div>", "${r.y} · ${esc(r.ra)} · ${fmtE(r.e3||r.e)}${r.big?' (esclusa dalle somme)':''} · ${r.s!=='Ammissibile'?'inammissibile':r.o==='A'?'<b>approvato</b>':'non approvato'}</div></div>")
 R("if(es==='A')o2.fs='Ammissibile';if(es==='I')o2.fs='INAMM';if(es==='E')o2.fs='Estraneità di materia';setOnly(o2)};",
   "if(es==='AP')o2.fo='A';if(es==='A')o2.fs='Ammissibile';if(es==='I')o2.fs='INAMM';if(es==='E')o2.fs='Estraneità di materia';setOnly(o2)};")
 # classifica

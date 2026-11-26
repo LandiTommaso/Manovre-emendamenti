@@ -84,7 +84,7 @@ def cov(t):
     return 'Non indicata'
 def analyze(text, y0):
     T.set_years(y0)
-    amt, amt3, prof = T.amounts(text, False)
+    amt, amt3, prof = T.amounts_body(text, False)
     tplace = re.split(r"(?:\n|\. )(?:Conseguentemente|Agli oneri|Ai relativi oneri|Ai maggiori oneri|All.onere|Alla copertura)", text)[0]
     tplace = re.sub(r"[Ss]tretto di Messina|Ponte sullo Stretto|[Cc]ircumetnea|(?:[Pp]iazza|[Pp]iazzale|[Vv]ia|[Vv]iale|[Cc]orso|[Ll]argo) [A-Z][\w'’]+|sede (?:legale |operativa )?(?:in|a) [A-Z][\w'’]+", " ", tplace)
     pl, _ = T.find_places(tplace)

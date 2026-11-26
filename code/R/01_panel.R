@@ -50,7 +50,8 @@ build_panel <- function(keep = rep(TRUE, nrow(am))) {
   d$gy <- paste(d$g, d$y); d$gr <- paste(d$g, d$reg); d$py <- paste(d$p, d$y)
   cdx <- (v$voti_FdI + v$voti_Lega + v$voti_FI + v$voti_NM) / v$voti_tot * 100
   csx <- (v$voti_PD + v$voti_AVS + v$voti_PiuE) / v$voti_tot * 100
-  d$marg  <- abs(cdx - csx)
+  m5s <- v$voti_M5S / v$voti_tot * 100
+  d$marg  <- apply(cbind(cdx, csx, m5s), 1, function(x) { x <- sort(x, decreasing = TRUE); x[1] - x[2] })  # gap between the top two forces
   d$maj   <- as.integer(d$g %in% majority)
   d$metro <- as.integer(d$p %in% c("Roma", "Milano", "Napoli", "Torino"))
   m <- mp[match(paste(d$p, d$g), paste(mp$provincia, mp$party)), "mp"]; d$mp <- ifelse(is.na(m), 0, m)

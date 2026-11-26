@@ -258,4 +258,6 @@ T = {
 "Fascicolo del {0} novembre {1} ed elenco delle inammissibilità ↗": ("File of {0} November {1} and list of inadmissibility rulings ↗", "Expediente del {0} de noviembre de {1} y lista de inadmisibilidades ↗", "Liasse du {0} novembre {1} et liste des irrecevabilités ↗"),
 "legame moderato": ("moderate link", "relación moderada", "lien modéré"),
 "a": ("to", "a", "à"),
+"Scarica i dati del grafico (CSV)": ("Download the chart data (CSV)", "Descargar los datos del gráfico (CSV)", "Télécharger les données du graphique (CSV)"),
+"(esclusa dalle somme)": ("(excluded from totals)", "(excluida de las sumas)", "(exclue des totaux)"),
 }

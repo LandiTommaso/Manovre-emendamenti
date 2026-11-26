@@ -52,10 +52,11 @@ def build_panel(filt=lambda r: True):
                 v = VP[p]; sh = v[K.index(KMAP[g])] / v[0] * 100
                 cdx = sum(v[K.index(k)] for k in ['FdI', 'Lega', 'FI', 'NM']) / v[0] * 100
                 csx = sum(v[K.index(k)] for k in ['PD', 'AVS', 'PiuE']) / v[0] * 100
+                top2 = sorted([cdx, csx, v[K.index('M5S')] / v[0] * 100], reverse=True)  # prime due forze
                 n = cnt[(p, g, y)]
                 rows.append(dict(p=p, reg=REG[p], g=g, y=y, s=sh / 10, share=sh, any=int(n > 0), anyA=int(cntA[(p, g, y)] > 0), n=n,
                                  ihs=math.asinh(n / POP[p] * 1e5), gy=g + str(y), gr=g + REG[p], py=p + str(y), pop=POP[p], lpop=math.log(POP[p]),
-                                 mp=mp(p, g), maj=int(g in MAJ), marg=abs(cdx - csx), metro=int(p in ('Roma', 'Milano', 'Napoli', 'Torino'))))
+                                 mp=mp(p, g), maj=int(g in MAJ), marg=top2[0] - top2[1], metro=int(p in ('Roma', 'Milano', 'Napoli', 'Torino'))))
     return pd.DataFrame(rows)
 
 class F: pass
