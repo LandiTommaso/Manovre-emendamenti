@@ -79,14 +79,14 @@ function renderAnalisi(){
   <tr><td>Proposte · primi firmatari (cluster)</td><td>${nf(A.n)} · ${nf(A.g)}</td><td></td></tr></tbody>`:'<tbody><tr><td>Nessuna prima lettura già votata nel periodo scelto (la manovra 2027 non è ancora stata votata).</td></tr></tbody>';
   // eterogeneità per partito
   if(AN.het){const hs=ORDER.filter(g=>AN.het[g]).map(g=>({t:g,lab:g,b:AN.het[g].b,se:AN.het[g].se,col:PCOL[g]}));coefPlot($('#ahet'),hs,'punti percentuali per +10 punti di voto (intera legislatura)');
-    $('#ahetp').innerHTML='<b>In parole semplici.</b> '+(AN.het_txt||'');$('#ahetf').hidden=false}else $('#ahetf').hidden=true;
+    $('#ahetp').innerHTML=''+(AN.het_txt||'');$('#ahetf').hidden=false}else $('#ahetf').hidden=true;
   // curva delle specificazioni
   if(AN.spec&&AN.spec.length){const S=AN.spec.slice().sort((a,b)=>a.b-b.b);$('#aspn').textContent=nf(S.length);const s=$('#aspec');s.innerHTML='';const W=640,H=260,ml=40,mr=10,mt=10,mb=30;
     const lo=Math.min(0,...S.map(d=>d.b-1.96*d.se)),hi=Math.max(...S.map(d=>d.b+1.96*d.se));const Y=v=>mt+(hi-v)/(hi-lo)*(H-mt-mb),X=i=>ml+(i+.5)/S.length*(W-ml-mr);
     for(let t=Math.ceil(lo/5)*5;t<=hi;t+=5){const l=svgEl(s,'line',{x1:ml,x2:W-mr,y1:Y(t),y2:Y(t),class:t===0?'ax':'gr'});if(t===0)l.style.stroke='var(--fg)';svgEl(s,'text',{x:ml-6,y:Y(t)+4,'text-anchor':'end'},pf(t,0))}
     S.forEach((d,i)=>{const sg=Math.abs(d.b/d.se)>1.96;const l=svgEl(s,'line',{x1:X(i),x2:X(i),y1:Y(d.b-1.96*d.se),y2:Y(d.b+1.96*d.se)});l.style.stroke='var(--line)';const c=svgEl(s,'circle',{cx:X(i),cy:Y(d.b),r:2.6});c.style.fill=sg?'var(--accent)':'var(--surface)';c.style.stroke='var(--accent)';svgEl(c,'title',{},d.lab+': '+pf(d.b)+' (e.s. '+pf(d.se)+')')});
     svgEl(s,'text',{x:(ml+W-mr)/2,y:H-6,'text-anchor':'middle'},'specificazioni, dalla stima più bassa alla più alta');
-    const pos=S.filter(d=>d.b>0).length,sgp=S.filter(d=>d.b/d.se>1.96).length;$('#aspecp').innerHTML=`<b>In parole semplici.</b> Su ${nf(S.length)} modi ragionevoli di fare il conto, ${nf(pos)} danno un legame positivo e ${nf(sgp)} positivo e significativo. La mediana è ${pf(S[Math.floor(S.length/2)].b)} punti. ${AN.spec_txt||''}`;$('#aspecf').hidden=false}
+    const pos=S.filter(d=>d.b>0).length,sgp=S.filter(d=>d.b/d.se>1.96).length;$('#aspecp').innerHTML=`Su ${nf(S.length)} modi ragionevoli di fare il conto, ${nf(pos)} danno un legame positivo e ${nf(sgp)} positivo e significativo. La mediana è ${pf(S[Math.floor(S.length/2)].b)} punti. ${AN.spec_txt||''}`;$('#aspecf').hidden=false}
   renderFonti();
 }
 $('#pcsv').onclick=async()=>{const m=$('#pcsvm');try{const P=await (await fetch('panel_multi.json')).json();const cell=v=>typeof v==='number'?String(v).replace('.',','):'"'+String(v).replace(/"/g,'""')+'"';const csv='﻿'+[P.cols.map(cell).join(';')].concat(P.rows.map(r=>r.map(cell).join(';'))).join('\r\n');
