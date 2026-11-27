@@ -121,48 +121,72 @@ def _val(m):
     if v < 100000: v *= MULT.get((m.group(2) or '').lower(), 1)
     return v
 
-def year_profile(text):
-    """amount per year 2027-29 from spending clauses"""
+def _years_after(tail):
+    """anni a cui si riferisce una cifra, letti nelle parole che la seguono"""
+    t = tail
+    mm = re.match(r"\s*(?:annui\s+)?(?:per\s+)?ciascun[oa]?\s+(?:degli\s+anni|anno)\s+(?:del\s+triennio\s+|dal\s+)?(\d{4})\s*(?:[-–]|al|e)\s*(\d{4})(?!\s*,)", t)
+    if mm and ' e ' not in mm.group(0):
+        return list(range(int(mm.group(1)), int(mm.group(2)) + 1))
+    mm = re.match(r"\s*(?:annui\s+)?(?:per\s+)?ciascun[oa]?\s+degli\s+anni\s+(?:dal\s+)?((?:\d{4}(?:,\s*|\s+e\s+|\s+al\s+)?)+)", t)
+    if mm:
+        ys = [int(y) for y in re.findall(r'\d{4}', mm.group(1))]
+        if ' al ' in mm.group(1) and len(ys) == 2: ys = list(range(ys[0], ys[1] + 1))
+        return ys
+    mm = re.match(r"\s*(?:complessiv[ie]\s+)?(?:nel|per\s+il)\s+(?:biennio|triennio)\s+(\d{4})\s*[-–]\s*(\d{4})", t)
+    if mm:
+        ys = list(range(int(mm.group(1)), int(mm.group(2)) + 1)); return [('tot', y, len(ys)) for y in ys]
+    mm = re.match(r"\s*(?:annui\s+)?per\s+gli\s+anni\s+(\d{4})\s*[-–]\s*(\d{4})", t)
+    if mm: return list(range(int(mm.group(1)), int(mm.group(2)) + 1))
+    mm = re.match(r"\s*(?:annui\s+)?per\s+gli\s+anni\s+((?:\d{4}(?:,\s*|\s+e\s+)?)+)", t)
+    if mm: return [int(y) for y in re.findall(r'\d{4}', mm.group(1))]
+    mm = re.match(r"\s*(?:annui\s+)?(?:per\s+l.anno|nell.anno|per\s+il|nel)\s+(\d{4})", t)
+    if mm: return [int(mm.group(1))]
+    mm = re.match(r"\s*(?:annui\s+|(?:al)?l.anno\s+|in\s+ragione\s+(?:d.)?annua\s+|ogni\s+anno\s+)?(?:,\s*)?a\s+(?:decorrere|partire)\s+dal(?:l.anno)?\s+(\d{4})", t)
+    if mm: return list(range(int(mm.group(1)), YRS[-1] + 1))
+    if re.match(r"\s*annui", t): return list(YRS)
+    return []
+
+def year_profile(text, need_spend=True):
+    """cifra per ciascun anno della manovra (anno, anno+1, anno+2) dalle clausole di spesa"""
     prof = {}
     for sent in re.split(r'(?<=[.;])\s+', text):
-        if not SPEND.search(sent): continue
+        if need_spend and not SPEND.search(sent): continue
         for m in AMT.finditer(sent):
             v = _val(m)
             if not v or v < 1000 or v > 5e10: continue
             if BADCTX.search(sent[max(0, m.start() - 70):m.start()]): continue
-            tail = sent[m.end():m.end() + 140]
-            yrs = []
-            mm = re.match(r"\s*(?:annui\s+)?per\s+ciascuno\s+degli\s+anni\s+(?:dal\s+)?((?:\d{4}(?:,\s*|\s+e\s+|\s+al\s+)?)+)", tail)
-            if mm:
-                ys = [int(y) for y in re.findall(r'\d{4}', mm.group(1))]
-                if ' al ' in mm.group(1) and len(ys) == 2: ys = list(range(ys[0], ys[1] + 1))
-                yrs = ys
-            else:
-                mm = re.match(r"\s*(?:annui\s+)?(?:per\s+l.anno|nell.anno|per\s+il)\s+(\d{4})", tail)
-                if mm: yrs = [int(mm.group(1))]
-                else:
-                    mm = re.match(r"\s*(?:annui\s+)?(?:,\s*)?a\s+decorrere\s+dal(?:l.anno)?\s+(\d{4})", tail)
-                    if mm: yrs = list(range(int(mm.group(1)), YRS[-1]+1))
-                    elif re.match(r"\s*annui", tail): yrs = list(YRS)
-            for y in yrs:
-                if y in YRS: prof[y] = max(prof.get(y, 0), v)
+            for y in _years_after(sent[m.end():m.end() + 160]):
+                w = v
+                if isinstance(y, tuple): w = v / y[2]; y = y[1]
+                if y in YRS: prof[y] = max(prof.get(y, 0), w)
     return prof
 
+REPL = [re.compile(r"sostitui(?:re|te|ta|to) (?:le parole|la parola)?:?\s*«?([^»]{0,200}?)»?\s+con (?:le|la) seguent[ei]:?\s*«?([^»]{0,200}?)(?:»|\.\s|;|\.?\s*$)"),
+        re.compile(r"«([^»]{0,200})»\s*,?\s+(?:sono\s+sostituit[ei]|è\s+sostituit[ao])\s+dall[ae]\s+seguent[ei]:?\s*«([^»]{0,200})»")]
 def replacement_deltas(text):
+    """modifiche di cifre già in legge: conta la differenza (nuova cifra meno vecchia), anno per anno se il testo lo dice"""
     out = []
-    for m in re.finditer(r"sostitui(?:re|te|ta|to) (?:le parole|la parola)?:?\s*«?([^»]{0,160}?)»?\s+con le seguenti:?\s*«?([^»]{0,160}?)(?:»|\.\s|;)", text):
-        a = [_val(x) for x in AMT.finditer(m.group(1))]
-        b = [_val(x) for x in AMT.finditer(m.group(2))]
-        a = [x for x in a if x]; b = [x for x in b if x]
-        if a and b and len(a) == len(b):
-            out.append((m.start(), m.end(), max(abs(y - x) for x, y in zip(a, b))))
+    for rx in REPL:
+        for m in rx.finditer(text):
+            if any(a <= m.start() < b for a, b, _, _ in out): continue
+            a = [_val(x) for x in AMT.finditer(m.group(1))]
+            b = [_val(x) for x in AMT.finditer(m.group(2))]
+            a = [x for x in a if x]; b = [x for x in b if x]
+            if a and b:
+                # la cifra vecchia non è una richiesta: il tratto si toglie sempre dal testo; conta solo l'aumento
+                pa, pb = year_profile(m.group(1), False), year_profile(m.group(2), False)
+                dp = {y: pb.get(y, 0) - pa.get(y, 0) for y in set(pa) | set(pb)} if (pa and pb) else {}
+                dp = {y: v for y, v in dp.items() if v > 0}
+                d = max([y - x for x, y in zip(a, b)] + [0]) if len(a) == len(b) else max(sum(dp.values()), 0)
+                out.append((m.start(), m.end(), d, dp))
+    out.sort()
     return out
 
 def amounts(text, is_tab):
     """returns (max annual, total 2027-29)"""
     text = re.sub(r"\beuro\s+(\d{1,3}(?:\.\d{3})+(?:,\d+)?|\d+(?:,\d+)?)", r"\1 euro", text)
+    yv = {}
     if is_tab or re.search(r"\bCP:\s*[+-]?\s*\d", text):
-        yv = {}
         for blk in re.finditer(r"(20\d\d):\s*CP:\s*([+-]?)\s*([\d.]+)", text):
             y, sign, v = int(blk.group(1)), blk.group(2), tonum(blk.group(3))
             if v and sign != '-':
@@ -172,9 +196,9 @@ def amounts(text, is_tab):
             return max(yv.values()), tot or None, {y:v for y,v in yv.items() if y in YRS}
     deltas = replacement_deltas(text)
     t2 = text
-    for a, b, _ in reversed(deltas):
+    for a, b, _, _ in reversed(deltas):
         t2 = t2[:a] + ' ' + t2[b:]
-    pref, allv = [d for _, _, d in deltas], []
+    pref, allv = [d for _, _, d, _ in deltas if d > 0], []
     for m in AMT.finditer(t2):
         v = _val(m)
         if v is None or v < 1000 or v > 5e10: continue
@@ -185,22 +209,47 @@ def amounts(text, is_tab):
     vals = pref or allv
     mx = max(vals) if vals else None
     prof = year_profile(t2)
-    if prof and not deltas: mx = max(prof.values())
+    dprof = {}
+    for _, _, _, dp in deltas:
+        for y, v in dp.items(): dprof[y] = dprof.get(y, 0) + v
+    if deltas:
+        for y, v in dprof.items(): prof[y] = prof.get(y, 0) + v
+    cpv = {y: v for y, v in yv.items() if y in YRS}
+    if not prof and cpv and not any(d > 0 for _, _, d, _ in deltas):   # variazioni di tabella (CP: +…) come unica spesa con anni
+        prof = cpv; mx = max(cpv.values())
+    pos = any(d > 0 for _, _, d, _ in deltas)
+    if prof and not pos: mx = max(prof.values())
     tot = sum(prof.values()) if prof else None
-    if mx and tot and tot < mx: tot = None
-    return mx, tot, (prof if (prof and not deltas) else {})
+    if mx and tot and tot < mx and not pos: tot = None
+    return mx, tot, (prof if prof else {})
 
 
 _CUTRE = re.compile(r"(?:\n|\.\s+|;\s+)(?:Conseguentemente|Agli oneri|Ai relativi oneri|Ai maggiori oneri|All.onere|Alla copertura|Ai fini della copertura|Per la copertura)")
+ONERI = re.compile(r"(?:[Aa]gli|[Aa]i|[Aa]ll.)\s*(?:maggiori\s+|relativi\s+|nuovi\s+)?oner[ei][^.;]{0,220}?(?:pari\s+a|valutat[ie]\s+in|quantificat[ie]\s+in|nel\s+limite\s+(?:massimo\s+)?di|ammontano\s+a)([^;:]{0,400}?)(?:,?\s*(?:si\s+provvede|si\s+fa\s+fronte|mediante|a\s+valere|all.articolo|alla\s+[Tt]abella|sostituire|[Cc]onseguentemente)|\.\s|:|$)")
+def oneri_profile(text):
+    """costo dichiarato dal proponente nella clausola di copertura («Agli oneri ..., pari a X per l'anno ...»)"""
+    prof = {}; seen = []
+    for m in ONERI.finditer(text):
+        seg = re.sub(r"\bmln\b\.?", "milioni", m.group(1)); seg = re.sub(r"\bmld\b\.?", "miliardi", seg)
+        seg = re.sub(r"(\d[\d.,]*\s*(?:milioni|miliardi|milione|miliardo|mila))(?!\s*(?:di\s+)?euro)", r"\1 di euro", seg)
+        if any(int(y) < YRS[0] for y in re.findall(r'\b(20\d\d)\b', seg)): continue   # cita gli oneri di una legge già in vigore (anni passati)
+        p = year_profile('oneri ' + seg, False)
+        if not p or p in seen: continue   # la stessa cifra ripetuta (dichiarazione e copertura) si conta una volta
+        seen.append(p)
+        for y, v in p.items(): prof[y] = prof.get(y, 0) + v
+    return prof
+
 def amounts_body(text, is_tab):
     """come amounts(), ma se la clausola di copertura gonfia le cifre usa solo la parte dispositiva
     (prima di «Conseguentemente», «Agli oneri», ecc.), purché lì ci sia un profilo annuo di spesa."""
     r = amounts(text, is_tab)
     if is_tab: return r
+    op = oneri_profile(text)
+    if op: return max(op.values()), sum(op.values()), op
     body = _CUTRE.split(text)[0]
     if len(body) < len(text) - 20:
         n = amounts(body, False)
-        if n[0] and n[0] >= 1e5 and n[2] and (n[1] or n[0]) < (r[1] or r[0] or 0): return n
+        if n[0] and n[0] >= 1e5 and (n[2] or any(d > 0 for _, _, d, _ in replacement_deltas(body))) and (n[1] or n[0]) < (r[1] or r[0] or 0): return n
     return r
 
 # ---------- themes ----------

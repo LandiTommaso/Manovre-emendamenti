@@ -265,6 +265,12 @@ def amounts_body(text, is_tab):
         if n[0] and n[0] >= 1e5 and n[2] and (n[1] or n[0]) < (r[1] or r[0] or 0): return n
     return r
 
+# Stessa lettura delle cifre per tutte le manovre: si usano le funzioni di multi/src/textan.py
+sys.path.insert(0, '/home/claude/multi/src')
+import textan as _TA
+_TA.set_years(2027)
+amounts, amounts_body, year_profile, replacement_deltas = _TA.amounts, _TA.amounts_body, _TA.year_profile, _TA.replacement_deltas
+
 def theme(title, text):
     s = (title or '') + ' ' + text[:2500]
     sc = []

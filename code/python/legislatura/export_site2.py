@@ -1,10 +1,31 @@
 """Esporta i dati 2023-2027 nello schema del sito 2027 (emendamenti.json) + testi per manovra (testi_ANNO.json)."""
 import json, re, collections
+import hashlib
+# Azione e Italia Viva: un solo gruppo alla Camera fino a fine 2023 e un solo simbolo nel 2022, partiti distinti.
+# Per le somme per partito e per coalizione ogni parlamentare è attribuito al suo partito alla data della manovra.
+AZIONE = {'Benzoni Fabrizio', 'Bonetti Elena', 'Carfagna Maria Rosaria', 'Castiglione Giuseppe', 'Costa Enrico', "D'Alessio Antonio",
+          'Grippo Valentina', 'Onori Federica', 'Pastorella Giulia', 'Richetti Matteo', 'Ruffino Daniela', 'Sottanelli Giulio Cesare',
+          'Calenda Carlo', 'Lombardo Marco', 'Gelmini Mariastella', 'Versace Giusy'}
+IV = {'Bonifazi Francesco', 'Boschi Maria Elena', 'De Monte Isabella', 'Del Barba Mauro', 'Faraone Davide', 'Gadda Maria Chiara',
+      'Giachetti Roberto', 'Gruppioni Naike', 'Madia Maria Anna', 'Marattin Luigi', 'Borghi Enrico', 'Fregolent Silvia', 'Furlan Annamaria',
+      'Musolino Dafne', 'Paita Raffaella', 'Renzi Matteo', 'Sbrollini Daniela', 'Scalfarotto Ivan'}
+def partito(r):
+    if r['g'] != 'Azione / IV': return GMAP.get(r['g'], r['g'])
+    p = r['p']
+    if p == 'Rosato Ettore': return 'IV' if r['anno'] <= 2023 else 'Azione'   # lascia IV nel settembre 2023, poi Azione
+    if p in AZIONE: return 'Azione'
+    if p in IV: return 'IV'
+    raise ValueError('Azione / IV non attribuito: ' + p)
 B = '/home/claude/multi/'
 R = json.load(open(B + 'out/multi_rows.json'))
 topo = json.load(open('/home/claude/emend/site/province.topo.json'))
 REG = {g['properties']['prov_name']: g['properties']['reg_name'] for g in topo['objects']['provinces']['geometries']}
-GMAP = {'Governo / relatori': 'Governo'}
+GMAP = {'Governo / relatori': 'Governo e relatori'}
+# chi presenta quando non è un parlamentare: nome per esteso (i relatori sono deputati o senatori di maggioranza
+# nominati dalla commissione Bilancio per riferire sulla manovra; le commissioni di merito presentano emendamenti con il loro parere)
+PNAME = {'I Relatori': 'I relatori della commissione Bilancio', 'Il Governo': 'Il Governo',
+         'La II Commissione': 'Commissione II (Giustizia)', 'La III Commissione': 'Commissione III (Esteri)',
+         'La XII Commissione': 'Commissione XII (Affari sociali)'}
 CMAP = {'Maggioranza': 'Maggioranza', 'Opposizione': 'Opposizione'}
 def scat(r):
     if r['es'] != 'Inammissibile':
@@ -35,12 +56,13 @@ for r in R:
     y = r['anno']
     if tt not in tidx[y]: tidx[y][tt] = len(texts[y]); texts[y].append(tt)
     pm = r['pm']
-    rows.append(dict(i=r['id'], a=r.get('art') or '', p=r['p'], g=GMAP.get(r['g'], r['g']), c=CMAP.get(r['coal'], 'Misto') if r['g'] != 'Governo / relatori' else 'Governo',
-                     f=r.get('f') or [[r['p'], GMAP.get(r['g'], r['g'])]], ce=r.get('ce') or '', cf=r.get('cf') or '', u=r.get('u') or '',
+    rows.append(dict(i=r['id'], a=r.get('art') or '', p=PNAME.get(r['p'], r['p']), g=GMAP.get(r['g'], r['g']), c=CMAP.get(r['coal'], 'Misto') if r['g'] != 'Governo / relatori' else 'Governo e relatori',
+                     f=r.get('f') or [[PNAME.get(r['p'], r['p']), GMAP.get(r['g'], r['g'])]], ce=r.get('ce') or '', cf=r.get('cf') or '', u=r.get('u') or '',
                      s=s, pz=1 if ('limitatamente' in (m or '') and '(e per estraneit' not in (m or '')) else 0, m=m, e=r['e'], ey=r.get('ey') or '', e3=r['e3'],
                      l=r['l'], pr=pm, rg=sorted(set(REG[p] for p in pm if p in REG)), loc=1 if loc else 0, po=r['po'], th=r['th'] or ['Altro'],
                      t=t, ta=ta, x=tidx[y][tt], d='', id_='', cv=r.get('cv') or 'Non indicata', co='', pm=pm,
-                     y=y, ra=r['ramo'], le=r['lett'], o=ESC[r['es']], lk=r.get('link') or '', big=r['big'], nt=r.get('notext', 0)))
+                     y=y, ra=r['ramo'], le=r['lett'], o=ESC[r['es']], lk=r.get('link') or '', big=r['big'], nt=r.get('notext', 0),
+                     pa=partito(r), h=(hashlib.md5(re.sub(r'\s+', ' ', tx).strip().lower().encode()).hexdigest()[:10] if len(tx) > 80 else '')))
 # manovra 2027: stessi campi del sito sulla manovra 2027 (stessi numeri nelle due dashboard)
 S27 = {r['i']: r for r in json.load(open('/home/claude/emend/site/emendamenti.json'))['rows']}
 n27 = 0
@@ -51,7 +73,7 @@ for r in rows:
             r[k] = a[k]
         r['pr'] = a['pm']
 print('2027 allineate al sito 2027:', n27)
-COLS = ['i','a','p','g','c','f','ce','cf','u','s','pz','m','e','ey','e3','l','rg','loc','po','th','t','ta','x','cv','pm','y','ra','le','o','lk','big','nt']
+COLS = ['i','a','p','g','c','f','ce','cf','u','s','pz','m','e','ey','e3','l','rg','loc','po','th','t','ta','x','cv','pm','y','ra','le','o','lk','big','nt','pa','h']
 def comp(v):
     if isinstance(v, float) and v.is_integer(): return int(v)
     return v

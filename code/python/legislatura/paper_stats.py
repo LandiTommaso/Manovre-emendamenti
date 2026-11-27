@@ -114,7 +114,7 @@ S['HET'] = HET
 # approvazione (livello emendamento)
 A = pd.DataFrame([dict(y=r['anno'], ramo=r['ramo'], ap=int(r['es'] == 'Approvato'), mag=int(r['coal'] == 'Maggioranza'), loc=int(r['po'] == 'Locale'),
                        ina=int(r['es'] == 'Inammissibile'), pid=str(r['pid'] or r['p']), g=r['g'], th=(r['th'] or ['Altro'])[0], nf=r['nf'],
-                       big=int((r['e3'] or r['e'] or 0) >= 1e8)) for r in R if r['lett'] == 1 and r['anno'] < 2027 and r['coal'] in ('Maggioranza', 'Opposizione')])
+                       big=int((r['e3'] or 0) >= 1e8)) for r in R if r['lett'] == 1 and r['anno'] < 2027 and r['coal'] in ('Maggioranza', 'Opposizione')])
 A['ry'] = A.ramo + A.y.astype(str)
 AP = {}
 for k, f in [('a1', 'ap ~ mag + C(ry)'), ('a2', 'ap ~ mag + loc + mag:loc + C(ry)'), ('a3', 'ap ~ mag + loc + mag:loc + np.log1p(nf) + big + C(ry) + C(th)'),

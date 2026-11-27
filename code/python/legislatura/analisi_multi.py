@@ -35,7 +35,7 @@ for r in R:
     for p in set(r['pm']):
         cnt[(p, r['g'], r['anno'])] += 1
         if r['es'] == 'Approvato': cntA[(p, r['g'], r['anno'])] += 1
-        if not r['big']: eur[(p, r['g'], r['anno'])] += (r['e3'] or r['e'] or 0) / len(set(r['pm']))
+        if not r['big']: eur[(p, r['g'], r['anno'])] += (r['e3'] or 0) / len(set(r['pm']))
 panel = []
 for y in YEARS:
     for g in PARTIES:

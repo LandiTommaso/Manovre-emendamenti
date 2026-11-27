@@ -5,9 +5,9 @@ const DIR=process.argv[3]||'/home/claude/multi/site2';
 const J=JSON.parse(fs.readFileSync(DIR+'/emendamenti.json'));const ALL=J.rows.map(a=>{const o={};if(J.cols)J.cols.forEach((k,i)=>o[k]=a[i]);else Object.assign(o,a);if(o.o==null)o.o=o.s==='Ammissibile'?'N':'I';if(o.y==null)o.y=2027;if(!o.ra)o.ra='Camera';return o});
 const VOTI=JSON.parse(fs.readFileSync(DIR+'/voti2022.json')),POP=JSON.parse(fs.readFileSync(DIR+'/popolazione.json'));
 const PALIAS={'Sud Sardegna':'Sulcis Iglesiente'};
-const AMT=r=>r.big?0:(r.e3||r.e||0);
+const AMT=r=>r.big?0:(r.e3||0);
 const nf=n=>n.toLocaleString('it-IT');const pc=(a,b)=>b?(a/b*100).toLocaleString('it-IT',{maximumFractionDigits:1})+'%':'—';const pc1=(a,b)=>b?(a/b*100).toLocaleString('it-IT',{maximumFractionDigits:1,minimumFractionDigits:1})+'%':'—';
-const fmtE=v=>(v==null||v===0)?'—':(v>=1e9?(v/1e9).toLocaleString('it-IT',{maximumFractionDigits:2})+' mld':(v>=1e6?(v/1e6).toLocaleString('it-IT',{maximumFractionDigits:2})+' mln':Math.round(v/1e3).toLocaleString('it-IT')+' mila'));
+const fmtE=v=>(v==null||v===0)?'—':(v>=1e9?(v/1e9).toLocaleString('it-IT',{maximumFractionDigits:v>=1e11?0:v>=1e10?1:2,useGrouping:'always'})+' mld':(v>=1e6?(v/1e6).toLocaleString('it-IT',{maximumFractionDigits:2})+' mln':Math.round(v/1e3).toLocaleString('it-IT')+' mila'));
 let seed=20261127;const rnd=()=>{seed=(seed*1103515245+12345)%2147483648;return seed/2147483648};const pick=a=>a[Math.floor(rnd()*a.length)];
 const res=[];const ok=(c,lab,got,exp)=>{res.push({c:!!c,lab,got,exp});if(!c)console.log('FAIL',lab,'| got:',JSON.stringify(got),'| exp:',JSON.stringify(exp))};
 const norm=s=>String(s).replace(/\s+/g,' ').trim();
@@ -68,7 +68,7 @@ for(const [a,b,ra] of PER)for(let k=0;k<4;k++){
   ok(tiles[4]===fmtE(F.filter(r=>r.loc).reduce((s,r)=>s+AMT(r),0)),tl+' euro per territori',tiles[4],fmtE(F.filter(r=>r.loc).reduce((s,r)=>s+AMT(r),0)));
 }
 // ---------- C. classifica parlamentari vs elenco vs mappa ----------
-const firsts={};ALL.forEach(r=>{if(r.g!=='Governo')(firsts[r.p]=firsts[r.p]||[]).push(r)});
+const firsts={};ALL.forEach(r=>{if(r.g!=='Governo e relatori')(firsts[r.p]=firsts[r.p]||[]).push(r)});
 const names=Object.keys(firsts).filter(n=>firsts[n].length>=3);const deps=[];for(let i=0;i<30;i++)deps.push(pick(names));
 ['Furfaro Marco','Furfaro'].forEach(n=>{if(firsts[n])deps.push(n)});
 for(const name of deps){
@@ -99,7 +99,7 @@ const MES=MULTI?['','AP','A','I','E']:['','A','I','E'];
 for(const [a,b,ra] of PER)for(let k=0;k<3;k++){
   await setPer(a,b,ra);await p.click('#mreset');const es=pick(MES),g=k?pick(GR):'',po=k===2?pick(['1','m']):'';
   if(es)await p.selectOption('#mes',es);if(g)await p.selectOption('#mg',g);if(po)await p.selectOption('#mpo',po);await p.waitForTimeout(200);
-  const Dp=per(a,b,ra).filter(r=>r.g!=='Governo'&&(!g||r.g===g)&&(!po||(po==='1'?r.pm.length===1:r.pm.length>1)))
+  const Dp=per(a,b,ra).filter(r=>r.g!=='Governo e relatori'&&(!g||r.g===g)&&(!po||(po==='1'?r.pm.length===1:r.pm.length>1)))
     .filter(r=>es===''||(es==='AP'&&r.o==='A')||(es==='A'&&r.s==='Ammissibile')||(es==='I'&&r.s!=='Ammissibile')||(es==='E'&&r.s==='Estraneità di materia'));
   const P={};Dp.filter(r=>r.pm.length).forEach(r=>{const v=AMT(r)/r.pm.length;r.pm.forEach(p0=>{const q=PALIAS[p0]||p0;const o=P[q]||(P[q]={n:0,e:0,G:{}});o.n++;o.e+=v;o.G[r.g]=(o.G[r.g]||0)+v})});
   const csv=await csvOf('#csvmp');const h=csv[0];const iN=h.indexOf('Emendamenti che la nominano'),iE=h.findIndex(x=>x.startsWith('Euro chiesti nel periodo')||x.startsWith('Euro chiesti 2027')),iPC=h.indexOf('Euro per abitante'),iPop=h.findIndex(x=>x.startsWith('Popolazione'));

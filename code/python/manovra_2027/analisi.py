@@ -43,7 +43,7 @@ def money(gs, admissible=False):
     for r in R:
         if r['g'] not in gs or not r['pm']: continue
         if admissible and r['s'] != 'Ammissibile': continue
-        amt = r['e3'] or r['e'] or 0
+        amt = r['e3'] or 0
         for p0 in r['pm']:
             p = PALIAS.get(p0, p0)
             E[p] = E.get(p, 0) + amt / len(r['pm']); N[p] = N.get(p, 0) + 1

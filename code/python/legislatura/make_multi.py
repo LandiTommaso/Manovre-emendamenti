@@ -33,6 +33,7 @@ R('.loading{padding:40px;text-align:center;color:var(--muted)}',
   '.period .pf{display:inline-flex;gap:6px;align-items:center;font-size:13px;color:var(--muted)}.period select{padding:4px 6px}\n'
   '.pnote{font-size:12.5px;color:var(--muted)}\n'
   '.qgrid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:14px}@media (max-width:860px){.qgrid{grid-template-columns:minmax(0,1fr)}}\n'
+  '#qmtab tr.co td{font-weight:600;background:var(--surface-2)}#qmtab tr.pa td:first-child{padding-left:26px}#qmtab tr.tot td{font-weight:700;border-top:2px solid var(--fg)}.qmbar{display:inline-block;width:70px;height:7px;background:var(--surface-2);border-radius:4px;margin-left:8px;vertical-align:middle;overflow:hidden}.qmbar i{display:block;height:100%}.qmtop{margin:6px 0 0;padding-left:22px;font-size:13.5px;line-height:1.5}.qmtop li{margin:3px 0}\n'
   '.qdot{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:7px;vertical-align:middle}.qpctl{display:flex;gap:12px;flex-wrap:wrap;margin:8px 0 10px}#qparty th.qs:hover{color:var(--accent)}#qparty th.on{color:var(--accent)}\n'
   '.qbars text{fill:var(--muted);font-size:11px}.qbars .lab{fill:var(--fg);font-size:12px}\n'
   '.chip.st-ap{background:var(--ok);color:var(--bg)}\n'
@@ -50,7 +51,7 @@ RX(r'<nav class="tabs" role="tablist" aria-label="Vista">.*?</nav>',
    '<p class="sub">Il 2023 alla Camera conta solo le proposte <b>segnalate</b> dai gruppi (1.043): nel dicembre 2022 la Camera non ha pubblicato i testi di tutte le circa 3.000 presentate. La manovra 2027 non è ancora stata votata in commissione.</p></section>\n'
    '  <section class="qgrid"><div class="panel"><h2>Chi firma le proposte approvate</h2><p class="sub">Proposte approvate, per schieramento del primo firmatario.</p><svg id="qcoal" class="qbars" viewBox="0 0 520 210" style="width:100%;height:auto"></svg></div>'
    '<div class="panel"><h2>Quanto conviene essere in maggioranza</h2><p class="sub">Quota di proposte approvate sul totale presentato dallo schieramento, prime letture già votate.</p><svg id="qrate" class="qbars" viewBox="0 0 520 210" style="width:100%;height:auto"></svg></div></section>\n'
-   '  <section class="panel"><h2>Partito per partito</h2><p class="sub">Primo firmatario, gruppo alla data della manovra. Le percentuali sono sul totale delle proposte del partito nel periodo; la manovra 2027 non è ancora stata votata, quindi non ha approvate. Clicca un titolo di colonna per ordinare, un partito per vedere le sue proposte approvate nell’elenco.</p><div class="qpctl"><div class="f"><label for="qps">Ordina per</label><select id="qps"><option value="n">Proposte presentate</option><option value="pap">% approvate</option><option value="pia">% inammissibili</option><option value="pam">% ammissibili</option><option value="plo">% per un solo territorio</option><option value="eur">Euro chiesti per territori</option><option value="g">Ordine dei partiti</option></select></div><div class="f"><label for="qpy">Colonne per anno</label><select id="qpy"><option value="np">Presentate · approvate</option><option value="pap">% approvate</option><option value="pia">% inammissibili</option><option value="none">Nascondi</option></select></div></div><div class="tablewrap"><table class="rank" id="qparty"></table></div></section>\n'
+   '  <section class="panel"><h2>Partito per partito</h2><p class="sub">Primo firmatario, gruppo alla data della manovra. Le percentuali sono sul totale delle proposte del partito nel periodo; la manovra 2027 non è ancora stata votata, quindi non ha approvate. Clicca un titolo di colonna per ordinare, un partito per vedere le sue proposte approvate nell’elenco.</p><div class="qpctl"><div class="f"><label for="qps">Ordina per</label><select id="qps"><option value="n">Proposte presentate</option><option value="pap">% approvate</option><option value="pia">% inammissibili</option><option value="pam">% ammissibili</option><option value="plo">% per un solo territorio</option><option value="eur">Euro chiesti per territori</option><option value="g">Ordine dei partiti</option></select></div><div class="f"><label for="qpy">Colonne per anno</label><select id="qpy"><option value="np">Presentate · approvate</option><option value="pap">% approvate</option><option value="pia">% inammissibili</option><option value="none">Nascondi</option></select></div></div><div class="tablewrap"><table class="rank" id="qparty"></table></div></section><section class="panel" id="qmoney"><h2>Quanto chiedono le proposte</h2><p class="sub">Tutte le proposte, nazionali e locali, con un’unica regola: conta il costo nei tre anni coperti da ciascuna manovra (l’anno della manovra e i due successivi). Si usa il costo dichiarato dal proponente nella clausola di copertura («Agli oneri…, pari a…»), altrimenti la spesa scritta nel testo con i suoi anni; se la proposta cambia una cifra già in legge, conta solo l’aumento. Una cifra di cui il testo non dice gli anni non entra nelle somme. Le cifre sono lette in automatico: prima di citarne una, apri la scheda ufficiale.</p><p class="sub">Attenzione a cosa misura il totale: è la somma di tutto ciò che è stato chiesto, non una contromanovra. Lo stesso partito presenta spesso più varianti della stessa misura, la stessa proposta torna alla Camera e al Senato e gran parte delle proposte è respinta o inammissibile: le cifre si sommano anche quando si escludono a vicenda. Per confronti tra partiti conta più la quota che il totale.</p><div class="qpctl"><div class="f"><label for="qme">Esito</label><select id="qme"><option value="">Tutte le proposte</option><option value="A">Approvate</option><option value="M">Ammissibili</option><option value="I">Inammissibili</option></select></div><div class="f"><label for="qmd">Proposte identiche</label><select id="qmd"><option value="">Ognuna conta</option><option value="1">Contate una volta sola</option></select></div></div><div class="tablewrap"><table class="rank" id="qmtab"></table></div><p class="sub notr" id="qmchk"></p><h3 class="vh3">Le proposte che chiedono di più</h3><ol class="qmtop notr" id="qmtop"></ol></section>\n'
    '</div>')
 
 # ---------- filtri elenco ----------
@@ -155,7 +156,7 @@ RX(r"  \$\('#tiles'\)\.innerHTML=\n.*?;\n  // group bars",
 R("F.forEach(r=>{const o=cnt[r.g];if(!o)return;o.t++;if(r.s==='Ammissibile')o.ok++;else if(r.s==='Compensazione')o.c++;else o.e++});",
   "F.forEach(r=>{const o=cnt[r.g];if(!o)return;o.t++;if(r.s==='Ammissibile')o.ok++;else if(r.s==='Compensazione')o.c++;else o.e++});")
 R("const sumAll=F.reduce((s,r)=>s+AMT(r),0);\n  $('#cnt').innerHTML=`${nf(n)} emendamenti <small>· totale 2027–29 stimato: ${fmtE(sumAll)} (somma indicativa: gli emendamenti identici si ripetono)</small>`;",
-  "const sumAll=F.reduce((s,r)=>s+(r.big?0:(r.e3||r.e||0)),0);\n  $('#cnt').innerHTML=`${nf(n)} proposte <small>· somma dei costi triennali stimati: ${fmtE(sumAll)} (indicativa: proposte identiche si ripetono)</small>`;")
+  "const sumAll=F.reduce((s,r)=>s+AMT(r),0);\n  $('#cnt').innerHTML=`${nf(n)} proposte <small>· somma dei costi triennali stimati: ${fmtE(sumAll)} (indicativa: proposte identiche si ripetono)</small>`;")
 # righe e dettaglio
 R("<div class=\"meta\">${esc(r.a)} · ${esc(r.th.join(', '))} · cop.: ${esc(r.cv)}${r.po==='Più territori'?' · più territori':''}</div></td>",
   "<div class=\"meta\">${esc(r.ra)} · ${esc(r.a)} · ${esc(r.th.join(', '))} · cop.: ${esc(r.cv)}${r.po==='Più territori'?' · più territori':''}</div></td>")
@@ -167,7 +168,8 @@ R("<dt>Esito</dt><dd>${r.s==='Ammissibile'?(r.pz?esc('Ammissibile, '+r.m):'Ammis
 R("<dt>Fonte</dt><dd><a href=\"${CAM+encodeURIComponent(r.i)+'.&position=20261123'}\" target=\"_blank\" rel=\"noopener\">Scheda ufficiale sul sito della Camera ↗</a></dd>",
   "<dt>Fonte</dt><dd>${LINK(r)?'<a href=\"'+esc(LINK(r))+'\" target=\"_blank\" rel=\"noopener\">Scheda ufficiale sul sito '+(r.ra==='Senato'?'del Senato':'della Camera')+' ↗</a>':'—'}</dd>")
 R("<dt>Eletto in</dt><dd>${esc(r.cf||'—')}${r.u?' · uninominale '+esc(r.u):''}</dd>", "<dt>Eletto in</dt><dd>${esc(r.cf||r.ce||'—')}${r.u?' · uninominale '+esc(r.u):''}</dd>")
-R("costo 2027–29 ${fmtE(r.e3)}", "costo nel triennio ${fmtE(r.e3)}")
+R("' · costo 2027–29 '+fmtE(r.e3)", "' · costo nel triennio '+fmtE(r.e3)")
+R("costo 2027–29 non attribuibile", "costo nel triennio non attribuibile")
 R("<pre class=\"notr\">${hl(esc(T[r.x]))}</pre>", "<pre class=\"notr\">${(()=>{const t=txt(r);return t==null?'Carico il testo…':(t?hl(esc(t)):'Testo non disponibile: apri la scheda ufficiale.')})()}</pre>")
 R("const id=(r.id_||'')+r.i;\n  return `<tr class=\"r${openId===r.i+'|'+r.p?' open':''}\" data-k=\"${esc(r.i+'|'+r.p)}\" tabindex=\"0\">",
   "const id=(r.id_||'')+r.i;const ok_=r.y+'|'+r.ra+'|'+r.i;\n  return `<tr class=\"r${openId===ok_?' open':''}\" data-k=\"${esc(ok_)}\" tabindex=\"0\">")
@@ -197,8 +199,8 @@ R("${fmtM(eurZ)}</b> nel 2027–29, in", "${fmtM(eurZ)}</b> (${esc(perLab())}), 
 R("'Euro chiesti per abitante, 2027–29':'Euro chiesti 2027–29'", "'Euro chiesti per abitante · '+perLab():'Euro chiesti · '+perLab()")
 R("const lab=mm_==='n'?['1','2','3','4–5','6–8','9–15',Lf('oltre {0}','15')]:(mm_==='pc'?[Lf('fino a {0}','10 €'),'10–50 €','50–100 €','100–250 €','250–500 €','500–'+k1+' €',Lf('oltre {0}',k1+' €')]:[Lf('fino a {0}','5'+mU),'5–20'+mU,'20–50'+mU,'50–100'+mU,'100–250'+mU,'250'+mU+'–1'+bU,Lf('oltre {0}','1'+bU)]);",
   "const thS=SC(mm_==='n'?TH_N:(mm_==='pc'?TH_PC:TH_SOLDI));const fv=v=>mm_==='n'?nf(v):(mm_==='pc'?nf(v)+' €':fmtM(v));const lab=[(mm_==='n'?'1–':'fino a ')+fv(thS[0])].concat(thS.slice(1).map((t,i)=>fv(thS[i])+'–'+fv(t))).concat(['oltre '+fv(thS[thS.length-1])]);")
-R("o.rows.slice().sort((a,b)=>(b.e3||b.e||0)-(a.e3||a.e||0))", "o.rows.slice().sort((a,b)=>(b.o==='A')-(a.o==='A')||(b.e3||b.e||0)-(a.e3||a.e||0))")
-R("${fmtE(r.e3||r.e)} · ${r.s==='Ammissibile'?'ammissibile':'inammissibile'}</div></div>", "${r.y} · ${esc(r.ra)} · ${fmtE(r.e3||r.e)}${r.big?' (esclusa dalle somme)':''} · ${r.s!=='Ammissibile'?'inammissibile':r.o==='A'?'<b>approvato</b>':'non approvato'}</div></div>")
+R("o.rows.slice().sort((a,b)=>AMT(b)-AMT(a))", "o.rows.slice().sort((a,b)=>(b.o==='A')-(a.o==='A')||AMT(b)-AMT(a))")
+R("${fmtE(AMT(r))} · ${r.s==='Ammissibile'?'ammissibile':'inammissibile'}</div></div>", "${r.y} · ${esc(r.ra)} · ${fmtE(AMT(r))}${r.big?' (esclusa dalle somme)':''} · ${r.s!=='Ammissibile'?'inammissibile':r.o==='A'?'<b>approvato</b>':'non approvato'}</div></div>")
 R("if(es==='A')o2.fs='Ammissibile';if(es==='I')o2.fs='INAMM';if(es==='E')o2.fs='Estraneità di materia';setOnly(o2)};",
   "if(es==='AP')o2.fo='A';if(es==='A')o2.fs='Ammissibile';if(es==='I')o2.fs='INAMM';if(es==='E')o2.fs='Estraneità di materia';setOnly(o2)};")
 # classifica
@@ -235,6 +237,13 @@ RX(r"function srcText\(es\)\{return Lf\(.*?\)\}\n",
    "function srcText(es){return 'Fonti: Camera dei deputati e Senato della Repubblica, fascicoli ed elenchi delle proposte emendative alle leggi di bilancio 2023–2027 (commissioni Bilancio); ISTAT, popolazione al 1° gennaio 2025. Cifre chieste dai proponenti per il triennio di ciascuna manovra'+(es?'':', inammissibili comprese')+'; '+perLab()+'. Solo proposte che citano un luogo preciso; se ne citano più d’uno, i soldi sono divisi in parti uguali. Esclusi i fondi nazionali; grandi opere comprese.'}\n")
 RX(r"function renderAnalisi\(\)\{if\(!AN\).*?\n(?=var I18=null)", '')
 
+# ---------- legislatura: "parlamentare" al posto di "deputato" nei testi della mappa ----------
+for a,b in [("Con un gruppo o un deputato selezionato","Con un gruppo o un parlamentare selezionato"),
+            ("'i deputati chiedono'","'i parlamentari chiedono'"),
+            ("Togli il filtro per gruppo o deputato per confrontare i partiti","Togli il filtro per gruppo o parlamentare per confrontare i partiti"),
+            ("Scegli un deputato per vedere anche il totale chiesto","Scegli un parlamentare per vedere anche il totale chiesto")]:
+    R(a, b, s.count(a) or 1)
+
 # ---------- i18n: periodi come token tradotti, nuovi gruppi ----------
 R("const set=new Set(['Azione + IV','Noi Moderati',", "const set=new Set(['Azione / IV','Autonomie','Azione + IV','Noi Moderati',")
 R("const re=new RegExp(\"(?<![\\\\p{L}\\\\d'’])(?:\"+names+\")",
@@ -247,5 +256,7 @@ R("function loadI18(){if(I18)return Promise.resolve(I18);", "function loadI18(){
 # nuove funzioni (quadro e studio) prima della chiusura
 i = s.rindex('})();')
 s = s[:i] + open('/home/claude/multi/src/multi_extra.js').read() + '\n' + s[i:]
+# il gruppo «Governo» della legislatura comprende anche relatori e commissioni: etichetta esplicita
+s = s.replace("'Governo'", "'Governo e relatori'")
 open(OUT, 'w').write(s)
 print('ok', len(s))

@@ -34,8 +34,28 @@ function renderQuadro(){
   const apr=D.filter(r=>r.o==='A');hb('#qcoal',CO.map(c=>[c,apr.filter(r=>r.c===c).length]),v=>nf(v));
   hb('#qrate',['Maggioranza','Opposizione'].map(c=>[c,rate(x=>x===c)]),v=>pf(v)+'%');
   // partiti
-  renderQParty();
+  renderQParty();renderMoney();
 }
+const COAL=[['Centrodestra',['FdI','Lega','FI','Noi Moderati']],['Campo largo',['PD','M5S','AVS','IV']],['Azione',['Azione']],['Altri gruppi',['Autonomie','Misto']],['Governo e relatori',['Governo']]];
+function renderMoney(){if(!D||!$('#qmtab'))return;
+  if(!renderMoney._b){renderMoney._b=1;['qme','qmd'].forEach(id=>$('#'+id).onchange=renderMoney)}
+  const es=$('#qme').value,dd=$('#qmd').value==='1';
+  let X=D.filter(r=>es===''||(es==='A'&&r.o==='A')||(es==='M'&&r.s==='Ammissibile')||(es==='I'&&r.s!=='Ammissibile'));
+  const nAll=X.length;let dup=0;
+  if(dd){const seen=new Set();X=X.slice().sort((a,b)=>a._k<b._k?-1:1).filter(r=>{if(!r.h)return true;const k=r.y+'|'+r.ra+'|'+r.h;if(seen.has(k)){dup++;return false}seen.add(k);return true})}
+  const st=a=>{const w=a.filter(r=>AMT(r)>0);return {n:a.length,nw:w.length,eur:a.reduce((s,r)=>s+AMT(r),0),loc:a.filter(r=>r.pm.length).reduce((s,r)=>s+AMT(r),0),ap:a.filter(r=>r.o==='A').reduce((s,r)=>s+AMT(r),0)}};
+  const tot=st(X);const mx=Math.max(1,...COAL.flatMap(([c,ps])=>ps.map(p=>st(X.filter(r=>r.pa===p)).eur)));
+  const bar=(v,c)=>`<span class="qmbar"><i style="width:${(v/mx*100).toFixed(1)}%;background:${c}"></i></span>`;
+  const row=(lab,S,cls,col)=>`<tr class="${cls}"><td>${col?`<i class="qdot" style="background:${col}"></i>`:''}${esc(lab)}</td><td class="n">${nf(S.n)}</td><td class="n">${nf(S.nw)}</td><td class="n"><b>${fmtE(S.eur)}</b>${cls==='pa'?bar(S.eur,col||'var(--muted)'):''}</td><td class="n">${tot.eur?pf(S.eur/tot.eur*100)+'%':'—'}</td><td class="n">${fmtE(S.loc)}</td><td class="n">${fmtE(S.ap)}</td></tr>`;
+  let h='<thead><tr><th>Partito o coalizione</th><th style="text-align:right">Proposte</th><th style="text-align:right">Con una cifra</th><th style="text-align:right">Euro chiesti nel triennio</th><th style="text-align:right">Quota del totale</th><th style="text-align:right">Di cui per luoghi precisi</th><th style="text-align:right">Di cui approvati</th></tr></thead><tbody>';
+  let sumP=0,sumN=0;
+  COAL.forEach(([c,ps])=>{const Y=X.filter(r=>ps.includes(r.pa));if(!Y.length)return;h+=row(c+(ps.length>1?' ('+ps.join(', ')+')':''),st(Y),'co');if(ps.length>1)ps.forEach(p=>{const Z=X.filter(r=>r.pa===p);if(!Z.length)return;const S=st(Z);sumP+=S.eur;sumN+=S.n;h+=row(p,S,'pa',(p==='IV'?'#16a394':p==='Azione'?PCOL['Azione / IV']:PCOL[p])||'var(--muted)')});else{const S=st(Y);sumP+=S.eur;sumN+=S.n}});
+  h+=row('Totale',tot,'tot');h+='</tbody>';$('#qmtab').innerHTML=h;
+  const ok=Math.abs(sumP-tot.eur)<1&&sumN===tot.n;
+  $('#qmchk').textContent=Lf('Controllo: la somma dei partiti fa {0} su {1} proposte, uguale al totale.',fmtE(sumP),nf(sumN))+(ok?'':' ⚠')+(dd?' '+Lf('Le proposte con lo stesso testo nella stessa manovra e nello stesso ramo sono contate una volta: {0} doppioni tolti su {1}.',nf(dup),nf(nAll)):'');
+  const top=X.filter(r=>AMT(r)>0).sort((a,b)=>AMT(b)-AMT(a)).slice(0,10);
+  $('#qmtop').innerHTML=top.map(r=>`<li><b>${fmtE(AMT(r))}</b> · ${esc(r.t)} <span class="meta">— ${esc(r.p)} (${esc(r.pa)}), ${r.y} · ${esc(r.ra)} ${esc(r.i)} · ${r.s==='Ammissibile'?esc(OLAB[r.o]):'inammissibile'}</span> <button class="btn sm" type="button" data-qmk="${esc(r.y+'|'+r.ra+'|'+r.i)}">${L('Apri')}</button></li>`).join('');
+  document.querySelectorAll('[data-qmk]').forEach(b=>b.onclick=()=>{const [y,ra,i]=b.dataset.qmk.split('|');const r=D.find(x=>x.y==y&&x.ra===ra&&x.i===i);setOnly({q:i+' '+r.p.split(' ')[0].toLowerCase(),fy:y});})}
 let QPS='n',QPD=-1;
 function renderQParty(){if(!D)return;
   if(!renderQParty._b){renderQParty._b=1;$('#qps').onchange=()=>{QPS=$('#qps').value;QPD=QPS==='g'?1:-1;renderQParty()};$('#qpy').onchange=()=>renderQParty()}
