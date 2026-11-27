@@ -247,6 +247,7 @@ for r in rows:
     elif k in REV['togli']: r['pm'] = [p for p in r['pm'] if p not in REV['togli'][k]]
     if k in REV.get('non_richiesta', {}): r['big'] = 1
     if k in REV.get('importo', {}): r['e'] = REV['importo'][k]['e']; r['e3'] = REV['importo'][k]['e3']
+    if k in REV.get('importo', {}) and 'pm' in REV['importo'][k]: r['pm'] = REV['importo'][k]['pm']
 json.dump(rows, open(B + 'out/multi_rows.json', 'w'), ensure_ascii=False)
 c = collections.Counter((r['anno'], r['ramo'], r['lett']) for r in rows)
 for k in sorted(c):

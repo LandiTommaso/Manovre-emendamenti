@@ -25,12 +25,6 @@
   ],
   "2024|Senato|82.6": [
    "Firenze"
-  ],
-  "2024|Senato|56.0.1": [
-   "Catania",
-   "Palermo",
-   "Siracusa",
-   "Trapani"
   ]
  },
  "non_richiesta": {
@@ -44,6 +38,19 @@
    "e": 40400000,
    "e3": 41200000,
    "nota": "30 milioni per la tranvia di Firenze e 10 per le metro di Roma nel 2024, 0,4 milioni l'anno per la metro di Catania; i 9.312 milioni citati sono lo stanziamento del Ponte già previsto"
+  },
+  "2024|Senato|56.0.1": {
+   "e": 780000000,
+   "e3": 3115000000,
+   "pm": [
+    "Cagliari",
+    "Sassari",
+    "Catania",
+    "Siracusa",
+    "Palermo",
+    "Trapani"
+   ],
+   "nota": "due richieste: ferrovia Cagliari-Sassari-Olbia (5.000 milioni in totale) e tratte Siracusa-Catania e Marsala-Palermo (6.630 milioni); nel triennio 2024-2026 1.339 + 1.776 milioni"
   }
  }
 }

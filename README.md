@@ -20,7 +20,7 @@ The local spending requests are then matched to party vote shares in the 2022 ge
 
 ## Main results
 
-1. Ten extra points of 2022 vote share raise the probability that a party tables a local request for a province by **13.1 percentage points**. The mean probability is 13.6%.
+1. Ten extra points of 2022 vote share raise the probability that a party tables a local request for a province by **13.1 percentage points**. The mean probability is 13.7%.
 2. The gradient holds when comparing different parties **within the same province and budget**, at 13.4 points. All 144 alternative specifications are positive and 138 are significant at 5%.
 3. Within regions, the gradient runs through the **deputies elected in the province**.
 4. It is driven by the **opposition**. Fratelli d'Italia asks for money where it is relatively weaker.
