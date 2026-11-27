@@ -8,7 +8,7 @@ A$mag <- as.integer(A$schieramento == "Maggioranza")
 A$loc <- as.integer(A$portata == "Locale")
 A$pid <- ifelse(is.na(A$id_firmatario) | A$id_firmatario == "", A$primo_firmatario, as.character(A$id_firmatario))
 A$th  <- ifelse(A$tema == "", "Altro", sub(";.*", "", A$tema))
-euro  <- ifelse(!is.na(A$euro_triennio) & A$euro_triennio > 0, A$euro_triennio, ifelse(is.na(A$euro_annuo), 0, A$euro_annuo))
+euro  <- ifelse(is.na(A$euro_triennio), 0, A$euro_triennio)   # single rule: three-year cost only; a figure without years does not count
 A$big <- as.integer(euro >= 1e8)
 A$ry  <- paste(A$ramo, A$manovra)
 cat("\nApproval sample:", nrow(A), "proposals,", length(unique(A$pid)), "first signatories\n")
