@@ -3,6 +3,7 @@ Una riga = una proposta emendativa (numero base; le riformulazioni sono fuse nel
 import json, re, html, collections, sys
 sys.path.insert(0, '/home/claude/multi/src')
 import textan as T
+NOISE = r"Friuli[- ]Venezia[- ]Giulia|[Pp]rovinc[ei]a? autonom[ae] di (?:Trento|Bolzano)(?: e (?:di )?(?:Trento|Bolzano))?|Chiesa [Cc]attolica|[Mm]onopoli di [Ss]tato|[Dd]ogane e dei [Mm]onopoli|Leonardo da Vinci|Salento"
 BIGRE = r"collegamento stabile tra la Sicilia|[Pp]onte sullo [Ss]tretto|[Ss]ociet[àa] Stretto di Messina|[Rr]imodula"
 
 B = '/home/claude/multi/'
@@ -88,6 +89,7 @@ def analyze(text, y0):
     amt, amt3, prof = T.amounts_body(text, False)
     tplace = re.split(r"(?:\n|\. )(?:Conseguentemente|Agli oneri|Ai relativi oneri|Ai maggiori oneri|All.onere|Alla copertura)", text)[0]
     tplace = re.sub(r"[Ss]tretto di Messina|Ponte sullo Stretto|[Cc]ircumetnea|(?:[Pp]iazza|[Pp]iazzale|[Vv]ia|[Vv]iale|[Cc]orso|[Ll]argo) [A-Z][\w'’]+|sede (?:legale |operativa )?(?:in|a) [A-Z][\w'’]+", " ", tplace)
+    tplace = re.sub(NOISE, " ", tplace)  # omonimie: Friuli Venezia Giulia, province autonome, Chiesa cattolica, Monopoli di Stato, aeroporto Leonardo da Vinci, Salento
     pl, _ = T.find_places(tplace)
     if re.search(r"\bnazional[ei]\b", tplace[:300]) and len(pl) <= 2 and not re.search(r"(?:comune|città|provincia) di [A-Z]", tplace[:900]):
         pl = []
@@ -239,6 +241,11 @@ for (src, i), vs in grp.items():
         pid=sid, g=g, nf=len(v['firm']), es=es, mot=v['esito'] if es == 'Inammissibile' else '', ce=SREG.get(sid, '') if sid else '',
         f=[[SNAME.get(x[1], x[0]) if x[1] else x[0], (sen_group(x[1], date) if x[1] else 'Misto')] for x in v['firm']], **a)
 
+REV = json.load(open(B + 'data/luoghi_revisione_multi.json'))
+for r in rows:
+    k = f"{r['anno']}|{r['ramo']}|{r['id']}"
+    if k in REV['nazionale'] and r['anno'] < 2027: r['pm'] = []; r['po'] = 'Nazionale'
+    elif k in REV['togli']: r['pm'] = [p for p in r['pm'] if p not in REV['togli'][k]]
 json.dump(rows, open(B + 'out/multi_rows.json', 'w'), ensure_ascii=False)
 c = collections.Counter((r['anno'], r['ramo'], r['lett']) for r in rows)
 for k in sorted(c):

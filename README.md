@@ -20,8 +20,8 @@ The local spending requests are then matched to party vote shares in the 2022 ge
 
 ## Main results
 
-1. Ten extra points of 2022 vote share raise the probability that a party tables a local request for a province by **12.2 percentage points**. The mean probability is 13.9%.
-2. The gradient holds when comparing different parties **within the same province and budget**, at 12.5 points. All 144 alternative specifications are positive and 137 are significant at 5%.
+1. Ten extra points of 2022 vote share raise the probability that a party tables a local request for a province by **13.1 percentage points**. The mean probability is 13.7%.
+2. The gradient holds when comparing different parties **within the same province and budget**, at 13.3 points. All 144 alternative specifications are positive and 138 are significant at 5%.
 3. Within regions, the gradient runs through the **deputies elected in the province**.
 4. It is driven by the **opposition**. Fratelli d'Italia asks for money where it is relatively weaker.
 5. **Who asks matters most.** 12.4% of majority proposals are approved, against 2.9% for the opposition. The premium arises **at the vote**, not at the admissibility stage.
@@ -52,7 +52,7 @@ Standard errors are clustered by province with the CR1 correction (`sandwich::vc
 
 | File | Content |
 |---|---|
-| `emendamenti_2023_2027.csv` | One row per proposal (24,977); the columns are listed below. |
+| `emendamenti_2023_2027.csv` | One row per proposal (24,977), in chronological order: budget, then first and second reading, then amendment number. The columns are listed below. |
 | `testi_emendamenti_2023_2027.csv.gz` | The full text of each proposal, as published. |
 | `voti_camera_2022_province.csv` | 2022 Chamber list votes by province (Ministry of the Interior, Eligendo) and ISTAT population on 1 January 2025. |
 | `elettori_provincia_collegio_2022.csv` | Registered voters by province and list constituency (Eligendo). |
@@ -70,11 +70,13 @@ The columns of `emendamenti_2023_2027.csv` are:
 Variable names and labels are in Italian, as in the official sources.
 
 **Caveats**
+- `manovra` is the year the budget law applies to. The 2023 budget (Chamber C. 643-bis, Senate S. 442) was the first of the Meloni government, sworn in on 22 October 2022, and was passed in December 2022.
 - For the 2023 budget the Chamber published only the proposals *flagged* by the groups (1,043 of about 3,000).
 - No amendment is approved in second readings.
 - The 2027 budget had not yet been voted in committee when the data were collected.
 - For the 2027 budget, admissibility follows the Committee bulletins of 23 November 2026 (ruling) and 24 November 2026 (review, 98 proposals readmitted). Where the outcome column of the Chamber's online list differs from the bulletin, the bulletin is used (`code/python/manovra_2027/riesame.py`). After the review, 1,600 of the 6,558 proposals are inadmissible.
 - For the 2027 budget, 66 proposals naming a place were excluded from the map by the automatic rules. They were reviewed by hand (`code/python/manovra_2027/data/luoghi_revisione.json`): 23 name a place that is not the beneficiary and are treated as national, the other 43 are mapped to the provinces they name.
+- Place names that are also common words or parts of other names are filtered out (Friuli Venezia Giulia, the autonomous provinces of Trento and Bolzano, the Catholic Church, the State Monopolies, Leonardo da Vinci airport, Salento). The largest local requests of 2023–2026 (at least €100 million) were checked by hand (`code/python/legislatura/data/luoghi_revisione_multi.json`).
 - All euro sums (maps, rankings, totals, the votes–money comparison) exclude large works, the Strait of Messina bridge, reallocations and single requests above €1 billion, with the same rule for every budget.
 - Places and amounts are read automatically from the texts. Before citing a single case, check the official record linked in `link_ufficiale`.
 - The data include 1,106 sub-amendments. Without them, the counts match the figures reported at the time.

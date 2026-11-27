@@ -342,10 +342,12 @@ while i < N:
     else:
         amt_y = ''
     if amt and not amt_y and re.search(r"annui\s+a\s+decorrere|a\s+decorrere\s+dal", text): amt_y = 'a regime'
-    places, regs = find_places(text)
+    places, _ = find_places(re.sub(r"Friuli[- ]Venezia[- ]Giulia|[Pp]rovinc[ei]a? autonom[ae] di (?:Trento|Bolzano)(?: e (?:di )?(?:Trento|Bolzano))?|Chiesa [Cc]attolica|[Mm]onopoli di [Ss]tato|[Dd]ogane e dei [Mm]onopoli|Leonardo da Vinci|Salento", " ", text))
+    _, regs = find_places(text)
     tplace = re.split(r"(?:\n|\. )(?:Conseguentemente|Agli oneri|Ai relativi oneri|Ai maggiori oneri|All.onere)", text)[0]
     tplace = re.sub(r"[Ss]tretto di Messina|Ponte sullo Stretto|Domodossola-confine svizzero|ferrovia circumetnea", " ", tplace)
     tplace = re.sub(r"navigazione laghi Maggiore, di Garda e di Como|[Cc]ircumetnea|(?:[Pp]iazza|[Pp]iazzale|[Vv]ia|[Vv]iale|[Cc]orso|[Ll]argo) [A-Z][\w'’]+|sede (?:legale |operativa )?(?:in|a) [A-Z][\w'’]+", " ", tplace)
+    tplace = re.sub(r"Friuli[- ]Venezia[- ]Giulia|[Pp]rovinc[ei]a? autonom[ae] di (?:Trento|Bolzano)(?: e (?:di )?(?:Trento|Bolzano))?|Chiesa [Cc]attolica|[Mm]onopoli di [Ss]tato|[Dd]ogane e dei [Mm]onopoli|Leonardo da Vinci|Salento", " ", tplace)
     places_map, _ = find_places(tplace)
     if re.search(r"\bnazional[ei]\b", (rub or '') + ' ' + tplace[:300]) and len(places_map) <= 2 and not re.search(r"(?:comune|città|provincia) di [A-Z]", (rub or '') + ' ' + tplace[:900]):
         places_map = []

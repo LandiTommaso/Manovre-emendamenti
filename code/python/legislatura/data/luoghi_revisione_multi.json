@@ -1,0 +1,18 @@
+{"_nota": "Revisione manuale (27/11/2026) delle richieste locali da almeno 100 milioni nelle manovre 2023-2026. 'nazionale': il luogo citato non è il beneficiario; la proposta passa a portata Nazionale. 'togli': province attribuite per errore (omonimie).",
+ "nazionale": {
+  "2025|Camera|17.018": "disciplina nazionale delle locazioni brevi nei comuni capoluogo e ad alta tensione abitativa",
+  "2025|Senato|1.107": "come 2025 Camera 17.018",
+  "2025|Camera|71.014": "poteri sostitutivi sui programmi di edilizia residenziale pubblica in tutta Italia",
+  "2026|Senato|115.3": "Trento e Bolzano citate solo come province autonome nella Conferenza Stato-Regioni",
+  "2024|Senato|75.1000": "accordi finanziari con regioni e province autonome",
+  "2026|Senato|45.0.37": "lavoratori frontalieri: Roma è il luogo della firma dell'accordo",
+  "2026|Senato|36.0.24": "giustizia tributaria: «Monopoli» sono i Monopoli di Stato",
+  "2026|Senato|36.0.24 (testo 2) (e identici)": "come 36.0.24",
+  "2026|Senato|108.0.26": "come 36.0.24"
+ },
+ "togli": {
+  "2025|Camera|80.091": ["Napoli"],
+  "2025|Camera|80.092": ["Napoli"],
+  "2025|Camera|78.7": ["Rimini"],
+  "2024|Senato|82.6": ["Firenze"]
+ }}
