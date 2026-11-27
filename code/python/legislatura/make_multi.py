@@ -90,7 +90,7 @@ R('<h2 id="maptitle">Dove sarebbero finiti i soldi</h2>', '<h2 id="maptitle">Dov
 R('<div class="f"><label for="mdep">Deputato (primo firmatario)</label>', '<div class="f"><label for="mdep">Parlamentare (primo firmatario)</label>')
 R('<select id="mes"><option value="">Tutti</option><option value="A">Ammissibili</option><option value="I">Inammissibili (tutti)</option><option value="E">Inammissibili per estraneità</option></select>',
   '<select id="mes"><option value="">Tutti</option><option value="AP">Approvati</option><option value="A">Ammissibili</option><option value="I">Inammissibili (tutti)</option><option value="E">Inammissibili per estraneità</option></select>')
-R('<p class="sub">Somme chieste per il 2027–29, inammissibili compresi; un emendamento su più province è diviso in parti uguali. Popolazione ISTAT al 1° gennaio 2025. <a href="#metodo">Fonti e metodo</a>.</p>',
+R('<p class="sub">Somme chieste per il 2027–29, inammissibili compresi; un emendamento su più province è diviso in parti uguali; escluse grandi opere e richieste oltre un miliardo. Popolazione ISTAT al 1° gennaio 2025. <a href="#metodo">Fonti e metodo</a>.</p>',
   '<p class="sub">Somme chieste per i tre anni di ciascuna manovra, inammissibili compresi; sommando più manovre gli importi si accumulano. Un emendamento su più province è diviso in parti uguali; esclusi grandi opere e rimodulazioni (es. Ponte sullo Stretto) e richieste oltre 1 miliardo. Popolazione ISTAT al 1° gennaio 2025. <a href="#metodo">Fonti e metodo</a>.</p>')
 
 # ---------- voti ----------
@@ -151,11 +151,10 @@ RX(r"  \$\('#tiles'\)\.innerHTML=\n.*?;\n  // group bars",
    `<div class="tile"><b>${nf(L.length)}</b><span>per un solo comune o territorio, di cui approvate ${nf(LA)}</span></div>`+
    `<div class="tile"><b>${fmtE(sumL)}</b><span>chiesti per singoli territori (stima, dove calcolabile)</span></div>`;
   // group bars""")
-R("const sumL=L.reduce((s,r)=>s+(r.e3&&r.e3<5e9?r.e3:0),0);", "const sumL=L.reduce((s,r)=>s+(r.e3&&!r.big?r.e3:0),0);")
 R("F.forEach(r=>{const o=cnt[r.g];if(!o)return;o.t++;if(r.s==='Ammissibile')o.ok++;else if(r.s==='Compensazione')o.c++;else o.e++});",
   "F.forEach(r=>{const o=cnt[r.g];if(!o)return;o.t++;if(r.s==='Ammissibile')o.ok++;else if(r.s==='Compensazione')o.c++;else o.e++});")
-R("const sumAll=F.reduce((s,r)=>s+(r.e3&&r.e3<5e9?r.e3:0),0);\n  $('#cnt').innerHTML=`${nf(n)} emendamenti <small>· totale 2027–29 stimato: ${fmtE(sumAll)} (somma indicativa: gli emendamenti identici si ripetono)</small>`;",
-  "const sumAll=F.reduce((s,r)=>s+(r.e3&&!r.big?r.e3:0),0);\n  $('#cnt').innerHTML=`${nf(n)} proposte <small>· somma dei costi triennali stimati: ${fmtE(sumAll)} (indicativa: proposte identiche si ripetono, grandi opere escluse)</small>`;")
+R("const sumAll=F.reduce((s,r)=>s+AMT(r),0);\n  $('#cnt').innerHTML=`${nf(n)} emendamenti <small>· totale 2027–29 stimato: ${fmtE(sumAll)} (somma indicativa: gli emendamenti identici si ripetono)</small>`;",
+  "const sumAll=F.reduce((s,r)=>s+(r.big?0:(r.e3||r.e||0)),0);\n  $('#cnt').innerHTML=`${nf(n)} proposte <small>· somma dei costi triennali stimati: ${fmtE(sumAll)} (indicativa: proposte identiche si ripetono, grandi opere escluse)</small>`;")
 # righe e dettaglio
 R("<div class=\"meta\">${esc(r.a)} · ${esc(r.th.join(', '))} · cop.: ${esc(r.cv)}${r.po==='Più territori'?' · più territori':''}</div></td>",
   "<div class=\"meta\">${esc(r.ra)} · ${esc(r.a)} · ${esc(r.th.join(', '))} · cop.: ${esc(r.cv)}${r.po==='Più territori'?' · più territori':''}</div></td>")
@@ -167,7 +166,7 @@ R("<dt>Esito</dt><dd>${r.s==='Ammissibile'?(r.pz?esc('Ammissibile, '+r.m):'Ammis
 R("<dt>Fonte</dt><dd><a href=\"${CAM+encodeURIComponent(r.i)+'.&position=20261123'}\" target=\"_blank\" rel=\"noopener\">Scheda ufficiale sul sito della Camera ↗</a></dd>",
   "<dt>Fonte</dt><dd>${LINK(r)?'<a href=\"'+esc(LINK(r))+'\" target=\"_blank\" rel=\"noopener\">Scheda ufficiale sul sito '+(r.ra==='Senato'?'del Senato':'della Camera')+' ↗</a>':'—'}</dd>")
 R("<dt>Eletto in</dt><dd>${esc(r.cf||'—')}${r.u?' · uninominale '+esc(r.u):''}</dd>", "<dt>Eletto in</dt><dd>${esc(r.cf||r.ce||'—')}${r.u?' · uninominale '+esc(r.u):''}</dd>")
-R("costo 2027–29 ${fmtE(r.e3)} <span class=\"meta\">(stima automatica)</span></dd>", "costo nel triennio ${fmtE(r.e3)} <span class=\"meta\">(stima automatica${r.big?'; grande opera o rimodulazione, esclusa dalle somme':''})</span></dd>")
+R("costo 2027–29 ${fmtE(r.e3)}", "costo nel triennio ${fmtE(r.e3)}")
 R("<pre class=\"notr\">${hl(esc(T[r.x]))}</pre>", "<pre class=\"notr\">${(()=>{const t=txt(r);return t==null?'Carico il testo…':(t?hl(esc(t)):'Testo non disponibile: apri la scheda ufficiale.')})()}</pre>")
 R("const id=(r.id_||'')+r.i;\n  return `<tr class=\"r${openId===r.i+'|'+r.p?' open':''}\" data-k=\"${esc(r.i+'|'+r.p)}\" tabindex=\"0\">",
   "const id=(r.id_||'')+r.i;const ok_=r.y+'|'+r.ra+'|'+r.i;\n  return `<tr class=\"r${openId===ok_?' open':''}\" data-k=\"${esc(ok_)}\" tabindex=\"0\">")
@@ -188,7 +187,6 @@ R("const PCOL_D={'FdI':'#338ced','Lega':'#0aac23','FI':'#1fa5c9','Noi Moderati':
 # soglie mappa scalate col numero di manovre
 R("function rampIdx(v){const m=$('#mmis').value,th=m==='n'?TH_N:(m==='pc'?TH_PC:TH_SOLDI);",
   "const NY=()=>D?new Set(D.map(r=>r.y)).size||1:1;const SC=a=>a.map(x=>x*NY());\nfunction rampIdx(v){const m=$('#mmis').value,th=SC(m==='n'?TH_N:(m==='pc'?TH_PC:TH_SOLDI));")
-R("const v=r.e3||r.e||0;K.all+=v;K.nAll++;", "const v=r.big?0:(r.e3||r.e||0);K.all+=v;K.nAll++;")
 R("if(es==='A'&&r.s!=='Ammissibile')return;if(es==='I'&&r.s==='Ammissibile')return;if(es==='E'&&r.s!=='Estraneità di materia')return;",
   "if(es==='AP'&&r.o!=='A')return;if(es==='A'&&r.s!=='Ammissibile')return;if(es==='I'&&r.s==='Ammissibile')return;if(es==='E'&&r.s!=='Estraneità di materia')return;")
 R("const esT={A:'ammessi al voto',I:'dichiarati inammissibili',E:'dichiarati fuori tema'}[es]||'';", "const esT={AP:'approvati',A:'ammessi al voto',I:'dichiarati inammissibili',E:'dichiarati fuori tema'}[es]||'';")
@@ -206,7 +204,7 @@ R("if(es==='A')o2.fs='Ammissibile';if(es==='I')o2.fs='INAMM';if(es==='E')o2.fs='
 RX(r"function renderRank\(\)\{\n.*?\n\}\n\$\('#rk'\)\.addEventListener\('change',renderRank\);\$\('#rg2'\)\.addEventListener\('change',renderRank\);\$\('#rmin'\)\.addEventListener\('input',renderRank\);",
    """function renderRank(){
   if(!D)return;const by={};const gsel=$('#rg2').value,rra=$('#rra').value,rq=fold($('#rq').value.trim());
-  D.forEach(r=>{if(r.g==='Governo'||(gsel&&r.g!==gsel)||(rra&&r.ra!==rra))return;if(rq&&!fold(r.p).includes(rq))return;const k=r.p+'|'+r.ra;const o=by[k]||(by[k]={p:r.p,ra:r.ra,g:r.g,gs:new Set(),n:0,i:0,e:0,loc:0,soldi:0,ap:0});o.n++;o.gs.add(r.g);o.g=r.g;if(r.s!=='Ammissibile')o.i++;if(r.s==='Estraneità di materia')o.e++;if(r.o==='A')o.ap++;if(r.loc){o.loc++;if(r.e3&&!r.big)o.soldi+=r.e3}});
+  D.forEach(r=>{if(r.g==='Governo'||(gsel&&r.g!==gsel)||(rra&&r.ra!==rra))return;if(rq&&!fold(r.p).includes(rq))return;const k=r.p+'|'+r.ra;const o=by[k]||(by[k]={p:r.p,ra:r.ra,g:r.g,gs:new Set(),n:0,i:0,e:0,loc:0,soldi:0,ap:0});o.n++;o.gs.add(r.g);o.g=r.g;if(r.s!=='Ammissibile')o.i++;if(r.s==='Estraneità di materia')o.e++;if(r.o==='A')o.ap++;if(r.loc){o.loc++;o.soldi+=AMT(r)}});
   const min=Math.max(1,parseInt($('#rmin').value)||1),k=$('#rk').value;
   let L=Object.values(by).filter(o=>o.n>=min);
   const key=o=>k==='pi'?o.i/o.n:k==='pe'?o.e/o.n:k==='pa'?o.ap/o.n:(o[k]||0);
@@ -227,6 +225,8 @@ R("'emendamenti-manovra-2027-filtrati-'+n+'.csv'", "'emendamenti-manovre-'+PA+'-
 R("saveCSV($('#csva'),'emendamenti-manovra-2027-tutti.csv'", "saveCSV($('#csva'),'emendamenti-manovre-'+PA+'-'+PB+'-tutti.csv'")
 R("'deputati-inammissibilita-manovra-2027.csv',csvBuild(['Deputato (primo firmatario)',", "'parlamentari-manovre-'+PA+'-'+PB+'.csv',csvBuild(['Parlamentare (primo firmatario)',")
 R("'Euro chiesti 2027-2029 (quota attribuita)'", "'Euro chiesti nel periodo (quota attribuita)'")
+R("'Euro chiesti da '+g.lab+' 2027-2029'", "'Euro chiesti da '+g.lab+' ('+perLab()+')'")
+R("'Euro chiesti per singoli territori 2027-2029'", "'Euro chiesti per singoli territori nel periodo'")
 # immagine e fonti
 R("x.fillText(L('EMENDAMENTI ALLA MANOVRA 2027 · ELABORAZIONE SU DATI CAMERA DEI DEPUTATI E ISTAT'),P,y+12)",
   "x.fillText(('EMENDAMENTI ALLE MANOVRE · '+perLab()+' · DATI CAMERA, SENATO E ISTAT').toUpperCase(),P,y+12)")
@@ -240,6 +240,7 @@ R("const re=new RegExp(\"(?<![\\\\p{L}\\\\d'’])(?:\"+names+\")",
   "const re=new RegExp(\"(?<![\\\\p{L}\\\\d])(?:\\\\d{4}–\\\\d{4}, intera legislatura|manovre \\\\d{4}–\\\\d{4}|manovra \\\\d{4})(?: · (?:Camera|Senato))?|(?<![\\\\p{L}\\\\d'’])(?:\"+names+\")")
 R("return t!=null?t.replace(/\\{(\\d+)\\}/g,(_,i)=>vals[+i]):null}", "return t!=null?t.replace(/\\{(\\d+)\\}/g,(_,i)=>trTok(vals[+i])):null}")
 
+R('<a class="sb-x" href="https://claude.ai/artifact/PAuWEiKeqcTfEX1DMy16PH">Tutte le manovre 2023–2027 →</a>', '<a class="sb-x" href="https://claude.ai/artifact/D5WQFUaW1R2Z67CGSseZGe">Manovra 2027 nel dettaglio →</a>')
 # i18n spento
 R("function loadI18(){if(I18)return Promise.resolve(I18);", "function loadI18(){if(LANG==='it')return Promise.resolve(null);if(I18)return Promise.resolve(I18);")
 # nuove funzioni (quadro e studio) prima della chiusura

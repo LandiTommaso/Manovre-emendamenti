@@ -3,6 +3,7 @@ Una riga = una proposta emendativa (numero base; le riformulazioni sono fuse nel
 import json, re, html, collections, sys
 sys.path.insert(0, '/home/claude/multi/src')
 import textan as T
+BIGRE = r"collegamento stabile tra la Sicilia|[Pp]onte sullo [Ss]tretto|[Ss]ociet[àa] Stretto di Messina|[Rr]imodula"
 
 B = '/home/claude/multi/'
 LIST = json.load(open(B + 'out/camera_liste.json'))
@@ -93,7 +94,7 @@ def analyze(text, y0):
     nreg = len(set(p['regione'] for p in pl))
     portata = 'Nazionale' if not pl else ('Più territori' if len(pl) >= 6 and nreg >= 3 else 'Locale')
     pm = sorted(set(p['provincia'] for p in pl)) if portata == 'Locale' else []
-    big = bool(re.search(r"collegamento stabile tra la Sicilia|[Ss]tretto di Messina|rimodula", text)) or (amt3 or amt or 0) > 1e9
+    big = bool(re.search(BIGRE, text)) or (amt3 or amt or 0) > 1e9  # stessa regola in emend/src/export.py
     ey = ''
     if prof:
         ys_ = sorted(prof); vs_ = [prof[y] for y in ys_]

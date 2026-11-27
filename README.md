@@ -20,8 +20,8 @@ The local spending requests are then matched to party vote shares in the 2022 ge
 
 ## Main results
 
-1. Ten extra points of 2022 vote share raise the probability that a party tables a local request for a province by **12.2 percentage points**. The mean probability is 13.4%.
-2. The gradient holds when comparing different parties **within the same province and budget**, at 12.4 points. All 144 alternative specifications are positive and 137 are significant at 5%.
+1. Ten extra points of 2022 vote share raise the probability that a party tables a local request for a province by **12.2 percentage points**. The mean probability is 13.9%.
+2. The gradient holds when comparing different parties **within the same province and budget**, at 12.5 points. All 144 alternative specifications are positive and 137 are significant at 5%.
 3. Within regions, the gradient runs through the **deputies elected in the province**.
 4. It is driven by the **opposition**. Fratelli d'Italia asks for money where it is relatively weaker.
 5. **Who asks matters most.** 12.4% of majority proposals are approved, against 2.9% for the opposition. The premium arises **at the vote**, not at the admissibility stage.
@@ -74,6 +74,8 @@ Variable names and labels are in Italian, as in the official sources.
 - No amendment is approved in second readings.
 - The 2027 budget had not yet been voted in committee when the data were collected.
 - For the 2027 budget, admissibility follows the Committee bulletins of 23 November 2026 (ruling) and 24 November 2026 (review, 98 proposals readmitted). Where the outcome column of the Chamber's online list differs from the bulletin, the bulletin is used (`code/python/manovra_2027/riesame.py`). After the review, 1,600 of the 6,558 proposals are inadmissible.
+- For the 2027 budget, 66 proposals naming a place were excluded from the map by the automatic rules. They were reviewed by hand (`code/python/manovra_2027/data/luoghi_revisione.json`): 23 name a place that is not the beneficiary and are treated as national, the other 43 are mapped to the provinces they name.
+- All euro sums (maps, rankings, totals, the votes–money comparison) exclude large works, the Strait of Messina bridge, reallocations and single requests above €1 billion, with the same rule for every budget.
 - Places and amounts are read automatically from the texts. Before citing a single case, check the official record linked in `link_ufficiale`.
 - The data include 1,106 sub-amendments. Without them, the counts match the figures reported at the time.
 

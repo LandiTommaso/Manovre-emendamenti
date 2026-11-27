@@ -1,4 +1,5 @@
 import json,re
+BIGRE=r"collegamento stabile tra la Sicilia|[Pp]onte sullo [Ss]tretto|[Ss]ociet[àa] Stretto di Messina|[Rr]imodula"  # stessa regola in multi/src/build.py
 R=json.load(open('/home/claude/emend/data/rows.json'))
 out=[];texts=[];idx={}
 COVP=[('FISPE (DL 282/2004)',r"10,? comma 5,? del decreto-legge 29 novembre 2004"),
@@ -33,6 +34,6 @@ for r in R:
         l=[x['nome'] for x in r['luoghi']],pr=r['province'],rg=r['regTerr'],
         loc=1 if loc else 0,po=r['portata'],th=r['temi'],t=r['titolo'] or r['titoloAuto'],ta=0 if r['titolo'] else 1,
         x=idx[tt],d=dup,id_=r['ident'],cv=cov(t),co=r.get('nelCollegio',''),
-        rx=('R' if 'resta' in r.get('riammesso','') else ('S' if r.get('riammesso') else '')),ns=1 if r.get('nota_esito') else 0,pm=(sorted(set(p['provincia'] for p in r.get('luoghiMappa',[]))) if (r.get('luoghiMappa') and r['localistico'] and not (len(r['luoghiMappa'])>=6 and len(set(p['regione'] for p in r['luoghiMappa']))>=3)) else [])))
+        rx=('R' if 'resta' in r.get('riammesso','') else ('S' if r.get('riammesso') else '')),ns=1 if r.get('nota_esito') else 0,big=1 if (re.search(BIGRE,t) or (r['importo3'] or r['importo'] or 0)>1e9) else 0,pm=(sorted(set(p['provincia'] for p in r.get('luoghiMappa',[]))) if (r.get('luoghiMappa') and r['localistico'] and not (len(r['luoghiMappa'])>=6 and len(set(p['regione'] for p in r['luoghiMappa']))>=3)) else [])))
 s=json.dumps({'texts':texts,'rows':out},ensure_ascii=False,separators=(',',':'))
 open('/home/claude/emend/site/emendamenti.json','w').write(s); print(len(s)/1e6)
