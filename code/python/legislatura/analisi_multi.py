@@ -110,7 +110,8 @@ for a in YEARS:
         RANGES[f'{a}-{b_}'] = d
 out = dict(ranges=RANGES, models=M, approval=APP, rate=rate, ap_y=ap_y,
            npanel=len(panel), nprov=len(provs))
-json.dump(out, open(B + 'site/analisi_multi.json', 'w'), ensure_ascii=False, default=float)
+for _site in ('site', 'site2'):
+    json.dump(out, open(B + _site + '/analisi_multi.json', 'w'), ensure_ascii=False, default=float)
 for k, v in M.items(): print(k, v)
 print('APP', APP); print(rate); print(ap_y)
 # pannello per replica

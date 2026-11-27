@@ -4,7 +4,6 @@ import json, re, html, collections, sys
 sys.path.insert(0, '/home/claude/multi/src')
 import textan as T
 NOISE = r"Friuli[- ]Venezia[- ]Giulia|[Pp]rovinc[ei]a? autonom[ae] di (?:Trento|Bolzano)(?: e (?:di )?(?:Trento|Bolzano))?|Chiesa [Cc]attolica|[Mm]onopoli di [Ss]tato|[Dd]ogane e dei [Mm]onopoli|Leonardo da Vinci|Salento"
-BIGRE = r"collegamento stabile tra la Sicilia|[Pp]onte sullo [Ss]tretto|[Ss]ociet[àa] Stretto di Messina|[Rr]imodula"
 
 B = '/home/claude/multi/'
 LIST = json.load(open(B + 'out/camera_liste.json'))
@@ -96,7 +95,7 @@ def analyze(text, y0):
     nreg = len(set(p['regione'] for p in pl))
     portata = 'Nazionale' if not pl else ('Più territori' if len(pl) >= 6 and nreg >= 3 else 'Locale')
     pm = sorted(set(p['provincia'] for p in pl)) if portata == 'Locale' else []
-    big = bool(re.search(BIGRE, text)) or (amt3 or amt or 0) > 1e9  # stessa regola in emend/src/export.py
+    big = False  # nessuna esclusione per tipo o dimensione; solo le proposte in data/luoghi_revisione_multi.json ('non_richiesta')
     ey = ''
     if prof:
         ys_ = sorted(prof); vs_ = [prof[y] for y in ys_]
@@ -246,6 +245,8 @@ for r in rows:
     k = f"{r['anno']}|{r['ramo']}|{r['id']}"
     if k in REV['nazionale'] and r['anno'] < 2027: r['pm'] = []; r['po'] = 'Nazionale'
     elif k in REV['togli']: r['pm'] = [p for p in r['pm'] if p not in REV['togli'][k]]
+    if k in REV.get('non_richiesta', {}): r['big'] = 1
+    if k in REV.get('importo', {}): r['e'] = REV['importo'][k]['e']; r['e3'] = REV['importo'][k]['e3']
 json.dump(rows, open(B + 'out/multi_rows.json', 'w'), ensure_ascii=False)
 c = collections.Counter((r['anno'], r['ramo'], r['lett']) for r in rows)
 for k in sorted(c):

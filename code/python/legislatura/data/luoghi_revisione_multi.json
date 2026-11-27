@@ -1,4 +1,5 @@
-{"_nota": "Revisione manuale (27/11/2026) delle richieste locali da almeno 100 milioni nelle manovre 2023-2026. 'nazionale': il luogo citato non è il beneficiario; la proposta passa a portata Nazionale. 'togli': province attribuite per errore (omonimie).",
+{
+ "_nota": "Revisione manuale (27/11/2026) delle richieste locali da almeno 100 milioni nelle manovre 2023-2026. 'nazionale': il luogo citato non è il beneficiario; la proposta passa a portata Nazionale. 'togli': province attribuite per errore (omonimie). 'non_richiesta': proposte che riscrivono uno stanziamento già previsto (calendario dei fondi del Ponte sullo Stretto) senza chiedere soldi nuovi: restano nell'elenco ma non entrano nelle somme. 'importo': cifra corretta a mano quando il testo cita anche uno stanziamento esistente.",
  "nazionale": {
   "2025|Camera|17.018": "disciplina nazionale delle locazioni brevi nei comuni capoluogo e ad alta tensione abitativa",
   "2025|Senato|1.107": "come 2025 Camera 17.018",
@@ -8,11 +9,41 @@
   "2026|Senato|45.0.37": "lavoratori frontalieri: Roma è il luogo della firma dell'accordo",
   "2026|Senato|36.0.24": "giustizia tributaria: «Monopoli» sono i Monopoli di Stato",
   "2026|Senato|36.0.24 (testo 2) (e identici)": "come 36.0.24",
-  "2026|Senato|108.0.26": "come 36.0.24"
+  "2026|Senato|108.0.26": "come 36.0.24",
+  "2026|Senato|39.17": "misura pensionistica: Messina compare solo nella copertura (fondi del Ponte)",
+  "2026|Senato|39.18": "come 39.17"
  },
  "togli": {
-  "2025|Camera|80.091": ["Napoli"],
-  "2025|Camera|80.092": ["Napoli"],
-  "2025|Camera|78.7": ["Rimini"],
-  "2024|Senato|82.6": ["Firenze"]
- }}
+  "2025|Camera|80.091": [
+   "Napoli"
+  ],
+  "2025|Camera|80.092": [
+   "Napoli"
+  ],
+  "2025|Camera|78.7": [
+   "Rimini"
+  ],
+  "2024|Senato|82.6": [
+   "Firenze"
+  ],
+  "2024|Senato|56.0.1": [
+   "Catania",
+   "Palermo",
+   "Siracusa",
+   "Trapani"
+  ]
+ },
+ "non_richiesta": {
+  "2024|Senato|56.17": "riscrive l'autorizzazione di spesa del Ponte sullo Stretto (11.630 milioni) già prevista dal governo",
+  "2024|Senato|56.18": "cambia il calendario annuale degli 11.630 milioni del Ponte, stesso totale",
+  "2024|Senato|54.1000/65": "cambia il calendario annuale dei 9.312 milioni del Ponte, stesso totale",
+  "2025|Camera|80.039": "riscrive l'autorizzazione di spesa del Ponte sullo Stretto già in legge"
+ },
+ "importo": {
+  "2024|Senato|54.1000/53": {
+   "e": 40400000,
+   "e3": 41200000,
+   "nota": "30 milioni per la tranvia di Firenze e 10 per le metro di Roma nel 2024, 0,4 milioni l'anno per la metro di Catania; i 9.312 milioni citati sono lo stanziamento del Ponte già previsto"
+  }
+ }
+}

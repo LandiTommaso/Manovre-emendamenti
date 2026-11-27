@@ -34,11 +34,24 @@ function renderQuadro(){
   const apr=D.filter(r=>r.o==='A');hb('#qcoal',CO.map(c=>[c,apr.filter(r=>r.c===c).length]),v=>nf(v));
   hb('#qrate',['Maggioranza','Opposizione'].map(c=>[c,rate(x=>x===c)]),v=>pf(v)+'%');
   // partiti
-  const ys=SELY().filter(y=>D.some(r=>r.y===y));const GS=ORDER.filter(g=>D.some(r=>r.g===g));
-  $('#qparty').innerHTML='<thead><tr><th>Partito</th>'+ys.map(y=>`<th style="text-align:right">${y}</th>`).join('')+'<th style="text-align:right">Totale</th></tr></thead><tbody>'+
-    GS.map(g=>{const x=D.filter(r=>r.g===g);const cell=a=>`<td class="n">${nf(a.length)} · <b>${nf(a.filter(r=>r.o==='A').length)}</b></td>`;return `<tr><td><button class="who" type="button" data-qg="${esc(g)}">${esc(g)}</button></td>${ys.map(y=>cell(x.filter(r=>r.y===y))).join('')}${cell(x)}</tr>`}).join('')+'</tbody>';
-  document.querySelectorAll('[data-qg]').forEach(b=>b.onclick=()=>setOnly({fg:b.dataset.qg,fo:'A'}));
+  renderQParty();
 }
+let QPS='n',QPD=-1;
+function renderQParty(){if(!D)return;
+  if(!renderQParty._b){renderQParty._b=1;$('#qps').onchange=()=>{QPS=$('#qps').value;QPD=QPS==='g'?1:-1;renderQParty()};$('#qpy').onchange=()=>renderQParty()}
+  const ys=SELY().filter(y=>D.some(r=>r.y===y));const GS=ORDER.filter(g=>D.some(r=>r.g===g));const yv=$('#qpy').value;
+  const st=a=>{const n=a.length,ap=a.filter(r=>r.o==='A').length,ia=a.filter(r=>r.s!=='Ammissibile').length,lo=a.filter(r=>r.loc);return {n,ap,ia,pap:n?ap/n*100:NaN,pia:n?ia/n*100:NaN,pam:n?(n-ia)/n*100:NaN,lo:lo.length,plo:n?lo.length/n*100:NaN,eur:lo.reduce((x,r)=>x+AMT(r),0)}};
+  const T=GS.map(g=>{const x=D.filter(r=>r.g===g);return {g,S:st(x),Y:ys.map(y=>st(x.filter(r=>r.y===y)))}});
+  const key=o=>o.S[QPS];T.sort((a,b)=>QPS==='g'?(ORDER.indexOf(a.g)-ORDER.indexOf(b.g))*-QPD:((isNaN(key(b))?-1:key(b))-(isNaN(key(a))?-1:key(a)))*-QPD||b.S.n-a.S.n);
+  const p1=v=>isNaN(v)?'—':pf(v)+'%';
+  const ycell=Y=>yv==='none'?'':yv==='pap'?`<td class="n">${Y.n?p1(Y.pap):'—'}</td>`:yv==='pia'?`<td class="n">${Y.n?p1(Y.pia):'—'}</td>`:`<td class="n">${nf(Y.n)} · <b>${nf(Y.ap)}</b></td>`;
+  const th=(k,lab,al)=>`<th data-qs="${k}" class="qs${QPS===k?' on':''}" style="text-align:${al||'right'};cursor:pointer" aria-sort="${QPS===k?(QPD<0?'descending':'ascending'):'none'}">${lab}</th>`;
+  $('#qparty').innerHTML='<thead><tr>'+th('g','Partito','left')+(yv==='none'?'':ys.map(y=>`<th style="text-align:right">${y}</th>`).join(''))+th('n','Proposte')+th('pap','Approvate')+th('pia','Inammissibili')+th('plo','Per un solo territorio')+th('eur','Euro chiesti per territori')+'</tr></thead><tbody>'+
+    T.map(({g,S,Y})=>`<tr><td style="white-space:nowrap"><i class="qdot" style="background:${PCOL[g]||'var(--muted)'}"></i><button class="who" type="button" data-qg="${esc(g)}">${esc(g)}</button></td>${Y.map(ycell).join('')}<td class="n"><b>${nf(S.n)}</b></td><td class="n">${nf(S.ap)} <span class="meta">${p1(S.pap)}</span></td><td class="n">${nf(S.ia)} <span class="meta">${p1(S.pia)}</span></td><td class="n">${nf(S.lo)} <span class="meta">${p1(S.plo)}</span></td><td class="n">${fmtE(S.eur)}</td></tr>`).join('')+'</tbody>';
+  document.querySelectorAll('[data-qg]').forEach(b=>b.onclick=()=>setOnly({fg:b.dataset.qg,fo:'A'}));
+  document.querySelectorAll('#qparty th[data-qs]').forEach(h=>h.onclick=()=>{const k=h.dataset.qs;if(QPS===k)QPD=-QPD;else{QPS=k;QPD=k==='g'?1:-1}$('#qps').value=QPS;renderQParty()});
+}
+
 function coefPlot(svg,items,lab){svg.innerHTML='';const W=640,ml=150,mr=20,mt=12,mb=34,rh=34,NR=items.reduce((m,d,i)=>Math.max(m,(d.row??i)+1),0),H=mt+mb+rh*NR;svg.setAttribute('viewBox',`0 0 ${W} ${H}`);
   const lo=Math.min(-5,...items.map(d=>d.b-1.96*d.se)),hi=Math.max(5,...items.map(d=>d.b+1.96*d.se));const X=v=>ml+(v-lo)/(hi-lo)*(W-ml-mr);
   const step=(hi-lo)>60?20:(hi-lo)>25?10:5;for(let t=Math.ceil(lo/step)*step;t<=hi;t+=step){const l=svgEl(svg,'line',{x1:X(t),x2:X(t),y1:mt,y2:H-mb,class:t===0?'ax':'gr'});if(t===0)l.style.stroke='var(--fg)';svgEl(svg,'text',{x:X(t),y:H-mb+15,'text-anchor':'middle'},pf(t,0))}
@@ -46,47 +59,46 @@ function coefPlot(svg,items,lab){svg.innerHTML='';const W=640,ml=150,mr=20,mt=12
   items.forEach((d,i)=>{const yy=mt+(d.row??i)*rh+rh/2+(d.dy||0);const c=d.col||'var(--accent)';const l=svgEl(svg,'line',{x1:X(d.b-1.96*d.se),x2:X(d.b+1.96*d.se),y1:yy,y2:yy,'stroke-width':2});l.style.stroke=c;
     const ci=svgEl(svg,'circle',{cx:X(d.b),cy:yy,r:5,'stroke-width':2});ci.style.stroke=c;ci.style.fill=d.hollow?'var(--surface)':c;svgEl(ci,'title',{},`${d.t}: ${pf(d.b)} (e.s. ${pf(d.se)})`);
     if(d.lab)svgEl(svg,'text',{x:0,y:yy+4,class:'lab'},d.lab)})}
+let PANEL=null,panLoading=false;
+const MAJ_P=['FdI','Lega','FI','Noi Moderati'];
+function quintStats(){const ys=SELY();const by={};PANEL.rows.forEach(r=>{(by[r[2]]=by[r[2]]||{})[r[0]]=r[4]});
+  const qOf={};for(const g in by){const ps=Object.keys(by[g]).sort((a,b)=>by[g][a]-by[g][b]);ps.forEach((p,i)=>{qOf[g+'|'+p]=Math.min(4,Math.floor(i*5/ps.length))})}
+  const A={maj:[0,0,0,0,0].map(()=>[0,0]),opp:[0,0,0,0,0].map(()=>[0,0]),all:[0,0,0,0,0].map(()=>[0,0])};let n=0;
+  PANEL.rows.forEach(r=>{if(!ys.includes(r[3]))return;const q=qOf[r[2]+'|'+r[0]];const k=MAJ_P.includes(r[2])?'maj':'opp';[k,'all'].forEach(z=>{A[z][q][0]+=r[5];A[z][q][1]++});n++});
+  const pc=x=>x[1]?x[0]/x[1]*100:NaN;return {maj:A.maj.map(pc),opp:A.opp.map(pc),all:A.all.map(pc),n}}
+function descPlot(Q){const s=$('#adesc');s.innerHTML='';const W=640,H=300,ml=46,mr=12,mt=26,mb=40;const mx=Math.max(5,...Q.maj,...Q.opp)*1.15;const Y=v=>mt+(1-v/mx)*(H-mt-mb);const gw=(W-ml-mr)/5,bw=gw*0.32;
+  const step=mx>40?10:5;for(let t=0;t<=mx;t+=step){svgEl(s,'line',{x1:ml,x2:W-mr,y1:Y(t),y2:Y(t),class:t===0?'ax':'gr'});svgEl(s,'text',{x:ml-6,y:Y(t)+4,'text-anchor':'end'},pf(t,0)+'%')}
+  const labs=['quinto più debole','2°','3°','4°','quinto più forte'];
+  [['maj','#2b5d9c','Partiti di maggioranza'],['opp','#c0392b','Partiti di opposizione']].forEach(([k,c,lab],j)=>{Q[k].forEach((v,q)=>{if(isNaN(v))return;const x=ml+q*gw+gw/2+(j?2:-2-bw);const r=svgEl(s,'rect',{x,y:Y(v),width:bw,height:Math.max(1,Y(0)-Y(v)),rx:3});r.style.fill=c;svgEl(r,'title',{},lab+': '+pf(v)+'%');svgEl(s,'text',{x:x+bw/2,y:Y(v)-4,'text-anchor':'middle',class:'vlab'},pf(v,0)+'%')})});
+  labs.forEach((l,q)=>svgEl(s,'text',{x:ml+q*gw+gw/2,y:H-mb+16,'text-anchor':'middle'},(q===0||q===4)?L(l):l));
+  svgEl(s,'text',{x:(ml+W-mr)/2,y:H-mb+34,'text-anchor':'middle'},L('quinto di province secondo i voti 2022 del partito'));
+  const lg=[['#2b5d9c','Partiti di maggioranza'],['#c0392b','Partiti di opposizione']];lg.forEach(([c,t],k)=>{const x=ml+8+k*210;const r=svgEl(s,'rect',{x,y:2,width:11,height:11,rx:2});r.style.fill=c;svgEl(s,'text',{x:x+16,y:12},L(t))})}
 function renderAnalisi(){
-  if(!AN){if(anLoading)return;anLoading=true;fetch('analisi_multi.json').then(r=>r.json()).then(j=>{AN=j;anLoading=false;renderAnalisi()}).catch(()=>{anLoading=false;$('#abrief').textContent='Non riesco a caricare i risultati.'});return}
-  const K=PA+'-'+PB,Q=AN.ranges[K];if(!Q)return;const P=Q.pooled,Wn=Q.within,Ap=Q.approved,A=Q.approval;
-  const sig=m=>Math.abs(m.b/m.se)>1.96;const many=PA!==PB;const PL=perLab();
-  $('#aper').textContent=PL;
-  $('#ah2').textContent=(PL[0].toUpperCase()+PL.slice(1))+(sig(Wn)?': il voto del 2022 conta anche dentro la stessa regione':': i partiti chiedono dove sono forti, ma tra regioni');
-  let h=`<ol><li><b>Dove un partito ha preso più voti nel 2022, chiede più spesso soldi per quella provincia.</b> Con 10 punti di voto in più la probabilità sale di ${pf(P.b)} punti percentuali (errore standard ${pf(P.se)}), su una media del ${pf(P.mean)}%.</li>`;
-  h+=sig(Wn)?`<li><b>Il legame regge confrontando solo province della stessa regione</b> per lo stesso partito: ${pf(Wn.b)} punti (e.s. ${pf(Wn.se)}). Non è solo una questione di Nord e Sud.</li>`:`<li><b>Confrontando solo province della stessa regione la stima non è distinguibile da zero</b>: ${pf(Wn.b)} punti (e.s. ${pf(Wn.se)}). ${many?'In questo periodo':'In questa manovra'} il legame si vede con sicurezza solo tra regioni.</li>`;
-  h+=Ap?`<li><b>Le richieste approvate seguono la stessa geografia</b>${sig(Ap)?'':', ma la stima è incerta'}: ${pf(Ap.b,2)} punti (e.s. ${pf(Ap.se,2)}) su una media dell’${pf(Ap.mean)}%.</li>`:`<li><b>Nessuna stima sulle approvate</b>: ${PA===2027?'la manovra 2027 non è ancora stata votata.':'troppo poche richieste locali approvate nel periodo.'}</li>`;
-  if(A)h+=`<li><b>Essere in maggioranza conta più del territorio.</b> Una proposta dell’opposizione passa nel ${pf(A.base)}% dei casi; la maggioranza ha ${pf(A.mag.b)} punti in più (e.s. ${pf(A.mag.se)}).</li>`;
-  h+='</ol>';if(PA<=2023&&PB>=2027&&AN.ranges['2027-2027'])h+=`<p class="meta">Con la sola manovra 2027 il confronto dentro la regione dà ${pf(AN.ranges['2027-2027'].within.b)} punti (e.s. ${pf(AN.ranges['2027-2027'].within.se)}): scegli «2027» nel periodo per vederlo.</p>`;
-  $('#abrief').innerHTML=h;
-  const M=AN.models,it=[];SELY().forEach((y,i)=>{it.push({row:i,t:y+' tutta Italia',b:M.by_year[y].b,se:M.by_year[y].se,dy:-7,lab:'Manovra '+y},{row:i,t:y+' stessa regione',b:M.by_year_within[y].b,se:M.by_year_within[y].se,dy:7,hollow:1})});
-  coefPlot($('#afig'),it,'punti percentuali per +10 punti di voto');
+  if(!AN||!PANEL){if(anLoading)return;anLoading=true;Promise.all([AN?AN:fetch('analisi_multi.json').then(r=>r.json()),PANEL?PANEL:fetch('panel_multi.json').then(r=>r.json())]).then(([a,p])=>{AN=a;PANEL=p;anLoading=false;renderAnalisi()}).catch(()=>{anLoading=false;$('#abrief').textContent='Non riesco a caricare i risultati.'});return}
+  const K=PA+'-'+PB,Q=AN.ranges[K];if(!Q)return;const P=Q.pooled,Wn=Q.within,A=Q.approval;
+  const sig=m=>Math.abs(m.b/m.se)>1.96;const PL=perLab();$('#aper').textContent=PL;$('#aper2').textContent=PL;
+  const D5=quintStats();$('#anobs').textContent=Lf('{0} (109 province × 8 partiti × {1})',nf(D5.n),SELY().length===1?L('1 manovra'):Lf('{0} manovre',SELY().length));
+  descPlot(D5);
+  const a=D5.all;$('#adescp').textContent=Lf('In media, nel quinto di province dove il partito è più forte c’è una richiesta nel {0}% dei casi, nel quinto dove è più debole nel {1}%. La differenza è più marcata per l’opposizione ({2}% contro {3}%) che per la maggioranza ({4}% contro {5}%).',pf(a[4]),pf(a[0]),pf(D5.opp[4]),pf(D5.opp[0]),pf(D5.maj[4]),pf(D5.maj[0]));
+  let h='<ol>'+'<li>'+Lf('<b>Dove un partito è più forte, chiede più spesso soldi per quella provincia:</b> {0}% dei casi nel quinto di province più favorevole, {1}% in quello meno favorevole.',pf(a[4]),pf(a[0]))+'</li>';
+  h+='<li>'+(sig(Wn)?Lf('<b>Il legame resta confrontando province della stessa regione</b> per lo stesso partito, ma è più piccolo: {0} punti per 10 punti di voto, contro {1} nel confronto tra tutte le province.',pf(Wn.b),pf(P.b)):Lf('<b>Confrontando solo province della stessa regione il legame si riduce e non è più distinguibile dal caso</b> ({0} punti, errore standard {1}): buona parte del legame è una differenza tra regioni.',pf(Wn.b),pf(Wn.se)))+'</li>';
+  if(A)h+='<li>'+Lf('<b>Per far approvare una proposta conta soprattutto chi la firma.</b> Una proposta dell’opposizione passa nel {0}% dei casi; una della maggioranza ha {1} punti in più.',pf(A.base),pf(A.mag.b))+'</li>';
+  h+='</ol>';$('#abrief').innerHTML=h;
   const cell=m=>m?`<td>${pf(m.b,2)}${stars(m.b,m.se)}</td>`:'<td>—</td>',cse=m=>m?`<td>(${pf(m.se,2)})</td>`:'<td></td>';
-  const yl=PA===PB?String(PA):PA+'–'+String(PB).slice(2);const apy=Ap?(PA===Math.min(PB,2026)?String(PA):PA+'–'+String(Math.min(PB,2026)).slice(2)):'—';
-  $('#atab').innerHTML=`<thead><tr><th></th><th>(1)</th><th>(2)</th><th>(3)</th><th>(4)</th></tr><tr><th>Variabile dipendente</th><th>Richiesta 0/1</th><th>Richiesta 0/1</th><th>Richiesta 0/1</th><th>Approvata 0/1</th></tr></thead><tbody>
-  <tr><td>Voti 2022 (+10 punti)</td>${cell(Q.nofe)}${cell(P)}${cell(Wn)}${cell(Ap)}</tr><tr class="se"><td></td>${cse(Q.nofe)}${cse(P)}${cse(Wn)}${cse(Ap)}</tr>
-  <tr class="sep"><td>Effetti fissi partito × manovra</td><td>Sì</td><td>Sì</td><td>Sì</td><td>Sì</td></tr>
-  <tr><td>Effetti fissi regione</td><td>No</td><td>Sì</td><td>—</td><td>Sì</td></tr>
-  <tr><td>Effetti fissi partito × regione</td><td>No</td><td>No</td><td>Sì</td><td>No</td></tr>
-  <tr><td>Manovre</td><td>${yl}</td><td>${yl}</td><td>${yl}</td><td>${apy}</td></tr>
-  <tr class="sep"><td>Media var. dipendente (%)</td><td>${pf(Q.nofe.mean)}</td><td>${pf(P.mean)}</td><td>${pf(Wn.mean)}</td><td>${Ap?pf(Ap.mean):'—'}</td></tr>
-  <tr><td>Osservazioni · cluster</td><td>${nf(Q.nofe.n)} · ${Q.nofe.g}</td><td>${nf(P.n)} · ${P.g}</td><td>${nf(Wn.n)} · ${Wn.g}</td><td>${Ap?nf(Ap.n)+' · '+Ap.g:'—'}</td></tr></tbody>`;
-  $('#anote').textContent=`Modello lineare di probabilità. Unità: provincia × partito × manovra; ${AN.nprov} province (esclusa la Valle d’Aosta) × 8 partiti × ${SELY().length} ${SELY().length>1?'manovre':'manovra'}${PRA?' (le stime usano sempre entrambi i rami)':''}. Richiesta = almeno una proposta del partito (primo firmatario) che nomina la provincia. Colonna (4): richiesta approvata, solo prime letture già votate. Errori standard a cluster per provincia. *** p<0,01; ** p<0,05; * p<0,1.`;
-  $('#aptab').innerHTML=A?`<thead><tr><th>Variabile</th><th>Coefficiente (punti %)</th><th>Errore standard</th></tr></thead><tbody>
-  <tr><td>Primo firmatario in maggioranza</td><td>${pf(A.mag.b,2)}${stars(A.mag.b,A.mag.se)}</td><td>${pf(A.mag.se,2)}</td></tr>
-  <tr><td>Proposta per un solo territorio</td><td>${pf(A.loc.b,2)}${stars(A.loc.b,A.loc.se)}</td><td>${pf(A.loc.se,2)}</td></tr>
-  <tr><td>Maggioranza × territorio</td><td>${pf(A.magloc.b,2)}${stars(A.magloc.b,A.magloc.se)}</td><td>${pf(A.magloc.se,2)}</td></tr>
-  <tr class="sep"><td>Tasso di base (opposizione, proposta non locale)</td><td>${pf(A.base,2)}%</td><td></td></tr>
-  <tr><td>Proposte · primi firmatari (cluster)</td><td>${nf(A.n)} · ${nf(A.g)}</td><td></td></tr></tbody>`:'<tbody><tr><td>Nessuna prima lettura già votata nel periodo scelto (la manovra 2027 non è ancora stata votata).</td></tr></tbody>';
-  // eterogeneità per partito
-  if(AN.het){const hs=ORDER.filter(g=>AN.het[g]).map(g=>({t:g,lab:g,b:AN.het[g].b,se:AN.het[g].se,col:PCOL[g]}));coefPlot($('#ahet'),hs,'punti percentuali per +10 punti di voto (intera legislatura)');
-    $('#ahetp').innerHTML=''+(AN.het_txt||'');$('#ahetf').hidden=false}else $('#ahetf').hidden=true;
-  // curva delle specificazioni
-  if(AN.spec&&AN.spec.length){const S=AN.spec.slice().sort((a,b)=>a.b-b.b);$('#aspn').textContent=nf(S.length);const s=$('#aspec');s.innerHTML='';const W=640,H=260,ml=40,mr=10,mt=10,mb=30;
-    const lo=Math.min(0,...S.map(d=>d.b-1.96*d.se)),hi=Math.max(...S.map(d=>d.b+1.96*d.se));const Y=v=>mt+(hi-v)/(hi-lo)*(H-mt-mb),X=i=>ml+(i+.5)/S.length*(W-ml-mr);
-    for(let t=Math.ceil(lo/5)*5;t<=hi;t+=5){const l=svgEl(s,'line',{x1:ml,x2:W-mr,y1:Y(t),y2:Y(t),class:t===0?'ax':'gr'});if(t===0)l.style.stroke='var(--fg)';svgEl(s,'text',{x:ml-6,y:Y(t)+4,'text-anchor':'end'},pf(t,0))}
-    S.forEach((d,i)=>{const sg=Math.abs(d.b/d.se)>1.96;const l=svgEl(s,'line',{x1:X(i),x2:X(i),y1:Y(d.b-1.96*d.se),y2:Y(d.b+1.96*d.se)});l.style.stroke='var(--line)';const c=svgEl(s,'circle',{cx:X(i),cy:Y(d.b),r:2.6});c.style.fill=sg?'var(--accent)':'var(--surface)';c.style.stroke='var(--accent)';svgEl(c,'title',{},d.lab+': '+pf(d.b)+' (e.s. '+pf(d.se)+')')});
-    svgEl(s,'text',{x:(ml+W-mr)/2,y:H-6,'text-anchor':'middle'},'specificazioni, dalla stima più bassa alla più alta');
-    const pos=S.filter(d=>d.b>0).length,sgp=S.filter(d=>d.b/d.se>1.96).length;$('#aspecp').innerHTML=`Su ${nf(S.length)} modi ragionevoli di fare il conto, ${nf(pos)} danno un legame positivo e ${nf(sgp)} positivo e significativo. La mediana è ${pf(S[Math.floor(S.length/2)].b)} punti. ${AN.spec_txt||''}`;$('#aspecf').hidden=false}
+  $('#atab').innerHTML=`<thead><tr><th></th><th>(1)</th><th>(2)</th><th>(3)</th></tr><tr><th>Confronto</th><th>${L('Tutte le province')}</th><th>${L('Province della stessa regione')}</th><th>${L('Stessa regione, stesso partito')}</th></tr></thead><tbody>
+  <tr><td>${L('Voti 2022 (+10 punti)')}</td>${cell(Q.nofe)}${cell(P)}${cell(Wn)}</tr><tr class="se"><td></td>${cse(Q.nofe)}${cse(P)}${cse(Wn)}</tr>
+  <tr class="sep"><td>${L('Effetti fissi')}</td><td>${L('partito × manovra')}</td><td>${L('+ regione')}</td><td>${L('+ partito × regione')}</td></tr>
+  <tr><td>${L('Media delle richieste (%)')}</td><td>${pf(Q.nofe.mean)}</td><td>${pf(P.mean)}</td><td>${pf(Wn.mean)}</td></tr>
+  <tr><td>${L('Osservazioni · province')}</td><td>${nf(Q.nofe.n)} · ${Q.nofe.g}</td><td>${nf(P.n)} · ${P.g}</td><td>${nf(Wn.n)} · ${Wn.g}</td></tr></tbody>`;
+  $('#anote').textContent=L('* p<0,05; ** p<0,01; *** p<0,001. La colonna 3 è la più prudente: confronta solo province della stessa regione per lo stesso partito.');
+  $('#aptab').innerHTML=A?`<thead><tr><th></th><th>${L('Punti percentuali')}</th><th>${L('Errore standard')}</th></tr></thead><tbody>
+  <tr><td>${L('Tasso di approvazione dell’opposizione')}</td><td>${pf(A.base,1)}%</td><td></td></tr>
+  <tr><td>${L('Primo firmatario in maggioranza')}</td><td>+${pf(A.mag.b,1)}${stars(A.mag.b,A.mag.se)}</td><td>${pf(A.mag.se,1)}</td></tr>
+  <tr><td>${L('Proposta per un solo territorio')}</td><td>${A.loc.b>=0?'+':''}${pf(A.loc.b,1)}${stars(A.loc.b,A.loc.se)}</td><td>${pf(A.loc.se,1)}</td></tr>
+  <tr><td>${L('Proposte · primi firmatari')}</td><td>${nf(A.n)} · ${nf(A.g)}</td><td></td></tr></tbody>`:'<tbody><tr><td>'+L('Nessuna prima lettura già votata nel periodo scelto (la manovra 2027 non è ancora stata votata).')+'</td></tr></tbody>';
+  if(AN.het){const hs=ORDER.filter(g=>AN.het[g]).map(g=>({t:g,lab:g,b:AN.het[g].b,se:AN.het[g].se,col:PCOL[g]}));coefPlot($('#ahet'),hs,L('punti percentuali per +10 punti di voto (intera legislatura)'));
+    $('#ahetp').textContent=L(AN.het_txt||'');$('#ahetf').hidden=false}else $('#ahetf').hidden=true;
+  if(AN.spec&&AN.spec.length){const S=AN.spec;const pos=S.filter(d=>d.b>0).length,sg=S.filter(d=>d.b/d.se>1.96).length;$('#arob').textContent=Lf('Rifacendo il conto in {0} modi diversi (campione, definizione di richiesta, confronto, misura del voto), {1} stime su {0} sono positive e {2} significative.',nf(S.length),nf(pos),nf(sg))}
   renderFonti();
 }
 $('#pcsv').onclick=async()=>{const m=$('#pcsvm');try{const P=await (await fetch('panel_multi.json')).json();const cell=v=>typeof v==='number'?String(v).replace('.',','):'"'+String(v).replace(/"/g,'""')+'"';const csv='﻿'+[P.cols.map(cell).join(';')].concat(P.rows.map(r=>r.map(cell).join(';'))).join('\r\n');

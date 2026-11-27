@@ -1,4 +1,5 @@
-{"_nota": "Revisione manuale (27/11/2026) delle 66 proposte 2027 classificate 'Locale' ma senza province per la mappa. 'nazionale': il luogo citato non è il beneficiario (concessionarie di trasporto in tutta Italia, copertura dal Ponte sullo Stretto, sede di un ente nazionale, sede di un evento) e la proposta passa a portata Nazionale. Tutte le altre restano Locale e prendono in mappa le province dei luoghi citati.",
+{
+ "_nota": "Revisione manuale (27/11/2026) delle 66 proposte 2027 classificate 'Locale' ma senza province per la mappa. 'nazionale': il luogo citato non è il beneficiario (concessionarie di trasporto in tutta Italia, copertura dal Ponte sullo Stretto, sede di un ente nazionale, sede di un evento) e la proposta passa a portata Nazionale. Tutte le altre restano Locale e prendono in mappa le province dei luoghi citati.",
  "nazionale": {
   "22.017": "contributo alle concessionarie ferroviarie e di navigazione (Domodossola-confine svizzero è il nome della linea)",
   "22.018": "come 22.017",
@@ -22,5 +23,8 @@
   "88.0132": "come 88.0130",
   "88.0133": "come 88.0130",
   "111.025": "comitato nazionale per un centenario",
-  "77.050": "collegamenti ferroviari dell'Italia centrale (linee nazionali)"
- }}
+  "77.050": "collegamenti ferroviari dell'Italia centrale (linee nazionali)",
+  "12.069": "fondo nazionale per le imprese colpite dai dazi: Siracusa e Taranto citate come poli industriali strategici"
+ },
+ "non_richiesta": {}
+}

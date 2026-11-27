@@ -1,45 +1,40 @@
 <div id="view-analisi" class="view" hidden>
   <article class="paper">
-    <p class="kicker">Nota di ricerca · cosa dicono i dati, con quali cautele</p>
-    <h2 id="ah2">Il voto del 2022 spiega dove i partiti chiedono spesa locale?</h2>
-    <section class="easy" aria-label="In breve"><h3>In breve, senza tecnicismi</h3><div id="abrief">Carico i risultati…</div></section>
-    <details class="gloss"><summary>Come leggere i numeri di questa pagina (glossario)</summary>
-      <dl>
-        <dt>Probabilità di richiesta</dt><dd>Quante volte su 100 un partito presenta almeno una proposta che chiede soldi per una provincia, in una manovra.</dd>
-        <dt>Punti percentuali</dt><dd>Differenza tra due percentuali: dal 14% al 26% sono 12 punti (non il 12%).</dd>
-        <dt>Effetti fissi</dt><dd>Confrontare il simile con il simile. «Partito × manovra»: il PD del 2025 è confrontato solo con il PD del 2025. «Partito × regione»: si confrontano solo province della stessa regione per lo stesso partito, così non si scambia per «voto» una differenza tra Nord e Sud.</dd>
-        <dt>Errore standard</dt><dd>Quanto è incerta la stima. Se il coefficiente è più di circa due volte l’errore standard, è difficile che sia solo caso (stelline).</dd>
-        <dt>Cluster</dt><dd>Gli errori tengono conto che le osservazioni di una stessa provincia (o dello stesso parlamentare) non sono indipendenti.</dd>
-      </dl>
-    </details>
+    <p class="kicker">Nota di ricerca · analisi descrittiva, con i suoi limiti</p>
+    <h2 id="ah2">I partiti chiedono più soldi dove hanno più voti?</h2>
+    <p>Per ogni manovra, partito e provincia guardo se i parlamentari del partito hanno presentato almeno una proposta che chiede soldi per quella provincia, e lo confronto con la percentuale presa dal partito nella provincia alle politiche del 2022. Le osservazioni sono <span id="anobs" class="notr"></span>. È un’analisi descrittiva: misura un’associazione, non un effetto causale.</p>
+    <section class="easy" aria-label="In sintesi"><h3>In sintesi</h3><div id="abrief" class="notr">Carico i risultati…</div></section>
 
-    <figure class="afig"><figcaption><b>Figura 1. Il legame, manovra per manovra.</b> Variazione della probabilità che un partito chieda soldi per una provincia, per 10 punti di voto in più nel 2022 (punti percentuali), con intervallo al 95%. Pieno: confronto tra tutte le province (effetti fissi di partito e di regione). Vuoto: solo province della stessa regione per lo stesso partito.</figcaption>
-      <svg id="afig" viewBox="0 0 640 300" role="img" aria-label="Coefficienti per manovra"></svg>
-      <p class="plain">Ogni pallino è una manovra. A destra dello zero: dove il partito ha preso più voti, chiede più spesso soldi. I pallini pieni sono tutti lontani dallo zero; quelli vuoti, che confrontano solo province della stessa regione, sono più incerti anno per anno.</p></figure>
+    <figure class="afig"><figcaption><b>Figura 1. Quanto spesso un partito chiede soldi per una provincia, secondo la sua forza lì</b> (<span id="aper"></span>). Per ogni partito le province sono divise in cinque gruppi uguali secondo i voti presi nel 2022, dal quinto più debole al quinto più forte. Ogni barra è la percentuale di casi (provincia × partito × manovra) con almeno una richiesta.</figcaption>
+      <svg id="adesc" viewBox="0 0 640 300" role="img" aria-label="Percentuale di richieste per quinto di voti"></svg>
+      <p class="plain notr" id="adescp"></p></figure>
 
-    <figure class="afig"><figcaption><b>Tabella 1. Voti 2022 e richieste di spesa locale</b> (<span id="aper"></span>). Coefficienti OLS × 100; errori standard tra parentesi.</figcaption>
+    <figure class="afig"><figcaption><b>Tabella 1. Lo stesso confronto in un modello lineare</b> (<span id="aper2"></span>). Variazione della probabilità di una richiesta, in punti percentuali, per 10 punti di voto in più; errori standard tra parentesi, per provincia.</figcaption>
       <div class="tablewrap"><table class="rtab" id="atab"></table></div><p class="tnote" id="anote"></p></figure>
 
-    <figure class="afig" id="ahetf"><figcaption><b>Figura 2. Chi lo fa: partito per partito.</b> Stesso confronto della colonna (2), stimato separatamente per ogni partito sull’intera legislatura. Barre = intervallo al 95%.</figcaption>
+    <figure class="afig" id="ahetf"><figcaption><b>Figura 2. Partito per partito</b>, sull’intera legislatura (modello della colonna 2). Barre = intervallo al 95%.</figcaption>
       <svg id="ahet" viewBox="0 0 640 300" role="img" aria-label="Coefficienti per partito"></svg>
-      <p class="plain" id="ahetp"></p></figure>
+      <p class="plain notr" id="ahetp"></p></figure>
 
-    <figure class="afig" id="aspecf" hidden><figcaption><b>Figura 3. Quanto è solido il risultato: <span id="aspn"></span> modi diversi di stimarlo.</b> Ogni punto è una specificazione (campione, definizione di richiesta, effetti fissi, misura del voto), ordinate dalla più bassa alla più alta. Pieno = significativa al 5%.</figcaption>
-      <svg id="aspec" class="notr" viewBox="0 0 640 260" role="img" aria-label="Curva delle specificazioni"></svg>
-      <p class="plain" id="aspecp"></p></figure>
+    <figure class="afig"><figcaption><b>Tabella 2. Chi riesce a far approvare una proposta.</b> Proposte di deputati e senatori nelle prime letture già votate del periodo; modello lineare con effetti fissi per manovra e Camera, errori standard per primo firmatario.</figcaption>
+      <div class="tablewrap"><table class="rtab" id="aptab"></table></div></figure>
 
-    <figure class="afig"><figcaption><b>Tabella 2. Chi riesce a far approvare una proposta.</b> Modello lineare di probabilità su tutte le proposte di deputati e senatori nelle prime letture già votate del periodo, con effetti fissi per manovra e ramo; errori standard a cluster per primo firmatario.</figcaption>
-      <div class="tablewrap"><table class="rtab" id="aptab"></table></div>
-      <p class="plain">Una proposta dell’opposizione passa circa 3 volte su 100; una della maggioranza ha quasi 9 punti in più. Chiedere soldi per un territorio preciso cambia poco, una volta tenuto conto di chi firma.</p></figure>
-
-    <h3>Limiti</h3>
+    <h3>Quanto fidarsi di questi numeri</h3>
     <ul class="alist">
-      <li><b>Correlazioni, non cause.</b> I partiti sono forti dove ci sono anche certi bisogni locali; gli effetti fissi riducono ma non eliminano il problema.</li>
-      <li><b>Dati non omogenei.</b> Il 2023 alla Camera contiene solo le proposte segnalate; nelle seconde letture non passa nessuna modifica; la manovra 2027 non è ancora stata votata.</li>
-      <li><b>Luoghi e cifre letti in automatico.</b> Gli euro sono quelli scritti nei testi dai proponenti, non effetti finanziari certificati.</li>
-      <li><b>Gruppi.</b> Al Senato i componenti AVS e Azione del Misto sono attribuiti per nome; Azione e Italia Viva sono uniti perché nel 2022 si presentarono insieme.</li>
+      <li><b>Associazione, non causa.</b> Dove un partito è forte possono esserci anche bisogni, interessi o reti locali diverse. Confrontare province della stessa regione riduce il problema ma non lo elimina.</li>
+      <li><b>Chiedere non è ottenere.</b> Presentare una proposta costa poco. La variabile misura l’attenzione dei parlamentari, non la spesa che arriva davvero.</li>
+      <li><b>Pochi partiti, pochi anni.</b> Otto partiti e cinque manovre: le stime per i partiti piccoli e per i singoli anni sono imprecise. <span id="arob" class="notr"></span></li>
+      <li><b>Dati non omogenei.</b> Per il 2023 la Camera ha pubblicato solo le proposte segnalate dai gruppi; nelle seconde letture non passa nessuna modifica; la manovra 2027 non è ancora stata votata.</li>
+      <li><b>Classificazione automatica.</b> Luoghi e cifre sono letti dai testi; le richieste più grandi sono state controllate a mano.</li>
     </ul>
-    <p><button class="btn" id="pcsv" type="button">Scarica il pannello di replica (CSV)</button> <span class="meta" id="pcsvm"></span> · Il codice di replica completo è disponibile su richiesta all’autore.</p>
+    <details class="gloss"><summary>Glossario</summary>
+      <dl>
+        <dt>Punti percentuali</dt><dd>Differenza tra due percentuali: dal 14% al 26% sono 12 punti.</dd>
+        <dt>Effetti fissi</dt><dd>Confrontare il simile con il simile. «Partito × manovra»: il PD del 2025 è confrontato solo con il PD del 2025. «Partito × regione»: si confrontano solo province della stessa regione per lo stesso partito.</dd>
+        <dt>Errore standard</dt><dd>Quanto è incerta la stima. Se il coefficiente è più di circa due volte l’errore standard, è difficile che sia solo caso (asterischi).</dd>
+      </dl>
+    </details>
+    <p><button class="btn" id="pcsv" type="button">Scarica i dati dell’analisi (CSV)</button> <span class="meta" id="pcsvm"></span></p>
   </article>
 </div>
   <section class="note" id="metodo">
@@ -56,7 +51,7 @@
       <dt>Una riga</dt><dd>Una proposta col suo numero. Le riformulazioni («testo 2», «nuova formulazione») sono fuse nella proposta originale; se una formulazione è approvata, la proposta è approvata.</dd>
       <dt>Esito finale</dt><dd>Quello scritto nei documenti ufficiali. Al Senato «Accolto» vale come approvato. «Respinto o non votato» comprende respinte, decadute, accantonate e mai votate.</dd>
       <dt>Ammissibilità</dt><dd>Inammissibile per compensazione (copertura mancante o inadatta), per estraneità di materia, o per altri motivi indicati nei fascicoli.</dd>
-      <dt>Costo</dt><dd>La cifra scritta dal proponente per i tre anni della manovra. Non è una stima d’impatto. Escluse dalle somme grandi opere e rimodulazioni (es. Ponte sullo Stretto) e richieste oltre 1 miliardo.</dd>
+      <dt>Costo</dt><dd>La cifra scritta dal proponente per i tre anni della manovra. Non è una stima d’impatto. Le somme comprendono tutte le cifre chieste, grandi opere comprese. Sono escluse solo le poche proposte che riscrivono uno stanziamento già previsto senza chiedere soldi nuovi, come quelle che cambiano il calendario dei fondi del Ponte sullo Stretto.</dd>
       <dt>Copertura</dt><dd>Il fondo indicato nella clausola di copertura, letto in automatico (quasi sempre FISPE o Fondo esigenze indifferibili). Le coperture non si sommano.</dd>
       <dt>Territorio</dt><dd>Comuni e province letti nel testo, esclusa la copertura. Locale = uno o pochi luoghi; più territori = sei o più luoghi in almeno tre regioni; esclusi i fondi nazionali.</dd>
       <dt>Testi</dt><dd>Nel sito i testi lunghi sono accorciati; il testo integrale è sempre nella scheda ufficiale. Per il 2023 alla Camera ci sono solo le proposte segnalate.</dd>

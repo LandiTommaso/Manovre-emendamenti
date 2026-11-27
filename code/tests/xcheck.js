@@ -6,7 +6,7 @@ const J=JSON.parse(fs.readFileSync(DIR+'/emendamenti.json'));const ALL=J.rows.ma
 const VOTI=JSON.parse(fs.readFileSync(DIR+'/voti2022.json')),POP=JSON.parse(fs.readFileSync(DIR+'/popolazione.json'));
 const PALIAS={'Sud Sardegna':'Sulcis Iglesiente'};
 const AMT=r=>r.big?0:(r.e3||r.e||0);
-const nf=n=>n.toLocaleString('it-IT');const pc=(a,b)=>b?(a/b*100).toLocaleString('it-IT',{maximumFractionDigits:1})+'%':'—';
+const nf=n=>n.toLocaleString('it-IT');const pc=(a,b)=>b?(a/b*100).toLocaleString('it-IT',{maximumFractionDigits:1})+'%':'—';const pc1=(a,b)=>b?(a/b*100).toLocaleString('it-IT',{maximumFractionDigits:1,minimumFractionDigits:1})+'%':'—';
 const fmtE=v=>(v==null||v===0)?'—':(v>=1e9?(v/1e9).toLocaleString('it-IT',{maximumFractionDigits:2})+' mld':(v>=1e6?(v/1e6).toLocaleString('it-IT',{maximumFractionDigits:2})+' mln':Math.round(v/1e3).toLocaleString('it-IT')+' mila'));
 let seed=20261127;const rnd=()=>{seed=(seed*1103515245+12345)%2147483648;return seed/2147483648};const pick=a=>a[Math.floor(rnd()*a.length)];
 const res=[];const ok=(c,lab,got,exp)=>{res.push({c:!!c,lab,got,exp});if(!c)console.log('FAIL',lab,'| got:',JSON.stringify(got),'| exp:',JSON.stringify(exp))};
@@ -119,7 +119,9 @@ if(MULTI){await setPer(2023,2027,'');await view('quadro');
   const qp=await p.$$eval('#qparty tbody tr',trs=>trs.map(tr=>[...tr.children].map(td=>td.innerText.replace(/\s+/g,' ').trim())));
   const ys=[2023,2024,2025,2026,2027];
   for(const t of qp){const g=t[0];const X=ALL.filter(r=>r.g===g);ys.forEach((y,j)=>{const Y=X.filter(r=>r.y===y);const e=nf(Y.length)+' · '+nf(Y.filter(r=>r.o==='A').length);ok(t[1+j]===e,`E partiti ${g} ${y}`,t[1+j],e)});
-    const e=nf(X.length)+' · '+nf(X.filter(r=>r.o==='A').length);ok(t[6]===e,`E partiti ${g} totale`,t[6],e)}
+    ok(t[6]===nf(X.length),`E partiti ${g} totale`,t[6],nf(X.length));const na=X.filter(r=>r.o==='A').length,ni=X.filter(r=>r.s!=='Ammissibile').length;ok(t[7]===nf(na)+' '+pc1(na,X.length),`E partiti ${g} approvate`,t[7],nf(na)+' '+pc1(na,X.length));ok(t[8]===nf(ni)+' '+pc1(ni,X.length),`E partiti ${g} inammissibili`,t[8],nf(ni)+' '+pc1(ni,X.length));const L_=X.filter(r=>r.loc);ok(t[10]===fmtE(L_.reduce((s,r)=>s+AMT(r),0)),`E partiti ${g} euro`,t[10],fmtE(L_.reduce((s,r)=>s+AMT(r),0)))}
+  // ordinamento per % approvate
+  await p.selectOption('#qps','pap');await p.waitForTimeout(200);const pa=await p.$$eval('#qparty tbody tr td:nth-child(8) .meta',a=>a.map(x=>parseFloat(x.innerText.replace(',','.'))));ok(pa.every((v,i)=>i===0||pa[i-1]>=v),'E ordinamento % approvate',pa,'decrescente');await p.selectOption('#qps','n');
   const qt=await p.$$eval('#qtiles .tile b',a=>a.map(x=>x.innerText.trim()));ok(qt[0]===nf(ALL.length),'E quadro totale',qt[0],nf(ALL.length));ok(qt[2]===nf(ALL.filter(r=>r.o==='I').length),'E quadro inammissibili',qt[2],nf(ALL.filter(r=>r.o==='I').length));
 }
 // ---------- F. soldi e voti ----------

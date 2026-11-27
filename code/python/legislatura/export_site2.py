@@ -50,7 +50,6 @@ for r in rows:
         for k in ('e', 'e3', 'ey', 'l', 'pm', 'po', 'loc', 'th', 'cv', 'rg'):
             r[k] = a[k]
         r['pr'] = a['pm']
-        if a.get('e3') and a['e3'] >= 5e9: r['big'] = 1
 print('2027 allineate al sito 2027:', n27)
 COLS = ['i','a','p','g','c','f','ce','cf','u','s','pz','m','e','ey','e3','l','rg','loc','po','th','t','ta','x','cv','pm','y','ra','le','o','lk','big','nt']
 def comp(v):

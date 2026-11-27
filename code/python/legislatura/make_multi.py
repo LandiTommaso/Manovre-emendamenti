@@ -33,6 +33,7 @@ R('.loading{padding:40px;text-align:center;color:var(--muted)}',
   '.period .pf{display:inline-flex;gap:6px;align-items:center;font-size:13px;color:var(--muted)}.period select{padding:4px 6px}\n'
   '.pnote{font-size:12.5px;color:var(--muted)}\n'
   '.qgrid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:14px}@media (max-width:860px){.qgrid{grid-template-columns:minmax(0,1fr)}}\n'
+  '.qdot{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:7px;vertical-align:middle}.qpctl{display:flex;gap:12px;flex-wrap:wrap;margin:8px 0 10px}#qparty th.qs:hover{color:var(--accent)}#qparty th.on{color:var(--accent)}\n'
   '.qbars text{fill:var(--muted);font-size:11px}.qbars .lab{fill:var(--fg);font-size:12px}\n'
   '.chip.st-ap{background:var(--ok);color:var(--bg)}\n'
   '.find p{margin:0 0 8px;max-width:90ch}\n#view-analisi .paper{max-width:1040px}#view-analisi .rtab th{font-size:11.5px}')
@@ -49,7 +50,7 @@ RX(r'<nav class="tabs" role="tablist" aria-label="Vista">.*?</nav>',
    '<p class="sub">Il 2023 alla Camera conta solo le proposte <b>segnalate</b> dai gruppi (1.043): nel dicembre 2022 la Camera non ha pubblicato i testi di tutte le circa 3.000 presentate. La manovra 2027 non è ancora stata votata in commissione.</p></section>\n'
    '  <section class="qgrid"><div class="panel"><h2>Chi firma le proposte approvate</h2><p class="sub">Proposte approvate, per schieramento del primo firmatario.</p><svg id="qcoal" class="qbars" viewBox="0 0 520 210" style="width:100%;height:auto"></svg></div>'
    '<div class="panel"><h2>Quanto conviene essere in maggioranza</h2><p class="sub">Quota di proposte approvate sul totale presentato dallo schieramento, prime letture già votate.</p><svg id="qrate" class="qbars" viewBox="0 0 520 210" style="width:100%;height:auto"></svg></div></section>\n'
-   '  <section class="panel"><h2>Partito per partito</h2><p class="sub">Primo firmatario, gruppo alla data della manovra. Ogni cella: presentate · <b>approvate</b>. Clicca un partito per vedere le sue proposte approvate nell’elenco.</p><div class="tablewrap"><table class="rank" id="qparty"></table></div></section>\n'
+   '  <section class="panel"><h2>Partito per partito</h2><p class="sub">Primo firmatario, gruppo alla data della manovra. Le percentuali sono sul totale delle proposte del partito nel periodo; la manovra 2027 non è ancora stata votata, quindi non ha approvate. Clicca un titolo di colonna per ordinare, un partito per vedere le sue proposte approvate nell’elenco.</p><div class="qpctl"><div class="f"><label for="qps">Ordina per</label><select id="qps"><option value="n">Proposte presentate</option><option value="pap">% approvate</option><option value="pia">% inammissibili</option><option value="pam">% ammissibili</option><option value="plo">% per un solo territorio</option><option value="eur">Euro chiesti per territori</option><option value="g">Ordine dei partiti</option></select></div><div class="f"><label for="qpy">Colonne per anno</label><select id="qpy"><option value="np">Presentate · approvate</option><option value="pap">% approvate</option><option value="pia">% inammissibili</option><option value="none">Nascondi</option></select></div></div><div class="tablewrap"><table class="rank" id="qparty"></table></div></section>\n'
    '</div>')
 
 # ---------- filtri elenco ----------
@@ -90,8 +91,8 @@ R('<h2 id="maptitle">Dove sarebbero finiti i soldi</h2>', '<h2 id="maptitle">Dov
 R('<div class="f"><label for="mdep">Deputato (primo firmatario)</label>', '<div class="f"><label for="mdep">Parlamentare (primo firmatario)</label>')
 R('<select id="mes"><option value="">Tutti</option><option value="A">Ammissibili</option><option value="I">Inammissibili (tutti)</option><option value="E">Inammissibili per estraneità</option></select>',
   '<select id="mes"><option value="">Tutti</option><option value="AP">Approvati</option><option value="A">Ammissibili</option><option value="I">Inammissibili (tutti)</option><option value="E">Inammissibili per estraneità</option></select>')
-R('<p class="sub">Somme chieste per il 2027–29, inammissibili compresi; un emendamento su più province è diviso in parti uguali; escluse grandi opere e richieste oltre un miliardo. Popolazione ISTAT al 1° gennaio 2025. <a href="#metodo">Fonti e metodo</a>.</p>',
-  '<p class="sub">Somme chieste per i tre anni di ciascuna manovra, inammissibili compresi; sommando più manovre gli importi si accumulano. Un emendamento su più province è diviso in parti uguali; esclusi grandi opere e rimodulazioni (es. Ponte sullo Stretto) e richieste oltre 1 miliardo. Popolazione ISTAT al 1° gennaio 2025. <a href="#metodo">Fonti e metodo</a>.</p>')
+R('<p class="sub">Somme chieste per il 2027–29, inammissibili compresi; un emendamento su più province è diviso in parti uguali; contano tutte le cifre chieste, grandi opere comprese. Popolazione ISTAT al 1° gennaio 2025. <a href="#metodo">Fonti e metodo</a>.</p>',
+  '<p class="sub">Somme chieste per i tre anni di ciascuna manovra, inammissibili compresi; sommando più manovre gli importi si accumulano. Un emendamento su più province è diviso in parti uguali; contano tutte le cifre chieste, grandi opere comprese. Popolazione ISTAT al 1° gennaio 2025. <a href="#metodo">Fonti e metodo</a>.</p>')
 
 # ---------- voti ----------
 R("{k:'AzIV',lab:'Azione + IV',gs:['Azione','IV']}", "{k:'AzIV',lab:'Azione + IV',gs:['Azione / IV']}")
@@ -154,7 +155,7 @@ RX(r"  \$\('#tiles'\)\.innerHTML=\n.*?;\n  // group bars",
 R("F.forEach(r=>{const o=cnt[r.g];if(!o)return;o.t++;if(r.s==='Ammissibile')o.ok++;else if(r.s==='Compensazione')o.c++;else o.e++});",
   "F.forEach(r=>{const o=cnt[r.g];if(!o)return;o.t++;if(r.s==='Ammissibile')o.ok++;else if(r.s==='Compensazione')o.c++;else o.e++});")
 R("const sumAll=F.reduce((s,r)=>s+AMT(r),0);\n  $('#cnt').innerHTML=`${nf(n)} emendamenti <small>· totale 2027–29 stimato: ${fmtE(sumAll)} (somma indicativa: gli emendamenti identici si ripetono)</small>`;",
-  "const sumAll=F.reduce((s,r)=>s+(r.big?0:(r.e3||r.e||0)),0);\n  $('#cnt').innerHTML=`${nf(n)} proposte <small>· somma dei costi triennali stimati: ${fmtE(sumAll)} (indicativa: proposte identiche si ripetono, grandi opere escluse)</small>`;")
+  "const sumAll=F.reduce((s,r)=>s+(r.big?0:(r.e3||r.e||0)),0);\n  $('#cnt').innerHTML=`${nf(n)} proposte <small>· somma dei costi triennali stimati: ${fmtE(sumAll)} (indicativa: proposte identiche si ripetono)</small>`;")
 # righe e dettaglio
 R("<div class=\"meta\">${esc(r.a)} · ${esc(r.th.join(', '))} · cop.: ${esc(r.cv)}${r.po==='Più territori'?' · più territori':''}</div></td>",
   "<div class=\"meta\">${esc(r.ra)} · ${esc(r.a)} · ${esc(r.th.join(', '))} · cop.: ${esc(r.cv)}${r.po==='Più territori'?' · più territori':''}</div></td>")
@@ -219,7 +220,7 @@ RX(r"function renderRank\(\)\{\n.*?\n\}\n\$\('#rk'\)\.addEventListener\('change'
 R("const ESITO=r=>r.s==='Ammissibile'?(r.pz?'Ammissibile, in parte inammissibile':'Ammissibile'):(r.s==='Compensazione'?'Inammissibile per compensazione':'Inammissibile per estraneità di materia')+(r.pz?' (solo una parte)':'');",
   "const ESITO=r=>r.s==='Ammissibile'?(r.pz?'Ammissibile, in parte inammissibile':'Ammissibile'):(r.s==='Compensazione'?'Inammissibile per compensazione':r.s==='Altro motivo'?'Inammissibile':'Inammissibile per estraneità di materia')+(r.pz?' (solo una parte)':'');")
 RX(r"const EM_HEAD=\[.*?\];\nconst emRow=r=>\[.*?\];",
-   "const EM_HEAD=['Manovra','Ramo','Lettura','Emendamento','Articolo del ddl','Oggetto','Primo firmatario','Gruppo del primo firmatario','Schieramento','Numero di firmatari','Firmatari (gruppo)','Regione di elezione del primo firmatario','Ammissibilità','Esito finale','Motivo di inammissibilità','Portata','Comuni o luoghi citati','Province citate','Regioni citate','Tema','Costo annuo (euro)','Anno a cui si riferisce il costo annuo','Costo nel triennio (euro)','Grande opera o rimodulazione (esclusa dalle somme)','Copertura indicata','Scheda ufficiale'];\n"
+   "const EM_HEAD=['Manovra','Ramo','Lettura','Emendamento','Articolo del ddl','Oggetto','Primo firmatario','Gruppo del primo firmatario','Schieramento','Numero di firmatari','Firmatari (gruppo)','Regione di elezione del primo firmatario','Ammissibilità','Esito finale','Motivo di inammissibilità','Portata','Comuni o luoghi citati','Province citate','Regioni citate','Tema','Costo annuo (euro)','Anno a cui si riferisce il costo annuo','Costo nel triennio (euro)','Esclusa dalle somme (non chiede soldi nuovi)','Copertura indicata','Scheda ufficiale'];\n"
    "const emRow=r=>[r.y,r.ra,r.le===2?'seconda':'prima',r.i,r.a,r.t,r.p,r.g,r.c,r.f.length,r.f.map(x=>x[0]+' ('+x[1]+')').join(', '),r.cf||r.ce||'',ESITO(r),OLAB[r.o],r.m||'',r.po,r.l.join(', '),r.pr.join(', '),r.rg.join(', '),r.th.join(', '),r.e||null,r.e?(r.ey||'non individuato nel testo'):'',r.e3||null,r.big?'sì':'no',r.cv,LINK(r)];")
 R("'emendamenti-manovra-2027-filtrati-'+n+'.csv'", "'emendamenti-manovre-'+PA+'-'+PB+'-filtrati-'+n+'.csv'")
 R("saveCSV($('#csva'),'emendamenti-manovra-2027-tutti.csv'", "saveCSV($('#csva'),'emendamenti-manovre-'+PA+'-'+PB+'-tutti.csv'")
@@ -231,7 +232,7 @@ R("'Euro chiesti per singoli territori 2027-2029'", "'Euro chiesti per singoli t
 R("x.fillText(L('EMENDAMENTI ALLA MANOVRA 2027 · ELABORAZIONE SU DATI CAMERA DEI DEPUTATI E ISTAT'),P,y+12)",
   "x.fillText(('EMENDAMENTI ALLE MANOVRE · '+perLab()+' · DATI CAMERA, SENATO E ISTAT').toUpperCase(),P,y+12)")
 RX(r"function srcText\(es\)\{return Lf\(.*?\)\}\n",
-   "function srcText(es){return 'Fonti: Camera dei deputati e Senato della Repubblica, fascicoli ed elenchi delle proposte emendative alle leggi di bilancio 2023–2027 (commissioni Bilancio); ISTAT, popolazione al 1° gennaio 2025. Cifre chieste dai proponenti per il triennio di ciascuna manovra'+(es?'':', inammissibili comprese')+'; '+perLab()+'. Solo proposte che citano un luogo preciso; se ne citano più d’uno, i soldi sono divisi in parti uguali. Esclusi fondi nazionali, grandi opere e rimodulazioni.'}\n")
+   "function srcText(es){return 'Fonti: Camera dei deputati e Senato della Repubblica, fascicoli ed elenchi delle proposte emendative alle leggi di bilancio 2023–2027 (commissioni Bilancio); ISTAT, popolazione al 1° gennaio 2025. Cifre chieste dai proponenti per il triennio di ciascuna manovra'+(es?'':', inammissibili comprese')+'; '+perLab()+'. Solo proposte che citano un luogo preciso; se ne citano più d’uno, i soldi sono divisi in parti uguali. Esclusi i fondi nazionali; grandi opere comprese.'}\n")
 RX(r"function renderAnalisi\(\)\{if\(!AN\).*?\n(?=var I18=null)", '')
 
 # ---------- i18n: periodi come token tradotti, nuovi gruppi ----------
