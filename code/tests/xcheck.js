@@ -99,7 +99,7 @@ const MES=MULTI?['','AP','A','I','E']:['','A','I','E'];
 for(const [a,b,ra] of PER)for(let k=0;k<3;k++){
   await setPer(a,b,ra);await p.click('#mreset');const es=pick(MES),g=k?pick(GR):'',po=k===2?pick(['1','m']):'';
   if(es)await p.selectOption('#mes',es);if(g)await p.selectOption('#mg',g);if(po)await p.selectOption('#mpo',po);await p.waitForTimeout(200);
-  const Dp=per(a,b,ra).filter(r=>r.g!=='Governo e relatori'&&(!g||r.g===g)&&(!po||(po==='1'?r.pm.length===1:r.pm.length>1)))
+  const Dp=per(a,b,ra).filter(r=>(r.g!=='Governo e relatori'||es==='AP')&&(!g||r.g===g)&&(!po||(po==='1'?r.pm.length===1:r.pm.length>1)))
     .filter(r=>es===''||(es==='AP'&&r.o==='A')||(es==='A'&&r.s==='Ammissibile')||(es==='I'&&r.s!=='Ammissibile')||(es==='E'&&r.s==='Estraneità di materia'));
   const P={};Dp.filter(r=>r.pm.length).forEach(r=>{const v=AMT(r)/r.pm.length;r.pm.forEach(p0=>{const q=PALIAS[p0]||p0;const o=P[q]||(P[q]={n:0,e:0,G:{}});o.n++;o.e+=v;o.G[r.g]=(o.G[r.g]||0)+v})});
   const csv=await csvOf('#csvmp');const h=csv[0];const iN=h.indexOf('Emendamenti che la nominano'),iE=h.findIndex(x=>x.startsWith('Euro chiesti nel periodo')||x.startsWith('Euro chiesti 2027')),iPC=h.indexOf('Euro per abitante'),iPop=h.findIndex(x=>x.startsWith('Popolazione'));

@@ -187,14 +187,18 @@ R("const PCOL_L={'FdI':'#257de0','Lega':'#008a17','FI':'#38b6e8','Noi Moderati':
   "const PCOL_L={'FdI':'#257de0','Lega':'#008a17','FI':'#38b6e8','Noi Moderati':'#6a4ce2','PD':'#ec4647','M5S':'#f2a600','AVS':'#ee7fac','Azione / IV':'#1b64be','Autonomie':'#4f8a8b','Misto':'#8a8f98'};")
 R("const PCOL_D={'FdI':'#338ced','Lega':'#0aac23','FI':'#1fa5c9','Noi Moderati':'#7d6cf0','PD':'#ec4647','M5S':'#d28e05','AVS':'#e86f9e','Azione':'#6f86c9','IV':'#e76624','Misto':'#8b93a3'};",
   "const PCOL_D={'FdI':'#338ced','Lega':'#0aac23','FI':'#1fa5c9','Noi Moderati':'#7d6cf0','PD':'#ec4647','M5S':'#d28e05','AVS':'#e86f9e','Azione / IV':'#6f86c9','Autonomie':'#6fa3a3','Misto':'#8b93a3'};")
+# mappa delle sole approvate: titolo al presente (i soldi sono stati concessi, non solo chiesti)
+R("(who?'Dove '+who+' chiede i soldi':'Dove andrebbero i soldi chiesti'))", "(who?'Dove '+who+' chiede i soldi':(es==='AP'?'Dove vanno i soldi degli emendamenti approvati':'Dove andrebbero i soldi chiesti')))")
+R("share=` È il <b>${Math.round(eurZ/allZ*100)}%</b>", "share=` È il <b>${pf(eurZ/allZ*100)}%</b>")
 # soglie mappa scalate col numero di manovre
 R("function rampIdx(v){const m=$('#mmis').value,th=m==='n'?TH_N:(m==='pc'?TH_PC:TH_SOLDI);",
-  "const NY=()=>D?new Set(D.map(r=>r.y)).size||1:1;const SC=a=>a.map(x=>x*NY());\nfunction rampIdx(v){const m=$('#mmis').value,th=SC(m==='n'?TH_N:(m==='pc'?TH_PC:TH_SOLDI));")
+  "const NY=()=>D?new Set(D.map(r=>r.y)).size||1:1;const SC=a=>{const ap=$('#mes').value==='AP',n=a===TH_N;const k=n?(ap?1:NY()):(ap?0.1:NY());return a.map(x=>x*k)};  /* sole approvate: importi molto più piccoli, scala più fine */\nfunction rampIdx(v){const m=$('#mmis').value,th=SC(m==='n'?TH_N:(m==='pc'?TH_PC:TH_SOLDI));")
 R("if(es==='A'&&r.s!=='Ammissibile')return;if(es==='I'&&r.s==='Ammissibile')return;if(es==='E'&&r.s!=='Estraneità di materia')return;",
   "if(es==='AP'&&r.o!=='A')return;if(es==='A'&&r.s!=='Ammissibile')return;if(es==='I'&&r.s==='Ammissibile')return;if(es==='E'&&r.s!=='Estraneità di materia')return;")
 R("const esT={A:'ammessi al voto',I:'dichiarati inammissibili',E:'dichiarati fuori tema'}[es]||'';", "const esT={AP:'approvati',A:'ammessi al voto',I:'dichiarati inammissibili',E:'dichiarati fuori tema'}[es]||'';")
 R("((mm==='n'?{A:' (solo ammessi)',I:' (solo inammissibili)',E:' (solo fuori tema)'}:{A:' con emendamenti ammessi',I:' con emendamenti inammissibili',E:' con emendamenti fuori tema'})[es]||'')",
   "((mm==='n'?{AP:' (solo approvati)',A:' (solo ammessi)',I:' (solo inammissibili)',E:' (solo fuori tema)'}:{AP:' con emendamenti approvati',A:' con emendamenti ammessi',I:' con emendamenti inammissibili',E:' con emendamenti fuori tema'})[es]||'')+' · '+perLab()")
+R("{AP:' con emendamenti approvati',A:", "{AP:who?' con emendamenti approvati':'',A:")
 R("${fmtM(eurZ)}</b> nel 2027–29, in", "${fmtM(eurZ)}</b> (${esc(perLab())}), in")
 R("'Euro chiesti per abitante, 2027–29':'Euro chiesti 2027–29'", "'Euro chiesti per abitante · '+perLab():'Euro chiesti · '+perLab()")
 R("const lab=mm_==='n'?['1','2','3','4–5','6–8','9–15',Lf('oltre {0}','15')]:(mm_==='pc'?[Lf('fino a {0}','10 €'),'10–50 €','50–100 €','100–250 €','250–500 €','500–'+k1+' €',Lf('oltre {0}',k1+' €')]:[Lf('fino a {0}','5'+mU),'5–20'+mU,'20–50'+mU,'50–100'+mU,'100–250'+mU,'250'+mU+'–1'+bU,Lf('oltre {0}','1'+bU)]);",
@@ -258,5 +262,19 @@ i = s.rindex('})();')
 s = s[:i] + open('/home/claude/multi/src/multi_extra.js').read() + '\n' + s[i:]
 # il gruppo «Governo» della legislatura comprende anche relatori e commissioni: etichetta esplicita
 s = s.replace("'Governo'", "'Governo e relatori'")
+# mappa delle sole approvate: entrano anche Governo e relatori (sono la parte più grande dei soldi approvati per luoghi precisi)
+R("D.forEach(r=>{if(r.g==='Governo e relatori')return;if(g&&r.g!==g)return;if(dep&&r.p.toLowerCase()!==dep)return;",
+  "D.forEach(r=>{if(r.g==='Governo e relatori'&&es!=='AP')return;if(g&&r.g!==g)return;if(dep&&r.p.toLowerCase()!==dep)return;")
+R("$('#mmis').value==='n'?'Partito con più emendamenti nella provincia':'Partito che chiede di più nella provincia'", "$('#mmis').value==='n'?'Partito con più emendamenti nella provincia':($('#mes').value==='AP'?'Chi ottiene di più nella provincia':'Partito che chiede di più nella provincia')")
+R("const PCOL_L={", "const PCOL_L={'Governo e relatori':'#4a4f5a',")
+R("const PCOL_D={", "const PCOL_D={'Governo e relatori':'#c3c8d2',")
+R("'Province con più '+($('#mmis').value==='n'?'emendamenti':($('#mmis').value==='pc'?'soldi chiesti per abitante':'soldi chiesti'))", "'Province con più '+($('#mmis').value==='n'?'emendamenti':($('#mes').value==='AP'?($('#mmis').value==='pc'?'soldi approvati per abitante':'soldi approvati'):($('#mmis').value==='pc'?'soldi chiesti per abitante':'soldi chiesti')))")
+R("(mm_==='pc'?'Euro chiesti per abitante · '+perLab():'Euro chiesti · '+perLab())", "(mm_==='pc'?($('#mes').value==='AP'?'Euro approvati per abitante · ':'Euro chiesti per abitante · ')+perLab():($('#mes').value==='AP'?'Euro approvati · ':'Euro chiesti · ')+perLab())")
+R('<div class="seg" role="group" aria-label="Colora la mappa per">', '<div class="seg" role="group" aria-label="Quali proposte"><span class="seglab">Proposte</span><button type="button" data-set="mes:" aria-pressed="true">Tutte le richieste</button><button type="button" data-set="mes:AP" aria-pressed="false" title="Solo le proposte approvate: dove sono andati davvero i soldi">Solo approvate</button></div>\n      <div class="seg" role="group" aria-label="Colora la mappa per">')
+R("D.forEach(r=>{if(r.g==='Governo e relatori'&&es!=='AP')return;", "D.forEach(r=>{if(r.g==='Governo e relatori'&&es!=='AP'&&!ov.gov)return;")
+RX(r"let share='';if\(es&&nR\)\{const B=mapAgg\(\{es:''\}\);(.*?)if\(allZ>0\)share=`.*?`\}",
+   r"let share='';if(es&&nR){const B=mapAgg({es:'',gov:es==='AP'});\1if(allZ>0)share=es==='AP'?` <span>${z?Lf('Sul totale chiesto per luoghi precisi in {0} (Governo e relatori compresi), la quota approvata è',esc(z)):Lf('Sul totale chiesto per luoghi precisi (Governo e relatori compresi), la quota approvata è')}</span> <b>${pf(eurZ/allZ*100)}%</b>.`:` <span>${who?(z?Lf('Sul totale che {0} chiede per luoghi precisi in {1}, la quota è',esc(who),esc(z)):Lf('Sul totale che {0} chiede per luoghi precisi, la quota è',esc(who))):(z?Lf('Sul totale che i parlamentari chiedono per luoghi precisi in {0}, la quota è',esc(z)):Lf('Sul totale che i parlamentari chiedono per luoghi precisi, la quota è'))}</span> <b>${pf(eurZ/allZ*100)}%</b>.`}")
+R("{const po=$('#mpo').value;if(po)$('#mapsum')", "{if($('#mes').value==='AP')$('#mapsum').insertAdjacentHTML('beforeend',' <span class=\"meta\">'+Lf('Comprese le proposte di Governo e relatori, che non hanno un partito: in modalità partito hanno un colore proprio.')+'</span>')}\n   {const po=$('#mpo').value;if(po)$('#mapsum')")
+R("${nR===1?'chiede':'chiedono'} soldi per luoghi precisi", "${es==='AP'?(nR===1?'destina soldi a':'destinano soldi a'):(nR===1?'chiede soldi per':'chiedono soldi per')} luoghi precisi")
 open(OUT, 'w').write(s)
 print('ok', len(s))
